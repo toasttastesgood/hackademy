@@ -1,0 +1,24 @@
+{
+  "id": "web-app-basics",
+  "category": "Web Apps",
+  "title": "Web Application Security Basics",
+  "description": "Fundamental concepts of web application security",
+  "questions": [
+    {
+      "text": "Which HTTP method should be used when submitting sensitive data?",
+      "type": "mcq",
+      "correctAnswers": ["POST"],
+      "wrongAnswers": ["GET", "PUT", "DELETE", "HEAD", "OPTIONS"],
+      "explanation": "POST requests don't expose data in the URL and are more secure for sensitive data.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "XSS attacks can be prevented by properly sanitizing user input.",
+      "type": "true_false",
+      "correctAnswers": [true],
+      "options": ["True", "False"],
+      "explanation": "Input sanitization is a primary defense against XSS attacks.",
+      "difficulty": "easy"
+    }
+  ]
+}

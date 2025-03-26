@@ -1,0 +1,28 @@
+{
+  "id": "network-fundamentals",
+  "category": "Network Security",
+  "title": "Network Security Fundamentals",
+  "description": "Core concepts of network security and protocols",
+  "questions": [
+    {
+      "text": "Which port does HTTPS typically use?",
+      "type": "mcq",
+      "correctAnswers": ["443", "8443"],
+      "wrongAnswers": ["80", "22", "53"],
+      "explanation": "HTTPS uses port 443 by default, while HTTP uses port 80.",
+      "difficulty": "easy"
+    },
+    {
+      "text": "What is the purpose of a firewall?",
+      "type": "mcq",
+      "correctAnswers": ["To monitor and control incoming/outgoing traffic"],
+      "wrongAnswers": [
+        "To encrypt network traffic",
+        "To prevent physical intrusions",
+        "To filter spam emails"
+      ],
+      "explanation": "Firewalls act as a barrier between trusted and untrusted networks, controlling traffic based on security rules.",
+      "difficulty": "medium"
+    }
+  ]
+}
