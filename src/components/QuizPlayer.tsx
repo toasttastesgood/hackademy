@@ -29,15 +29,35 @@ const QuizPlayer: React.FC = () => {
     if (!quiz) return;
 
     const processed = quiz.questions.map(q => {
-      // Generate all possible options with UUIDs
-      const allOptions = [
-        ...(q.type === 'true_false' 
-          ? ['True', 'False'] 
-          : [...q.correctAnswers, ...(q.wrongAnswers || [])])
-      ].map(text => ({
-        id: crypto.randomUUID(),
-        text: String(text)
-      }));
+      // Generate options with max 4 total (1-3 correct + wrong answers)
+      let allOptions = [];
+      
+      if (q.type === 'true_false') {
+        allOptions = ['True', 'False'].map(text => ({
+          id: crypto.randomUUID(),
+          text: String(text)
+        }));
+      } else {
+        // Select 1-2 correct answers (80% chance for 1, 20% for 2)
+        const showTwoCorrect = Math.random() < 0.2 && q.correctAnswers.length > 1;
+        const correctToShow = showTwoCorrect 
+          ? q.correctAnswers.slice(0, 2) 
+          : [q.correctAnswers[0]];
+        
+        // Fill remaining slots with wrong answers (max 4 total)
+        const wrongToShow = Math.min(4 - correctToShow.length, q.wrongAnswers?.length || 0);
+        const shuffledWrong = [...(q.wrongAnswers || [])]
+          .sort(() => 0.5 - Math.random())
+          .slice(0, wrongToShow);
+        
+        allOptions = [
+          ...correctToShow,
+          ...shuffledWrong
+        ].map(text => ({
+          id: crypto.randomUUID(),
+          text: String(text)
+        }));
+      }
 
       // Map correct answers to UUIDs
       const correctIds = allOptions
