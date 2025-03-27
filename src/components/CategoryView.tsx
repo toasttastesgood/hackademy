@@ -28,7 +28,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     : 0;
   
   return (
-    <div className="category-card" onClick={onToggle}>
+    <div className="card card--interactive category-card" onClick={onToggle}>
       <h3>{category}</h3>
       <div className="progress-info">
         <p>Quizzes: {quizCount}</p>
@@ -37,7 +37,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       </div>
       <div className="progress-bar">
         <div 
-          className="progress-fill" 
+          className="progress-bar__fill" 
           style={{ width: `${completionPercentage}%` }}
         />
       </div>

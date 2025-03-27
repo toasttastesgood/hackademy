@@ -29,7 +29,7 @@ const QuizReview: React.FC = () => {
   return (
     <div className="quiz-review">
       <h1>Quiz Review: {quiz.title}</h1>
-      <div className="summary">
+      <div className="card summary">
         <h2>Your Score: {result.score}%</h2>
         <p>
           {result.correctAnswers} out of {result.totalQuestions} correct
@@ -38,7 +38,7 @@ const QuizReview: React.FC = () => {
 
       <div className="questions-review">
         {result.questions.map((q, index) => (
-          <div key={index} className={`question ${q.correct ? 'correct' : 'incorrect'}`}>
+          <div key={index} className={`card question ${q.correct ? 'card--quiz-result-correct' : 'card--quiz-result-incorrect'}`}>
             <h3>Question {index + 1}</h3>
             <p>{q.text}</p>
             <div className="explanation">
@@ -48,7 +48,7 @@ const QuizReview: React.FC = () => {
         ))}
       </div>
 
-      <button onClick={() => navigate('/')} className="return-btn">
+      <button onClick={() => navigate('/')} className="btn btn--primary return-btn">
         Back to Quizzes
       </button>
     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../contexts/QuizProvider';
+import CircularProgress from './CircularProgress'; // Import the component
 import '../App.css';
 import '../App.css';
 
@@ -23,30 +24,12 @@ const Dashboard: React.FC = () => {
       <h1>Your Learning Progress</h1>
       
       <div className="progress-container">
-        <div className="circular-progress">
-          <svg viewBox="0 0 100 100">
-            <circle 
-              className="progress-bg" 
-              cx="50" 
-              cy="50" 
-              r="45" 
-            />
-            <circle 
-              className="progress-fill" 
-              cx="50" 
-              cy="50" 
-              r="45" 
-              strokeDasharray={`${overallProgress * 2.83} 283`}
-            />
-            <text 
-              x="50" 
-              y="50" 
-              className="progress-text"
-            >
-              {overallProgress}%
-            </text>
-          </svg>
-        </div>
+        {/* Replace SVG with the component */}
+        <CircularProgress 
+          percentage={overallProgress} 
+          size={200}       // Match the previous size
+          strokeWidth={10} // Match the previous stroke width
+        />
       </div>
 
       <div className="recommended-categories">
@@ -55,13 +38,13 @@ const Dashboard: React.FC = () => {
               {categories && Object.values(categories).map(category => (
                 <div 
                   key={category.name} 
-                  className="category-card"
+                  className="card card--interactive category-card"
                   onClick={() => navigate(`/browse?category=${category.name}`)}
                 >
               <h3>{category.name}</h3>
               <div className="progress-bar">
                 <div 
-                  className="progress-fill" 
+                  className="progress-bar__fill" 
                   style={{ width: `${category.averageScore}%` }}
                 ></div>
               </div>

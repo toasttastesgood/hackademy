@@ -34,7 +34,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
           r={radius}
           cx={size / 2}
           cy={size / 2}
-          transform={`rotate(-90 ${size / 2} ${size / 2})`}
+          /* transform attribute removed - rotation handled by CSS on svg */
         />
       </svg>
       <div className="progress-percentage">

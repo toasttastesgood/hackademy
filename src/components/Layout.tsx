@@ -9,17 +9,11 @@ const Layout: React.FC = () => {
   
   return (
     <div 
-      style={{ display: 'flex', minHeight: '100vh' }}
+      className="layout-container"
       data-theme={isDarkMode ? 'dark' : 'light'}
     >
       <Sidebar />
-      <main style={{ 
-        flex: 1,
-        padding: '2rem',
-        marginLeft: '250px',
-        backgroundColor: 'var(--background-color)',
-        minHeight: '100vh'
-      }}>
+      <main className="main-content">
         <Outlet />
       </main>
     </div>

@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard';
 import QuizBrowser from './components/QuizBrowser';
 import QuizPlayer from './components/QuizPlayer';
 import QuizReview from './components/QuizReview';
+import SettingsPage from './components/SettingsPage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="browse" element={<QuizBrowser />} />
           <Route path="quiz/:quizId" element={<QuizPlayer />} />
           <Route path="quiz/:quizId/review" element={<QuizReview />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Routes>
     </ThemeProvider>

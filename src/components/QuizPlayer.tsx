@@ -128,7 +128,7 @@ const QuizPlayer: React.FC = () => {
   return (
     <div className="quiz-player">
       <h1>{quiz.title}</h1>
-      <div className="question">
+      <div className="card question">
         <h2>Question {currentQuestion + 1} of {quiz.questions.length}</h2>
         <p>{question.text}</p>
         
@@ -137,7 +137,7 @@ const QuizPlayer: React.FC = () => {
             {processedQuestion.options.map((option) => (
               <button
                 key={option.id}
-                className={selectedAnswerId === option.id ? 'selected' : ''}
+                className={`btn btn--outline ${selectedAnswerId === option.id ? 'btn--selected' : ''}`}
                 onClick={() => setSelectedAnswerId(option.id)}
               >
                 {option.text}
@@ -149,13 +149,13 @@ const QuizPlayer: React.FC = () => {
         {question.type === 'true_false' && (
           <div className="options">
           <button
-            className={selectedAnswerId === processedQuestion.options[0]?.id ? 'selected' : ''}
+            className={`btn btn--outline ${selectedAnswerId === processedQuestion.options[0]?.id ? 'btn--selected' : ''}`}
             onClick={() => setSelectedAnswerId(processedQuestion.options[0]?.id)}
           >
             True
           </button>
           <button
-            className={selectedAnswerId === processedQuestion.options[1]?.id ? 'selected' : ''}
+            className={`btn btn--outline ${selectedAnswerId === processedQuestion.options[1]?.id ? 'btn--selected' : ''}`}
             onClick={() => setSelectedAnswerId(processedQuestion.options[1]?.id)}
           >
             False
@@ -163,7 +163,8 @@ const QuizPlayer: React.FC = () => {
           </div>
         )}
 
-        <button 
+        <button
+          className="btn btn--primary" 
           onClick={handleAnswer}
           disabled={selectedAnswerId === null}
         >
