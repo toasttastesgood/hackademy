@@ -4,21 +4,26 @@
 
 :root {
   /* Colors */
-  --primary-color: #2c3e50;
-  --secondary-color: #3498db;
-  --background-color: #f5f7fa;
+  --primary-color: #6366f1;
+  --secondary-color: #10b981;
+  --background-color: #f8fafc;
   --card-bg: #ffffff;
-  --text-color: #333333;
-  --text-light-color: #666;
-  --border-color: #ddd;
-  --border-light-color: #eee;
-  --shadow-color-soft: rgba(0, 0, 0, 0.1);
-  --shadow-color-medium: rgba(52, 152, 219, 0.3);
-  --correct-color: #2ecc71;
-  --incorrect-color: #e74c3c;
-  --hover-bg-light: rgba(0, 0, 0, 0.05);
-  --disabled-bg-color: #ccc;
-  --disabled-text-color: #999;
+  --text-color: #1e293b;
+  --text-light-color: #64748b;
+  --border-color: #e2e8f0;
+  --border-light-color: #f1f5f9;
+  --shadow-color-soft: rgba(0, 0, 0, 0.05);
+  --shadow-color-medium: rgba(99, 102, 241, 0.2);
+  --correct-color: #22c55e;
+  --incorrect-color: #ef4444;
+  --hover-bg-light: rgba(15, 23, 42, 0.03);
+  --disabled-bg-color: #cbd5e1;
+  --disabled-text-color: #94a3b8;
+  /* Interaction */
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Spacing */
   --space-xs: 0.25rem;  /* 4px */
@@ -61,19 +66,29 @@
 
 /* Dark Mode Overrides */
 [data-theme="dark"] {
-  --primary-color: #3498db;
-  --secondary-color: #2ecc71;
-  --background-color: #1a1a1a;
-  --card-bg: #2d2d2d;
-  --text-color: #f5f5f5;
-  --text-light-color: #aaa;
-  --border-color: #444;
-  --border-light-color: #333;
-  --shadow-color-soft: rgba(0, 0, 0, 0.3);
-  --shadow-color-medium: rgba(46, 204, 113, 0.3);
-  --hover-bg-light: rgba(255, 255, 255, 0.08);
-  --disabled-bg-color: #555;
-  --disabled-text-color: #888;
+  --primary-color: #818cf8;
+  --secondary-color: #34d399;
+  --background-color: #0f172a;
+  --card-bg: rgba(15, 23, 42, 0.7);
+  --text-color: #f8fafc;
+  --text-light-color: #94a3b8;
+  --border-color: #1e293b;
+  --border-light-color: #334155;
+  --shadow-color-soft: rgba(0, 0, 0, 0.4);
+  --shadow-color-medium: rgba(52, 211, 153, 0.2);
+  --hover-bg-light: rgba(255, 255, 255, 0.1);
+  --disabled-bg-color: #475569;
+  --disabled-text-color: #64748b;
+  
+  /* Dark mode specific overrides */
+  .card {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .circular-progress .progress-fill {
+    filter: drop-shadow(0 0 4px rgba(52, 211, 153, 0.3));
+  }
 }
 
 /* ==========================================================================
@@ -130,360 +145,19 @@ a:hover {
 .u-margin-top-lg { margin-top: var(--space-lg); }
 .u-margin-top-xl { margin-top: var(--space-xl); }
 
-/* ==========================================================================
-   Layout
-   ========================================================================== */
-
-.layout-container {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: var(--sidebar-width);
-  background-color: var(--card-bg);
-  padding: var(--space-xs);
-  border-right: 1px solid var(--border-color);
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  overflow-y: auto;
-  transition: var(--transition-width);
-  z-index: var(--z-index-sidebar);
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar.collapsed {
-  width: var(--sidebar-width-collapsed);
-}
-
-.main-content {
-  flex: 1;
-  padding: var(--space-xl);
-  margin-left: var(--sidebar-width);
-  transition: var(--transition-margin);
-  position: relative;
-  background-color: var(--background-color);
-  min-width: 0; /* Prevent content overflow issues with flex */
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; Removed - centering will be on page containers */
-}
-
-.sidebar.collapsed + .main-content {
-  margin-left: var(--sidebar-width-collapsed);
-}
+/* Layout styles moved to component-specific CSS modules */
 
 /* ==========================================================================
    Components
    ========================================================================== */
 
-/* --- Card --- */
-.card {
-  background: var(--card-bg);
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--box-shadow-soft);
-  padding: var(--space-lg);
-  margin-bottom: var(--space-lg); /* Default bottom margin */
-}
+/* Card styles moved to src/components/Card/Card.module.css */
 
-.card:last-child {
-  margin-bottom: 0;
-}
+/* Button styles moved to src/components/Button/Button.module.css */
 
-.card--interactive {
-  cursor: pointer;
-  transition: var(--transition-transform);
-}
+/* Progress styles moved to src/components/Progress/CircularProgress.module.css */
 
-.card--interactive:hover {
-  transform: translateY(-3px);
-}
-
-/* --- Button --- */
-.btn {
-  display: inline-block;
-  padding: var(--space-sm) var(--space-md);
-  border: 1px solid transparent;
-  border-radius: var(--border-radius-sm);
-  cursor: pointer;
-  font-size: var(--font-size-base); /* Adjusted base size */
-  font-family: inherit;
-  text-align: center;
-  text-decoration: none;
-  transition: var(--transition-fast);
-  background: none;
-  color: var(--text-color);
-  line-height: 1.4; /* Ensure consistent height */
-}
-
-.btn:hover {
-  opacity: 0.9;
-}
-
-.btn:disabled,
-.btn[disabled] {
-  background-color: var(--disabled-bg-color);
-  color: var(--disabled-text-color);
-  cursor: not-allowed;
-  opacity: 0.7;
-  border-color: transparent;
-  box-shadow: none;
-}
-
-/* Modifiers */
-.btn--primary {
-  background-color: var(--secondary-color);
-  color: white;
-  border-color: var(--secondary-color);
-}
-.btn--primary:hover:not(:disabled) {
-  background-color: var(--secondary-color); /* Keep color, maybe darken slightly via filter or separate var */
-  opacity: 0.9;
-}
-
-.btn--secondary {
-  background-color: var(--primary-color);
-  color: white;
-  border-color: var(--primary-color);
-}
-.btn--secondary:hover:not(:disabled) {
-  background-color: var(--primary-color);
-  opacity: 0.9;
-}
-
-.btn--outline {
-   border: 1px solid var(--border-color);
-   background-color: transparent;
-   color: var(--text-color);
-}
-.btn--outline:hover:not(:disabled) {
-   background-color: var(--hover-bg-light);
-}
-
-.btn--full-width {
-  display: block;
-  width: 100%;
-}
-
-.btn--correct {
-  border-color: var(--correct-color);
-  background-color: color-mix(in srgb, var(--correct-color) 15%, transparent);
-  color: var(--correct-color); /* Make text color match */
-}
-
-.btn--incorrect {
-  border-color: var(--incorrect-color);
-  background-color: color-mix(in srgb, var(--incorrect-color) 15%, transparent);
-  color: var(--incorrect-color); /* Make text color match */
-}
-
-.btn--selected {
-  border-color: var(--secondary-color);
-  background-color: color-mix(in srgb, var(--secondary-color) 15%, transparent);
-}
-
-/* --- Progress Bar --- */
-.progress-bar {
-  height: 8px;
-  background: var(--border-light-color);
-  border-radius: var(--border-radius-sm);
-  margin: var(--space-md) 0;
-  overflow: hidden;
-}
-
-.progress-bar__fill {
-  height: 100%;
-  background: var(--secondary-color);
-  border-radius: var(--border-radius-sm);
-  transition: var(--transition-progress);
-  width: 0%; /* Default to 0 */
-}
-
-/* --- Circular Progress --- */
-.circular-progress {
-  position: relative; /* Needed for absolute positioning of text */
-  display: inline-block; /* Allows text centering */
-  line-height: 1; /* Prevent extra space affecting layout */
-}
-
-.circular-progress svg {
-  display: block; /* Remove extra space below SVG */
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-}
-
-.circular-progress circle {
-  fill: none;
-}
-
-.circular-progress .progress-bg {
-  stroke: var(--border-light-color);
-}
-
-.circular-progress .progress-fill {
-  stroke: var(--secondary-color);
-  stroke-linecap: round;
-  transition: var(--transition-progress);
-}
-
-/* Style for the text div inside the component */
-.circular-progress .progress-percentage { 
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Center the text */
-  font-weight: bold;
-  color: var(--text-color);
-  font-size: var(--font-size-xs); /* Default small size */
-  line-height: 1; /* Ensure tight fit */
-}
-
-/* Specific overrides for Dashboard size */
-.dashboard .circular-progress .progress-percentage {
-  font-size: var(--font-size-xl); /* Larger text for dashboard */
-}
-
-/* Specific overrides for Quiz List size */
-.quizzes-list .circular-progress .progress-percentage {
-  font-size: var(--font-size-xs); /* Default small size *//* font-size is already small by default, no override needed unless different */
-}
-
-/* --- Sidebar Components --- */
-.sidebar-toggle {
-  /* Use button base styles */
-  background: none;
-  border: none;
-  color: var(--text-color);
-  font-size: var(--font-size-lg);
-  cursor: pointer;
-  padding: var(--space-sm);
-  margin-bottom: var(--space-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  transition: var(--transition-fast);
-}
-.sidebar-toggle:hover {
-  color: var(--secondary-color);
-  background-color: var(--hover-bg-light);
-}
-
-.sidebar-nav {
-  flex-grow: 1; /* Allow nav to fill space */
-}
-
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  white-space: nowrap;
-  overflow: hidden; /* Hide text when collapsed */
-  padding: 0.75rem 0.5rem; /* Reduced horizontal padding */
-  color: var(--text-color);
-  text-decoration: none;
-  border-radius: var(--border-radius-sm);
-  transition: var(--transition-fast);
-  font-size: var(--font-size-base);
-}
-
-.nav-link:hover {
-  background-color: var(--hover-bg-light);
-}
-
-.nav-link.active {
-  background-color: var(--secondary-color);
-  color: white;
-  font-weight: 500;
-  box-shadow: var(--box-shadow-medium);
-}
-
-.nav-link.active:hover {
-  background-color: var(--secondary-color);
-  opacity: 0.9;
-}
-
-.nav-link .nav-icon {
-  font-size: var(--font-size-lg);
-  min-width: 24px; /* Ensure icon alignment */
-  flex-shrink: 0; /* Prevent icon shrinking */
-  transition: color 0.2s;
-}
-
-.nav-link.active .nav-icon {
-  color: white;
-}
-
-.sidebar.collapsed .nav-link {
-  justify-content: center;
-  padding: 0.75rem 0; /* Adjust padding */
-}
-
-.sidebar.collapsed .nav-link span {
-  display: none; /* Hide text label */
-}
-
-.sidebar-section {
-  margin-top: var(--space-lg);
-}
-
-.sidebar-section h3 {
-  font-size: var(--font-size-sm);
-  text-transform: uppercase;
-  color: var(--text-light-color);
-  margin: var(--space-md) 0 var(--space-sm);
-  padding-left: var(--space-md);
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.sidebar.collapsed .sidebar-section h3 {
-  display: none; /* Hide section titles when collapsed */
-}
-
-.sidebar-section ul {
-  padding-left: 0; /* Reset padding */
-}
-
-.theme-toggle-container {
-  margin-top: auto; /* Push to bottom */
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--border-light-color);
-}
-
-.theme-toggle {
-  /* Can use nav-link styles as a base if desired */
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: var(--text-color);
-  font-size: var(--font-size-base);
-  cursor: pointer;
-  padding: 0.75rem 1rem;
-  width: 100%;
-  border-radius: var(--border-radius-sm);
-  transition: var(--transition-fast);
-  background: none;
-  border: none;
-  text-align: left;
-}
-
-.theme-toggle:hover {
-  background-color: var(--hover-bg-light);
-}
-
-.sidebar.collapsed .theme-toggle {
-  justify-content: center;
-}
-
-.sidebar.collapsed .theme-toggle span {
-  display: none;
-}
+/* Sidebar component styles moved to Sidebar.module.css */
 
 /* ==========================================================================
    Page Specific Styles

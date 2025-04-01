@@ -1,0 +1,68 @@
+/* Circular Progress Component Styles */
+.progressBar {
+  height: 8px;
+  background: var(--border-light-color);
+  border-radius: var(--border-radius-sm);
+  margin: var(--space-md) 0;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: var(--secondary-color);
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition-progress);
+  width: 0%; /* Default to 0 */
+}
+
+.circularProgress {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+}
+
+.circularProgress svg {
+  display: block;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.circularProgress circle {
+  fill: none;
+}
+
+.progressBg {
+  stroke: var(--border-light-color);
+  stroke-width: 8;
+}
+
+.progressFill {
+  stroke: var(--secondary-color);
+  stroke-linecap: round;
+  stroke-width: 8;
+  transition: var(--transition-progress);
+  filter: drop-shadow(0 0 2px var(--shadow-color-medium));
+}
+
+.progressPercentage {
+  font-weight: 700;
+  color: var(--text-color);
+  text-shadow: 0 1px 2px var(--shadow-color-soft);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: var(--font-size-xs);
+  line-height: 1;
+}
+
+/* Dashboard-specific overrides */
+.dashboard .progressPercentage {
+  font-size: var(--font-size-xl);
+}
+
+/* Quiz List-specific overrides */
+.quizzesList .progressPercentage {
+  font-size: var(--font-size-xs);
+}

@@ -1,0 +1,37 @@
+/* Card Component Styles */
+.card {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--box-shadow-soft);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all var(--duration-base) var(--ease-in-out);
+}
+
+.cardLastChild {
+  margin-bottom: 0;
+}
+
+.cardInteractive {
+  cursor: pointer;
+  transition: 
+    transform var(--duration-base) var(--ease-in-out),
+    box-shadow var(--duration-base) var(--ease-in-out);
+}
+
+.cardInteractive:hover {
+  transform: translateY(-4px) perspective(1000px) translateZ(20px);
+  box-shadow: 0 10px 15px -3px var(--shadow-color-soft);
+}
+
+.cardInteractive:active {
+  transform: translateY(-2px) perspective(1000px) translateZ(10px);
+}
+
+/* Dark Mode Overrides */
+.darkMode .card {
+  background: rgba(45, 45, 45, 0.7);
+  border-color: rgba(255, 255, 255, 0.1);
+}

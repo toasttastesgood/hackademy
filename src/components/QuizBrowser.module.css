@@ -1,0 +1,10 @@
+.quizBrowser {
+  padding: var(--space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.quizBrowser h1 {
+  color: var(--primary-color);
+  margin-bottom: var(--space-lg);
+}

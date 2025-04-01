@@ -1,6 +1,8 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuiz } from '../contexts/QuizProvider';
+import styles from './QuizPlayer.module.css';
+import buttonStyles from './Button/Button.module.css';
 
 interface ProcessedQuestion {
   original: any;
@@ -126,18 +128,18 @@ const QuizPlayer: React.FC = () => {
   };
 
   return (
-    <div className="quiz-player">
+    <div className={styles.quizPlayer}>
       <h1>{quiz.title}</h1>
-      <div className="card question">
+      <div className={`card ${styles.question}`}>
         <h2>Question {currentQuestion + 1} of {quiz.questions.length}</h2>
         <p>{question.text}</p>
         
         {question.type === 'mcq' && (
-          <div className="options">
+          <div className={styles.options}>
             {processedQuestion.options.map((option) => (
               <button
                 key={option.id}
-                className={`btn btn--outline ${selectedAnswerId === option.id ? 'btn--selected' : ''}`}
+                className={`${buttonStyles.btn} ${buttonStyles.btnOutline} ${selectedAnswerId === option.id ? buttonStyles.btnSelected : ''}`}
                 onClick={() => setSelectedAnswerId(option.id)}
               >
                 {option.text}
@@ -149,13 +151,13 @@ const QuizPlayer: React.FC = () => {
         {question.type === 'true_false' && (
           <div className="options">
           <button
-            className={`btn btn--outline ${selectedAnswerId === processedQuestion.options[0]?.id ? 'btn--selected' : ''}`}
+            className={`${buttonStyles.btn} ${buttonStyles.btnOutline} ${selectedAnswerId === processedQuestion.options[0]?.id ? buttonStyles.btnSelected : ''}`}
             onClick={() => setSelectedAnswerId(processedQuestion.options[0]?.id)}
           >
             True
           </button>
           <button
-            className={`btn btn--outline ${selectedAnswerId === processedQuestion.options[1]?.id ? 'btn--selected' : ''}`}
+            className={`${buttonStyles.btn} ${buttonStyles.btnOutline} ${selectedAnswerId === processedQuestion.options[1]?.id ? buttonStyles.btnSelected : ''}`}
             onClick={() => setSelectedAnswerId(processedQuestion.options[1]?.id)}
           >
             False
@@ -164,7 +166,7 @@ const QuizPlayer: React.FC = () => {
         )}
 
         <button
-          className="btn btn--primary" 
+          className={`${buttonStyles.btnPrimary} ${styles.actionButton}`}
           onClick={handleAnswer}
           disabled={selectedAnswerId === null}
         >

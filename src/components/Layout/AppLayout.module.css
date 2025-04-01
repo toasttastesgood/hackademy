@@ -1,0 +1,87 @@
+.appContainer {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  /* Apply the background gradient here */
+  background-image: linear-gradient(to top right, #accbee, #e7f0fd);
+  /* Prevent horizontal overflow */
+  overflow-x: hidden;
+}
+
+/*
+  Sidebar styling is now handled by src/components/Sidebar/Sidebar.module.css
+  AppLayout is only responsible for positioning.
+*/
+
+.sidebarCollapsed {
+  width: var(--sidebar-width-collapsed);
+}
+
+.mainWrapper {
+  flex: 1;
+  padding: var(--space-xl);
+  /* margin-left: var(--sidebar-width); */
+  transition: var(--transition-margin);
+  position: relative;
+  /* Remove background color, it's now on appContainer */
+  /* background-color: var(--background-color); */
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarCollapsed + .mainWrapper {
+  /* margin-left: var(--sidebar-width-collapsed); */
+}
+
+.contentArea {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+/* Mobile Backdrop */
+.sidebarBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: var(--z-index-backdrop);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebarBackdropActive {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .sidebar {
+    width: var(--sidebar-width) !important;
+    transform: translateX(-100%);
+    box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+  }
+  
+  .sidebarActive {
+    transform: translateX(0);
+  }
+
+  .sidebarCollapsed {
+    transform: translateX(-100%);
+  }
+
+  .mainWrapper {
+    /* margin-left: 0 !important; */
+    /* padding: var(--space-md); */
+  }
+
+  .sidebarCollapsed + .mainWrapper {
+    /* margin-left: 0; */
+  }
+}

@@ -1,0 +1,39 @@
+.quizReview {
+  padding: var(--space-xl);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.quizReview h1 {
+  color: var(--primary-color);
+  margin-bottom: var(--space-lg);
+}
+
+.summary {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.questionsReview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.question {
+  padding: var(--space-lg);
+}
+
+.explanation {
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  background-color: var(--hover-bg-light);
+  border-radius: var(--border-radius-sm);
+}
+
+.returnBtn {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+}

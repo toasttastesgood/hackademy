@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
-import Layout from './components/Layout';
+import Layout from './components/Layout/AppLayout';
 import Dashboard from './components/Dashboard';
 import QuizBrowser from './components/QuizBrowser';
 import QuizPlayer from './components/QuizPlayer';

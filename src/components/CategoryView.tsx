@@ -3,7 +3,9 @@ import { FiChevronDown } from 'react-icons/fi';
 import CircularProgress from './CircularProgress';
 import { useQuiz } from '../contexts/QuizProvider';
 import { useNavigate } from 'react-router-dom';
-import '../App.css';
+import cardStyles from './Card/Card.module.css';
+import progressStyles from './Progress/CircularProgress.module.css';
+import styles from './CategoryView.module.css';
 
 interface CategoryCardProps {
   category: string;
@@ -28,25 +30,25 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     : 0;
   
   return (
-    <div className="card card--interactive category-card" onClick={onToggle}>
+    <div className={`${cardStyles.card} ${cardStyles.cardInteractive} ${styles.categoryCard}`} onClick={onToggle}>
       <h3>{category}</h3>
-      <div className="progress-info">
+      <div className={styles.progressInfo}>
         <p>Quizzes: {quizCount}</p>
         <p>Completed: {completedCount}/{quizCount}</p>
         <p>Average Score: {averageScore}%</p>
       </div>
-      <div className="progress-bar">
+      <div className={progressStyles.progressBar}>
         <div 
-          className="progress-bar__fill" 
+          className={progressStyles.progressBarFill}
           style={{ width: `${completionPercentage}%` }}
         />
       </div>
-      <div className={`chevron-toggle ${isExpanded ? 'expanded' : ''}`}>
+      <div className={`${styles.chevronToggle} ${isExpanded ? styles.expanded : ''}`}>
         <FiChevronDown />
       </div>
       
       {isExpanded && (
-        <div className="quizzes-list">
+        <div className={styles.quizzesList}>
           <QuizzesList category={category} />
         </div>
       )}
@@ -89,9 +91,9 @@ const CategoryView: React.FC<{ initialExpandedCategory?: string | null }> = ({ i
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="category-view">
+    <div className={styles.categoryView}>
       <h2>Browse by Category</h2>
-      <div className="category-grid">
+      <div className={styles.categoryGrid}>
         {Object.values(categories).map(category => (
           <CategoryCard
             key={category.name}

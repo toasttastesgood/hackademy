@@ -1,0 +1,80 @@
+/* src/styles/global.css */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #1a202c;
+    /* Background moved to .appContainer in AppLayout.module.css */
+    /* background-image: linear-gradient(to top right, #accbee, #e7f0fd); */
+    min-height: 100vh;
+    background-color: #e7f0fd; /* Add a fallback solid color */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    /* Layout */
+    --sidebar-width: 100px; /* Reduced width */
+    --sidebar-width-collapsed: 60px;
+    --mobile-breakpoint: 768px;
+    
+    /* Z-index */
+    --z-index-sidebar: 1000;
+    --z-index-backdrop: 900;
+    
+    /* Transitions */
+    --transition-width: width 0.3s ease;
+    --transition-margin: margin 0.3s ease;
+    --sidebar-transition: transform 0.3s ease, width 0.3s ease;
+    
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #2d3748;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+input {
+    font-family: inherit;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.glassCard {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
