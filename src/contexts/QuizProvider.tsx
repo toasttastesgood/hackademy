@@ -1,52 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { validateQuiz, Quiz, Question } from '../services/QuizValidator'; // Import validator and types
 
-interface BaseQuestion {
-  text: string;
-  type: 'mcq' | 'true_false' | 'hex_selection' | 'highlighted_bytes' | 'drag_drop';
-  explanation: string;
-  difficulty: 'easy' | 'medium' | 'hard';
-}
-
-interface MCQQuestion extends BaseQuestion {
-  type: 'mcq';
-  correctAnswers: string[];
-  wrongAnswers?: string[];
-  options: Array<{ id: string; text: string }>;
-}
-
-interface TrueFalseQuestion extends BaseQuestion {
-  type: 'true_false';
-  correctAnswer: boolean;
-}
-
-interface HexSelectionQuestion extends BaseQuestion {
-  type: 'hex_selection';
-  hexDump: string;
-  correctOffset: number;
-  fieldLength: number;
-  bytesPerLine?: number;
-}
-
-interface HighlightedBytesQuestion extends BaseQuestion {
-  type: 'highlighted_bytes';
-  hexDump: string;
-  correctAnswer: string;
-}
-
-interface DragDropQuestion extends BaseQuestion {
-  type: 'drag_drop';
-  itemOrder: string[];
-}
-
-type Question = MCQQuestion | TrueFalseQuestion | HexSelectionQuestion | HighlightedBytesQuestion | DragDropQuestion;
-
-interface Quiz {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  questions: Question[];
-}
+// Remove duplicated type definitions here - they are now imported from QuizValidator.ts
 
 interface ProgressData {
   [quizId: string]: {
@@ -69,6 +24,9 @@ interface QuizContextType {
   progress: ProgressData;
   loading: boolean;
   error: string | null;
+  validateQuizzesEnabled: boolean;
+  setValidateQuizzesEnabled: (enabled: boolean) => void;
+  resetProgress: () => void;
   loadQuizzes: () => Promise<void>;
   updateProgress: (quizId: string, score: number) => void;
   getQuizzesByCategory: (category: string) => Quiz[];
@@ -85,6 +43,26 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [validateQuizzesEnabled, setValidateQuizzesState] = useState<boolean>(() => {
+    const saved = localStorage.getItem('validateQuizzes');
+    return saved ? JSON.parse(saved) : false; // Default to off
+  });
+
+  // Persist validation setting
+  const setValidateQuizzesEnabled = useCallback((enabled: boolean) => {
+    localStorage.setItem('validateQuizzes', JSON.stringify(enabled));
+    setValidateQuizzesState(enabled);
+    // Optionally reload quizzes when setting changes? Or just apply on next load.
+    // For simplicity, we'll apply on next manual load or refresh for now.
+  }, []);
+
+  // Reset progress function
+  const resetProgress = useCallback(() => {
+    localStorage.removeItem('quizProgress');
+    setProgress({});
+    // Recalculate categories with empty progress
+    calculateCategories(quizzes, {});
+  }, [quizzes]); // Include quizzes dependency for calculateCategories
 
   const updateProgress = (quizId: string, score: number) => {
     setProgress(prev => {
@@ -143,52 +121,31 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       for (const path in quizModules) {
         try {
-          const module = await quizModules[path]() as { default: Quiz };
-          const quiz = module.default;
-          
-          // Validate basic quiz structure
-          if (!quiz || !quiz.id || !quiz.category || !quiz.title || !Array.isArray(quiz.questions)) {
-            console.warn(`Skipping invalid quiz file: ${path}`);
-            continue;
-          }
+          // The glob import already parses JSON, but let's assume it might fail
+          // or we might load from elsewhere later.
+          const rawData = await quizModules[path]() as { default: unknown };
+          const quizData = rawData.default;
 
-          // Transform and validate questions
-          const transformedQuestions: Question[] = [];
-          for (const q of quiz.questions) {
-            try {
-              // Validate common fields
-              if (!q.text || !q.type || !q.explanation || !q.difficulty) {
-                throw new Error('Missing required question fields');
-              }
-
-              // Type-specific transformation and validation
-              if (q.type === 'mcq') {
-                if (!q.correctAnswers || !Array.isArray(q.correctAnswers)) {
-                  throw new Error('MCQ question missing correctAnswers array');
-                }
-                transformedQuestions.push({
-                  ...q,
-                  type: 'mcq',
-                  options: [...(q.correctAnswers || []), ...(q.wrongAnswers || [])].map((text, i) => ({
-                    id: `opt-${i}`,
-                    text: String(text)
-                  }))
-                });
-              } else {
-                // For other question types, just validate they match their interfaces
-                transformedQuestions.push(q as Question);
-              }
-            } catch (err) {
-              const error = err as Error;
-              console.warn(`Skipping invalid question in ${quiz.id}:`, error.message);
+          // --- Optional Validation Step ---
+          if (validateQuizzesEnabled) {
+            const validationResult = validateQuiz(quizData);
+            if (!validationResult.isValid) {
+              // Errors are already logged by validateQuiz
+              console.warn(`Skipping invalid quiz file due to validation errors: ${path}`);
+              continue; // Skip this quiz
             }
-          }
-
-          if (transformedQuestions.length > 0) {
-            loadedQuizzes[quiz.id] = {
-              ...quiz,
-              questions: transformedQuestions
-            };
+            // Use validated data if validation is enabled
+            loadedQuizzes[validationResult.data!.id] = validationResult.data!;
+          } else {
+            // --- Basic Structure Check (if validation is off) ---
+            // Perform minimal checks to avoid runtime errors if validation is off
+            const q = quizData as any; // Use 'any' carefully here
+            if (!q || !q.id || typeof q.id !== 'string' || !q.title || typeof q.title !== 'string' || !q.category || typeof q.category !== 'string' || !Array.isArray(q.questions)) {
+               console.warn(`Skipping quiz with basic structural issues (validation off): ${path}`);
+               continue;
+            }
+            // Assume the structure is mostly correct if validation is off
+            loadedQuizzes[q.id] = q as Quiz;
           }
         } catch (err) {
           console.error(`Error loading quiz from ${path}:`, err);
@@ -216,11 +173,14 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
       quizzes,
       categories,
       progress,
-      loading, 
-      error, 
+      loading,
+      error,
+      validateQuizzesEnabled,
+      setValidateQuizzesEnabled,
+      resetProgress,
       loadQuizzes,
       updateProgress,
-      getQuizzesByCategory: (category: string) => 
+      getQuizzesByCategory: (category: string) =>
         Object.values(quizzes).filter(q => q.category === category)
     }}>
       {children}

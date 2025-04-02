@@ -1,0 +1,168 @@
+{
+  "id": "operating_systems_shell_scripting_quiz_001",
+  "category": "Operating Systems",
+  "title": "Shell Scripting Quiz",
+  "description": "Quiz covering operating systems shell scripting.",
+  "questions": [
+    {
+      "type": "mcq",
+      "text": "Which character is used to comment a single line in a bash script?",
+      "difficulty": "easy",
+      "explanation": "The # character is used to comment a single line in a bash script.",
+      "correctAnswers": ["#"],
+      "wrongAnswers": ["//", "/*", "--"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to make a script executable in Linux?",
+      "difficulty": "medium",
+      "explanation": "The chmod +x command is used to make a script executable in Linux.",
+      "correctAnswers": ["chmod +x"],
+      "wrongAnswers": ["chmod -x", "execute", "run"]
+    },
+    {
+      "type": "true_false",
+      "text": "Shell scripts are compiled before execution.",
+      "difficulty": "easy",
+      "explanation": "Shell scripts are interpreted, not compiled.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to print output to the console in a bash script?",
+      "difficulty": "easy",
+      "explanation": "The echo command is used to print output to the console in a bash script.",
+      "correctAnswers": ["echo"],
+      "wrongAnswers": ["print", "display", "output"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which symbol is used to redirect standard output to a file in a bash script?",
+      "difficulty": "medium",
+      "explanation": "The > symbol is used to redirect standard output to a file in a bash script.",
+      "correctAnswers": [">"],
+      "wrongAnswers": ["<", "|", "&"]
+    },
+    {
+      "type": "true_false",
+      "text": "The '==' operator is used for string comparison in bash scripts.",
+      "difficulty": "easy",
+      "explanation": "The '=' operator is used for string comparison in bash scripts.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to read user input in a bash script?",
+      "difficulty": "medium",
+      "explanation": "The read command is used to read user input in a bash script.",
+      "correctAnswers": ["read"],
+      "wrongAnswers": ["input", "get", "scan"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which of the following is used to define a variable in a bash script?",
+      "difficulty": "easy",
+      "explanation": "Variables are defined in bash scripts by assigning a value to a name (e.g., variable=value).",
+      "correctAnswers": ["variable=value"],
+      "wrongAnswers": ["$variable = value", "set variable = value", "let variable = value"]
+    },
+    {
+      "type": "true_false",
+      "text": "Variables are referenced using the '$' symbol in bash scripts.",
+      "difficulty": "easy",
+      "explanation": "Variables are referenced using the '$' symbol in bash scripts.",
+      "correctAnswers": [true],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to create a directory in a bash script?",
+      "difficulty": "easy",
+      "explanation": "The mkdir command is used to create a directory in a bash script.",
+      "correctAnswers": ["mkdir"],
+      "wrongAnswers": ["create", "newdir", "makedir"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to remove a file in a bash script?",
+      "difficulty": "easy",
+      "explanation": "The rm command is used to remove a file in a bash script.",
+      "correctAnswers": ["rm"],
+      "wrongAnswers": ["del", "remove", "erase"]
+    },
+    {
+      "type": "true_false",
+      "text": "The 'rmdir' command is used to remove a file in a bash script.",
+      "difficulty": "easy",
+      "explanation": "The 'rmdir' command is used to remove an empty directory in a bash script, while 'rm' is used to remove a file.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to create an empty file in a bash script?",
+      "difficulty": "medium",
+      "explanation": "The touch command is used to create an empty file in a bash script.",
+      "correctAnswers": ["touch"],
+      "wrongAnswers": ["create", "newfile", "echo > file"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to display the first 10 lines of a file in a bash script?",
+      "difficulty": "medium",
+      "explanation": "The head -n 10 command is used to display the first 10 lines of a file in a bash script.",
+      "correctAnswers": ["head -n 10"],
+      "wrongAnswers": ["tail -n 10", "cat -n 10", "less -n 10"]
+    },
+    {
+      "type": "true_false",
+      "text": "The 'cat' command is used to edit a file in a bash script.",
+      "difficulty": "easy",
+      "explanation": "The 'cat' command is used to display the contents of a file, not edit it.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to find files based on a pattern in a bash script?",
+      "difficulty": "medium",
+      "explanation": "The find command is used to find files based on a pattern in a bash script.",
+      "correctAnswers": ["find"],
+      "wrongAnswers": ["grep", "locate", "search"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to display the last 10 lines of a file in a bash script?",
+      "difficulty": "medium",
+      "explanation": "The tail -n 10 command is used to display the last 10 lines of a file in a bash script.",
+      "correctAnswers": ["tail -n 10"],
+      "wrongAnswers": ["head -n 10", "cat -n 10", "less -n 10"]
+    },
+    {
+      "type": "true_false",
+      "text": "The 'chmod' command is used to change file ownership in Linux.",
+      "difficulty": "easy",
+      "explanation": "The 'chmod' command is used to change file permissions, not ownership. The 'chown' command is used to change file ownership.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to copy files in a bash script?",
+      "difficulty": "easy",
+      "explanation": "The cp command is used to copy files in a bash script.",
+      "correctAnswers": ["cp"],
+      "wrongAnswers": ["copy", "clone", "duplicate"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to move or rename files in a bash script?",
+      "difficulty": "easy",
+      "explanation": "The mv command is used to move or rename files in a bash script.",
+      "correctAnswers": ["mv"],
+      "wrongAnswers": ["move", "rename", "cp"]
+    }
+  ]
+}

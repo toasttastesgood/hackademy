@@ -69,21 +69,23 @@
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
-.upgradeButton {
-    padding: 0.7rem 1.5rem;
+.githubButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
     background-color: #2d3748;
     color: #ffffff;
     border: none;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: background-color 0.2s ease;
-    box-shadow: 0 2px 5px rgba(45, 55, 72, 0.2);
+    border-radius: 50%;
+    transition: all 0.2s ease;
     cursor: pointer;
 }
 
-.upgradeButton:hover {
+.githubButton:hover {
     background-color: #1a202c;
+    transform: scale(1.1);
 }
 
 .menuButton {

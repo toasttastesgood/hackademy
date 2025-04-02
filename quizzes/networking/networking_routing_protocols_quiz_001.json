@@ -1,0 +1,168 @@
+{
+  "id": "networking_routing_protocols_quiz_001",
+  "category": "Networking",
+  "title": "Routing Protocols Quiz",
+  "description": "Quiz covering routing protocols concepts.",
+  "questions": [
+    {
+      "type": "mcq",
+      "text": "What is the purpose of a routing protocol?",
+      "difficulty": "easy",
+      "explanation": "A routing protocol is used to exchange routing information between routers.",
+      "correctAnswers": ["Exchange routing information"],
+      "wrongAnswers": ["Encrypt network traffic", "Control network access", "Manage network devices"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which routing protocol is a distance-vector protocol?",
+      "difficulty": "medium",
+      "explanation": "RIP (Routing Information Protocol) is a distance-vector routing protocol.",
+      "correctAnswers": ["RIP"],
+      "wrongAnswers": ["OSPF", "BGP", "EIGRP"]
+    },
+    {
+      "type": "true_false",
+      "text": "OSPF is a distance-vector routing protocol.",
+      "difficulty": "easy",
+      "explanation": "OSPF (Open Shortest Path First) is a link-state routing protocol.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which routing protocol is an exterior gateway protocol?",
+      "difficulty": "medium",
+      "explanation": "BGP (Border Gateway Protocol) is an exterior gateway protocol used to exchange routing information between autonomous systems.",
+      "correctAnswers": ["BGP"],
+      "wrongAnswers": ["RIP", "OSPF", "EIGRP"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the administrative distance of OSPF?",
+      "difficulty": "medium",
+      "explanation": "The default administrative distance of OSPF is 110.",
+      "correctAnswers": ["110"],
+      "wrongAnswers": ["90", "120", "200"]
+    },
+    {
+      "type": "true_false",
+      "text": "EIGRP is a link-state routing protocol.",
+      "difficulty": "easy",
+      "explanation": "EIGRP (Enhanced Interior Gateway Routing Protocol) is an advanced distance-vector routing protocol.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which routing protocol uses hop count as a metric?",
+      "difficulty": "medium",
+      "explanation": "RIP uses hop count as a routing metric.",
+      "correctAnswers": ["RIP"],
+      "wrongAnswers": ["OSPF", "BGP", "EIGRP"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the purpose of an autonomous system (AS)?",
+      "difficulty": "medium",
+      "explanation": "An autonomous system (AS) is a set of networks under a single administrative authority.",
+      "correctAnswers": ["Set of networks under single authority"],
+      "wrongAnswers": ["A single network device", "A virtual network", "A network security system"]
+    },
+    {
+      "type": "true_false",
+      "text": "BGP is used for routing within an autonomous system.",
+      "difficulty": "easy",
+      "explanation": "BGP is used for routing between autonomous systems.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which routing protocol uses the Dijkstra algorithm?",
+      "difficulty": "medium",
+      "explanation": "OSPF uses the Dijkstra algorithm to calculate the shortest path.",
+      "correctAnswers": ["OSPF"],
+      "wrongAnswers": ["RIP", "BGP", "EIGRP"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the administrative distance of a connected interface?",
+      "difficulty": "medium",
+      "explanation": "The administrative distance of a connected interface is 0.",
+      "correctAnswers": ["0"],
+      "wrongAnswers": ["1", "90", "110"]
+    },
+    {
+      "type": "true_false",
+      "text": "A lower administrative distance indicates a less preferred route.",
+      "difficulty": "easy",
+      "explanation": "A lower administrative distance indicates a more preferred route.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which routing protocol is a hybrid protocol?",
+      "difficulty": "medium",
+      "explanation": "EIGRP is considered a hybrid routing protocol because it combines features of distance-vector and link-state protocols.",
+      "correctAnswers": ["EIGRP"],
+      "wrongAnswers": ["RIP", "OSPF", "BGP"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the maximum hop count for RIP?",
+      "difficulty": "medium",
+      "explanation": "The maximum hop count for RIP is 15.",
+      "correctAnswers": ["15"],
+      "wrongAnswers": ["16", "255", "Unlimited"]
+    },
+    {
+      "type": "true_false",
+      "text": "RIPv2 supports VLSM.",
+      "difficulty": "easy",
+      "explanation": "RIPv2 supports VLSM (Variable Length Subnet Masking).",
+      "correctAnswers": [true],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which of the following is a characteristic of link-state routing protocols?",
+      "difficulty": "medium",
+      "explanation": "Link-state routing protocols use triggered updates.",
+      "correctAnswers": ["Triggered updates"],
+      "wrongAnswers": ["Periodic updates", "Broadcast updates", "Hop count metric"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the purpose of the Diffusing Update Algorithm (DUAL)?",
+      "difficulty": "medium",
+      "explanation": "The Diffusing Update Algorithm (DUAL) is used by EIGRP to calculate the shortest path to a destination.",
+      "correctAnswers": ["Calculate shortest path"],
+      "wrongAnswers": ["Prevent routing loops", "Encrypt routing updates", "Manage network devices"]
+    },
+    {
+      "type": "true_false",
+      "text": "Distance-vector routing protocols send the entire routing table during updates.",
+      "difficulty": "medium",
+      "explanation": "Distance-vector routing protocols send the entire routing table during updates.",
+      "correctAnswers": [true],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which of the following is a characteristic of path-vector routing protocols?",
+      "difficulty": "medium",
+      "explanation": "Path-vector routing protocols maintain path information.",
+      "correctAnswers": ["Maintain path information"],
+      "wrongAnswers": ["Use hop count as a metric", "Send periodic updates", "Use the Dijkstra algorithm"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the default port used by RIP?",
+      "difficulty": "medium",
+      "explanation": "RIP uses UDP port 520 by default.",
+      "correctAnswers": ["520"],
+      "wrongAnswers": ["80", "23", "22"]
+    }
+  ]
+}

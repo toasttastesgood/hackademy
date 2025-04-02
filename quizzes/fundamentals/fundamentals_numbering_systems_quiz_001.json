@@ -1,0 +1,168 @@
+{
+  "id": "fundamentals_numbering_systems_quiz_001",
+  "category": "Fundamentals and Theory of Computing",
+  "title": "Numbering Systems Quiz",
+  "description": "Quiz covering number systems and conversions.",
+  "questions": [
+    {
+      "type": "mcq",
+      "text": "What is the binary equivalent of the decimal number 75?",
+      "difficulty": "medium",
+      "explanation": "75 in decimal is equal to 01001011 in binary.",
+      "correctAnswers": ["01001011"],
+      "wrongAnswers": ["1001011", "0101101", "101101"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the hexadecimal equivalent of the binary number 11110000?",
+      "difficulty": "medium",
+      "explanation": "11110000 in binary is equal to F0 in hexadecimal.",
+      "correctAnswers": ["F0"],
+      "wrongAnswers": ["E0", "FF", "0F"]
+    },
+    {
+      "type": "true_false",
+      "text": "The octal number system is base 16.",
+      "difficulty": "easy",
+      "explanation": "The octal number system is base 8.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the decimal equivalent of the hexadecimal number 2A?",
+      "difficulty": "medium",
+      "explanation": "2A in hexadecimal is equal to 2*16 + 10 = 42 in decimal.",
+      "correctAnswers": ["42"],
+      "wrongAnswers": ["32", "40", "44"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the binary equivalent of the hexadecimal number A5?",
+      "difficulty": "medium",
+      "explanation": "A5 in hexadecimal is equal to 10100101 in binary.",
+      "correctAnswers": ["10100101"],
+      "wrongAnswers": ["11001100", "01011010", "10101010"]
+    },
+    {
+      "type": "true_false",
+      "text": "The binary number 1010 is equal to the decimal number 12.",
+      "difficulty": "easy",
+      "explanation": "The binary number 1010 is equal to the decimal number 10.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the octal equivalent of the decimal number 63?",
+      "difficulty": "medium",
+      "explanation": "63 in decimal is equal to 77 in octal.",
+      "correctAnswers": ["77"],
+      "wrongAnswers": ["75", "67", "111111"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the hexadecimal equivalent of the decimal number 160?",
+      "difficulty": "medium",
+      "explanation": "160 in decimal is equal to A0 in hexadecimal.",
+      "correctAnswers": ["A0"],
+      "wrongAnswers": ["90", "B0", "C0"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the binary equivalent of the octal number 37?",
+      "difficulty": "medium",
+      "explanation": "37 in octal is equal to 011111 in binary.",
+      "correctAnswers": ["011111"],
+      "wrongAnswers": ["11111", "10111", "011101"]
+    },
+    {
+      "type": "true_false",
+      "text": "The hexadecimal number 10 is equal to the decimal number 10.",
+      "difficulty": "easy",
+      "explanation": "The hexadecimal number 10 is equal to the decimal number 16.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the decimal equivalent of the octal number 45?",
+      "difficulty": "medium",
+      "explanation": "45 in octal is equal to 4*8 + 5 = 37 in decimal.",
+      "correctAnswers": ["37"],
+      "wrongAnswers": ["45", "35", "40"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the hexadecimal equivalent of the decimal number 42?",
+      "difficulty": "medium",
+      "explanation": "42 in decimal is equal to 2A in hexadecimal.",
+      "correctAnswers": ["2A"],
+      "wrongAnswers": ["3A", "2B", "30"]
+    },
+    {
+      "type": "true_false",
+      "text": "The binary number 1111 is equal to the decimal number 16.",
+      "difficulty": "easy",
+      "explanation": "The binary number 1111 is equal to the decimal number 15.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the octal equivalent of the decimal number 15?",
+      "difficulty": "medium",
+      "explanation": "15 in decimal is equal to 17 in octal.",
+      "correctAnswers": ["17"],
+      "wrongAnswers": ["15", "16", "18"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the binary equivalent of the decimal number 100?",
+      "difficulty": "medium",
+      "explanation": "100 in decimal is equal to 01100100 in binary.",
+      "correctAnswers": ["01100100"],
+      "wrongAnswers": ["1100100", "100100", "0110100"]
+    },
+    {
+      "type": "true_false",
+      "text": "The hexadecimal number FF is equal to the decimal number 256.",
+      "difficulty": "easy",
+      "explanation": "The hexadecimal number FF is equal to the decimal number 255.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the decimal equivalent of the binary number 11001100?",
+      "difficulty": "medium",
+      "explanation": "11001100 in binary is equal to 204 in decimal.",
+      "correctAnswers": ["204"],
+      "wrongAnswers": ["200", "212", "220"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the hexadecimal equivalent of the decimal number 31?",
+      "difficulty": "medium",
+      "explanation": "31 in decimal is equal to 1F in hexadecimal.",
+      "correctAnswers": ["1F"],
+      "wrongAnswers": ["2F", "1E", "20"]
+    },
+    {
+      "type": "true_false",
+      "text": "The octal number 10 is equal to the decimal number 10.",
+      "difficulty": "easy",
+      "explanation": "The octal number 10 is equal to the decimal number 8.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the binary equivalent of the octal number 77?",
+      "difficulty": "medium",
+      "explanation": "77 in octal is equal to 111111 in binary.",
+      "correctAnswers": ["111111"],
+      "wrongAnswers": ["101111", "110111", "111101"]
+    }
+  ]
+}

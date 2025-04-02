@@ -1,0 +1,168 @@
+{
+  "id": "operating_systems_quiz_001",
+  "category": "Operating Systems",
+  "title": "Operating Systems Quiz",
+  "description": "Quiz covering operating systems concepts and administration.",
+  "questions": [
+    {
+      "type": "mcq",
+      "text": "Which command is used to list running processes in Unix-like systems?",
+      "difficulty": "easy",
+      "explanation": "The ps command reports a snapshot of current processes in Unix-like systems.",
+      "correctAnswers": ["ps"],
+      "wrongAnswers": ["tasklist", "netstat", "ifconfig"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the purpose of the 'ifconfig' command?",
+      "difficulty": "medium",
+      "explanation": "ifconfig is used to configure the kernel-resident network interfaces.",
+      "correctAnswers": ["Configure network interfaces"],
+      "wrongAnswers": ["Display disk usage", "Manage user accounts", "Control firewall rules"]
+    },
+    {
+      "type": "true_false",
+      "text": "Hashing is a form of encryption.",
+      "difficulty": "easy",
+      "explanation": "Hashing is a one-way function used to ensure data integrity, while encryption is a two-way function used to protect data confidentiality.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which of the following is a characteristic of heuristic-based antivirus software?",
+      "difficulty": "medium",
+      "explanation": "Heuristic-based antivirus software detects malware based on suspicious behavior.",
+      "correctAnswers": ["Detects malware based on behavior"],
+      "wrongAnswers": ["Detects malware based on signatures", "Requires frequent updates", "Is less effective against new malware"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the purpose of Tripwire?",
+      "difficulty": "medium",
+      "explanation": "Tripwire is a security and data integrity tool for monitoring and alerting on specific file changes.",
+      "correctAnswers": ["Monitor file changes"],
+      "wrongAnswers": ["Manage network traffic", "Encrypt data", "Control user access"]
+    },
+    {
+      "type": "true_false",
+      "text": "cmd is a Unix shell.",
+      "difficulty": "easy",
+      "explanation": "cmd is the command-line interpreter in Windows, while bash is a Unix shell.",
+      "correctAnswers": [false],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which of the following is a valid shell operator for output redirection?",
+      "difficulty": "medium",
+      "explanation": "> is used for output redirection, overwriting the target file.",
+      "correctAnswers": [">"],
+      "wrongAnswers": ["|", "<", "&"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the purpose of the /etc/resolv.conf file in Unix-like systems?",
+      "difficulty": "medium",
+      "explanation": "The /etc/resolv.conf file contains DNS resolver information.",
+      "correctAnswers": ["DNS resolver information"],
+      "wrongAnswers": ["User account information", "System boot configuration", "Network interface configuration"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to display the IP configuration in Windows?",
+      "difficulty": "easy",
+      "explanation": "ipconfig is used to display the IP configuration in Windows.",
+      "correctAnswers": ["ipconfig"],
+      "wrongAnswers": ["ifconfig", "netstat", "route"]
+    },
+    {
+      "type": "true_false",
+      "text": "The Windows Registry is a hierarchical database that stores configuration settings and options on Microsoft Windows operating systems.",
+      "difficulty": "easy",
+      "explanation": "The Windows Registry is a hierarchical database that stores configuration settings and options on Microsoft Windows operating systems.",
+      "correctAnswers": [true],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which registry hive stores settings specific to the local computer?",
+      "difficulty": "medium",
+      "explanation": "HKEY_LOCAL_MACHINE (HKLM) stores settings specific to the local computer.",
+      "correctAnswers": ["HKEY_LOCAL_MACHINE"],
+      "wrongAnswers": ["HKEY_CURRENT_USER", "HKEY_CLASSES_ROOT", "HKEY_USERS"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the purpose of code signing?",
+      "difficulty": "medium",
+      "explanation": "Code signing is used to verify the authenticity and integrity of software.",
+      "correctAnswers": ["Verify software authenticity and integrity"],
+      "wrongAnswers": ["Encrypt software code", "Optimize software performance", "Manage software licenses"]
+    },
+    {
+      "type": "true_false",
+      "text": "A device driver enables a network device to communicate between the computer and operating system.",
+      "difficulty": "easy",
+      "explanation": "A device driver enables a network device to communicate between the computer and operating system, and with other network computers and devices.",
+      "correctAnswers": [true],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which directory typically stores log files in Unix-like systems?",
+      "difficulty": "easy",
+      "explanation": "Logs are stored by default in /var/log/ in Unix-like systems.",
+      "correctAnswers": ["/var/log/"],
+      "wrongAnswers": ["/etc/log/", "/tmp/log/", "/root/log/"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which of the following is an executable file extension in Windows?",
+      "difficulty": "easy",
+      "explanation": ".exe is a common executable file extension in Windows.",
+      "correctAnswers": [".exe"],
+      "wrongAnswers": [".sh", ".py", ".txt"]
+    },
+    {
+      "type": "true_false",
+      "text": "The /etc/shadow file contains password hashes for all users on a Unix-like system.",
+      "difficulty": "medium",
+      "explanation": "The /etc/shadow file contains password hashes for each user that has logged onto the machine",
+      "correctAnswers": [true],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the purpose of the 'tasklist' command in Windows?",
+      "difficulty": "medium",
+      "explanation": "tasklist displays a list of currently running processes on the local computer or a remote computer.",
+      "correctAnswers": ["Display running processes"],
+      "wrongAnswers": ["Configure network settings", "Manage user accounts", "Control firewall rules"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which command is used to display the routing table in Linux?",
+      "difficulty": "medium",
+      "explanation": "The 'route' command is used to display the routing table in Linux.",
+      "correctAnswers": ["route"],
+      "wrongAnswers": ["netstat", "ipconfig", "traceroute"]
+    },
+    {
+      "type": "true_false",
+      "text": "Data Execution Prevention (DEP) prevents the execution of data.",
+      "difficulty": "medium",
+      "explanation": "Data Execution Prevention (DEP): System level memory protection that prevents the execution of data.",
+      "correctAnswers": [true],
+      "options": ["True", "False"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the purpose of the Windows File Protection (WFP) feature?",
+      "difficulty": "medium",
+      "explanation": "Windows File Protection (WFP) prevents the replacement of protected system files.",
+      "correctAnswers": ["Prevent replacement of protected system files"],
+      "wrongAnswers": ["Encrypt user data", "Manage disk quotas", "Control user access"]
+    }
+  ]
+}

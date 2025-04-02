@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Topbar.module.css';
-import { FiSearch, FiMenu } from 'react-icons/fi';
+import { FiSearch, FiMenu, FiGithub } from 'react-icons/fi';
 
 interface TopbarProps {
   userName?: string;
@@ -54,7 +54,9 @@ const Topbar: React.FC<TopbarProps> = ({
         </form>
         
         {!isMobile && (
-          <button className={styles.upgradeButton}>Go Premium</button>
+          <a href="https://github.com/toasttastesgood/hackademy" target="_blank" rel="noopener noreferrer" className={styles.githubButton} aria-label="View on GitHub">
+            <FiGithub size={18} />
+          </a>
         )}
       </div>
     </header>
