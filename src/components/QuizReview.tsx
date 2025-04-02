@@ -1,9 +1,10 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuiz } from '../contexts/QuizProvider';
+import Card from './Card/Card'; // Import the reusable Card component
 import styles from './QuizReview.module.css';
 import buttonStyles from './Button/Button.module.css';
-import cardStyles from './Card/Card.module.css';
+// import cardStyles from './Card/Card.module.css'; // No longer needed directly
 
 interface QuizResult {
   quizId: string;
@@ -32,26 +33,26 @@ const QuizReview: React.FC = () => {
   return (
     <div className={styles.quizReview}>
       <h1>Quiz Review: {quiz.title}</h1>
-      <div className={`${cardStyles.card} ${styles.summary}`}>
+      <Card className={styles.summary}> {/* Use Card for summary */}
         <h2>Your Score: {result.score}%</h2>
         <p>
           {result.correctAnswers} out of {result.totalQuestions} correct
         </p>
-      </div>
+      </Card>
 
       <div className={styles.questionsReview}>
         {result.questions.map((q, index) => (
-          <div key={index} className={`${cardStyles.card} ${styles.question} ${q.correct ? styles.cardQuizResultCorrect : styles.cardQuizResultIncorrect}`}>
+          <Card key={index} className={`${styles.question} ${q.correct ? styles.cardQuizResultCorrect : styles.cardQuizResultIncorrect}`}> {/* Use Card for question review */}
             <h3>Question {index + 1}</h3>
             <p>{q.text}</p>
             <div className={styles.explanation}>
               <p>{q.explanation}</p>
             </div>
-          </div>
+          </Card>
         ))}
       </div>
 
-      <button onClick={() => navigate('/')} className={`${buttonStyles.btn} ${buttonStyles.btnPrimary} ${styles.returnBtn}`}>
+      <button onClick={() => navigate('/')} className={`${buttonStyles.btn} ${buttonStyles.btnPrimary} ${styles.returnBtn} ${buttonStyles.btnRounded} ${styles.fixedReturnBtn}`}>
         Back to Quizzes
       </button>
     </div>

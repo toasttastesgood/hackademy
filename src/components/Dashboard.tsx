@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../contexts/QuizProvider';
 import CircularProgress from './CircularProgress'; // Import the component
+import Card from './Card/Card'; // Import the new Card component
 import '../App.css';
 import '../App.css';
 
@@ -21,38 +22,40 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="dashboard" style={{ minHeight: 'calc(100vh - 4rem)' }}>
-      <h1>Your Learning Progress</h1>
-      
-      <div className="progress-container">
-        {/* Replace SVG with the component */}
-        <CircularProgress 
-          percentage={overallProgress} 
-          size={200}       // Match the previous size
-          strokeWidth={10} // Match the previous stroke width
-        />
-      </div>
+      <Card className="progress-card"> {/* Wrap progress section in a Card */}
+        <h1>Your Learning Progress</h1>
+        <div className="progress-container">
+          <CircularProgress
+            percentage={overallProgress}
+            size={200}       // Match the previous size
+            strokeWidth={20} // Match the previous stroke width
+          />
+        </div>
+      </Card>
 
-      <div className="recommended-categories">
+      <Card className="recommended-categories-card">
         <h2>Recommended Categories</h2>
-            <div className="category-list">
-              {categories && Object.values(categories).map(category => (
-                <div 
-                  key={category.name} 
-                  className="card card--interactive category-card"
-                  onClick={() => navigate(`/browse?category=${category.name}`)}
-                >
-              <h3>{category.name}</h3>
-              <div className="progress-bar">
-                <div 
-                  className="progress-bar__fill" 
-                  style={{ width: `${category.averageScore}%` }}
-                ></div>
+        <div className="category-list">
+          {categories && Object.values(categories).map(category => (
+            <div // This is now a list item within the card
+              key={category.name}
+              className="category-item" // Use a specific class for list items
+              onClick={() => navigate(`/browse?category=${category.name}`)}
+              style={{ cursor: 'pointer' }} // Make item clickable
+            >
+              <div className="category-item-info"> {/* Group text info */}
+                <h3>{category.name}</h3>
+                <span>{category.completedCount}/{category.quizCount} quizzes completed</span>
               </div>
-              <span>{category.completedCount}/{category.quizCount} quizzes</span>
+              <CircularProgress
+                percentage={category.averageScore || 0} // Use category average score
+                size={40} // Smaller size for list item
+                strokeWidth={4}
+              />
             </div>
           ))}
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

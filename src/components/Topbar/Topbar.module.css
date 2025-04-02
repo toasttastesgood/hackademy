@@ -2,15 +2,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem 2rem;
+    /* padding: 1.2rem 2rem; */
     width: 100%;
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(255, 255, 255, 0.5);
+    /* background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    -webkit-backdrop-filter: blur(12px); */
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.3); */
 }
 
 .greeting h2 {

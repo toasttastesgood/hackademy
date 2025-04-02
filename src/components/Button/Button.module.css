@@ -66,6 +66,10 @@
   box-shadow: none;
 }
 
+.btnRounded {
+  border-radius: 100px;
+}
+
 /* Modifiers */
 .btnPrimary {
   background-color: var(--secondary-color);

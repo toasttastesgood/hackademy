@@ -37,3 +37,10 @@
   margin: 0 auto;
   width: 200px;
 }
+
+.fixedReturnBtn {
+  position: fixed;
+  bottom: var(--space-xl);
+  right: var(--space-xl);
+  z-index: 10;
+}

@@ -170,6 +170,10 @@ a:hover {
   margin: 0 auto; /* Re-apply centering to page containers */
 }
 
+.dashboard .progress-card {
+  margin-top: var(--space-md);
+}
+
 .dashboard .progress-container {
   display: flex;
   justify-content: center;
@@ -195,16 +199,47 @@ a:hover {
 }
 
 .category-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-lg);
+  display: flex; /* Change from grid to flex */
+  flex-direction: column; /* Stack items vertically */
+  gap: var(--space-md); /* Adjust gap for list items */
 }
 
 /* --- Category Card (Used in Dashboard, Category View, Quiz Browser) --- */
-.category-card {
-  /* Extends .card */
-  position: relative; /* For chevron */
-  padding-bottom: 3.5rem; /* Space for chevron/progress */
+/* .category-card styles are no longer needed for the list items in the dashboard */
+/* We'll style .category-item instead */
+
+.category-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md); /* Add some padding */
+  border-radius: var(--border-radius-sm);
+  transition: background-color var(--duration-fast) var(--ease-in-out);
+}
+
+.category-item:hover {
+  background-color: var(--hover-bg-light);
+}
+
+.category-item-info {
+  flex-grow: 1;
+  margin-right: var(--space-md);
+}
+
+.category-item h3 {
+  margin-bottom: var(--space-xs); /* Reduce margin below heading */
+  color: var(--text-color); /* Use default text color */
+  font-size: var(--font-size-base); /* Adjust font size if needed */
+}
+
+.category-item span {
+  font-size: var(--font-size-sm);
+  color: var(--text-light-color);
+}
+
+/* Remove conflicting styles previously applied via .category-card */
+.category-item .progress-bar { /* Remove old progress bar styles if any linger */
+  display: none;
 }
 
 .category-card h3 {
@@ -212,35 +247,10 @@ a:hover {
   margin-bottom: var(--space-sm);
 }
 
-.category-card .progress-info {
-  margin: var(--space-sm) 0;
-  font-size: var(--font-size-sm);
-  color: var(--text-light-color);
-}
+/* Remove styles related to .category-card's previous structure (progress-info, chevron, quizzes-list) */
+/* These might be used elsewhere, but are not needed for the dashboard list item */
 
-.category-card .progress-info p {
-  margin: var(--space-xs) 0;
-}
-
-.chevron-toggle {
-  position: absolute;
-  bottom: var(--space-sm);
-  left: 50%;
-  transform: translateX(-50%);
-  background: none;
-  border: none;
-  color: var(--secondary-color);
-  cursor: pointer;
-  padding: var(--space-xs);
-  font-size: var(--font-size-lg);
-  line-height: 1;
-  transition: var(--transition-transform);
-}
-
-.chevron-toggle.expanded {
-  transform: translateX(-50%) rotate(180deg);
-}
-
+/* Keep .quizzes-list styles if used by other components like CategoryView */
 .quizzes-list {
   margin-top: var(--space-md);
   padding-top: var(--space-md);

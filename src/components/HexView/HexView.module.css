@@ -1,0 +1,94 @@
+.hexView {
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  margin: var(--space-md) 0;
+  background-color: var(--bg-color);
+  padding: var(--space-md);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.hexView.interactive {
+  cursor: default;
+}
+
+.hexLine {
+  display: flex;
+  margin-bottom: var(--space-xs);
+}
+
+.offset {
+  color: var(--text-muted);
+  margin-right: var(--space-md);
+  min-width: 4ch;
+}
+
+.hexBytes {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: var(--space-md);
+  min-width: calc(3ch * 16 + 15px + 8px);
+}
+
+.byte {
+  display: inline-block;
+  width: 2ch;
+  text-align: center;
+  border-radius: var(--border-radius-xs);
+  margin-right: 4px;
+}
+
+.byte:nth-child(8) {
+  margin-right: 8px;
+}
+
+.byteHighlighted {
+  color: white;
+}
+
+.interactive .byte {
+  cursor: pointer;
+}
+
+.interactive .byte:hover {
+  background-color: var(--hover-bg-color);
+}
+
+.bytePad {
+  display: inline-block;
+  width: 2ch;
+  margin-right: 4px;
+}
+
+.asciiChars {
+  display: flex;
+}
+
+.asciiChar {
+  display: inline-block;
+  width: 1ch;
+  text-align: center;
+  margin-right: 4px;
+}
+
+.asciiChar:nth-child(8) {
+  margin-right: 8px;
+}
+
+.asciiHighlighted {
+  color: white;
+  border-radius: var(--border-radius-xs);
+}
+
+.asciiPad {
+  display: inline-block;
+  width: 1ch;
+  margin-right: 4px;
+}
+
+@media (max-width: 768px) {
+  .hexBytes {
+    min-width: calc(3ch * 8 + 7px);
+  }
+}

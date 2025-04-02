@@ -1,0 +1,22 @@
+{
+  "id": "boot-process",
+  "category": "System",
+  "title": "Boot Process Ordering",
+  "description": "Arrange the Linux boot process steps in correct order",
+  "questions": [
+    {
+      "type": "drag_drop",
+      "text": "Arrange these Linux boot steps in the correct order:",
+      "itemOrder": [
+        "BIOS/UEFI firmware runs",
+        "Bootloader executes",
+        "Kernel initialization",
+        "Hardware detection",
+        "Init process starts",
+        "User space services start"
+      ],
+      "explanation": "The correct boot sequence is: 1) Firmware initializes hardware, 2) Bootloader loads kernel, 3) Kernel initializes and detects hardware, 4) Init process starts system services, 5) User services launch.",
+      "difficulty": "medium"
+    }
+  ]
+}

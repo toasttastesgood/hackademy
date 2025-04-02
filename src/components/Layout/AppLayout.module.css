@@ -63,7 +63,7 @@
 /* Responsive styles */
 @media (max-width: 768px) {
   .sidebar {
-    width: var(--sidebar-width) !important;
+    /* width: var(--sidebar-width) !important; */
     transform: translateX(-100%);
     box-shadow: 4px 0 12px rgba(0,0,0,0.1);
   }

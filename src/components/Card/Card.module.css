@@ -5,7 +5,6 @@
   box-shadow: var(--box-shadow-soft);
   padding: var(--space-lg);
   margin-bottom: var(--space-lg);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all var(--duration-base) var(--ease-in-out);
 }

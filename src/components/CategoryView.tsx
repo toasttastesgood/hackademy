@@ -3,7 +3,8 @@ import { FiChevronDown } from 'react-icons/fi';
 import CircularProgress from './CircularProgress';
 import { useQuiz } from '../contexts/QuizProvider';
 import { useNavigate } from 'react-router-dom';
-import cardStyles from './Card/Card.module.css';
+import Card from './Card/Card'; // Import the reusable Card component
+// import cardStyles from './Card/Card.module.css'; // No longer needed directly if Card handles its styles
 import progressStyles from './Progress/CircularProgress.module.css';
 import styles from './CategoryView.module.css';
 
@@ -30,7 +31,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     : 0;
   
   return (
-    <div className={`${cardStyles.card} ${cardStyles.cardInteractive} ${styles.categoryCard}`} onClick={onToggle}>
+    <Card className={styles.categoryCard} onClick={onToggle}> {/* Use the Card component */}
       <h3>{category}</h3>
       <div className={styles.progressInfo}>
         <p>Quizzes: {quizCount}</p>
@@ -52,7 +53,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
           <QuizzesList category={category} />
         </div>
       )}
-    </div>
+    </Card>
   );
 };
 
@@ -66,9 +67,7 @@ const QuizzesList: React.FC<{ category: string }> = ({ category }) => {
       {quizzes.map(quiz => (
         <li key={quiz.id} onClick={() => navigate(`/quiz/${quiz.id}`)}>
           <span>{quiz.title}</span>
-          {progress[quiz.id] && (
-            <CircularProgress percentage={progress[quiz.id].highestScore} />
-          )}
+                    <CircularProgress percentage={progress[quiz.id]?.highestScore || 0} />
         </li>
       ))}
     </ul>

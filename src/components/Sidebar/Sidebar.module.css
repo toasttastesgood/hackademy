@@ -2,10 +2,10 @@
   box-sizing: border-box; /* Include padding and border in the element's total width */
   /* width: var(--sidebar-width); */
   /* Apply glassmorphism */
-  background-color: rgba(255, 255, 255, 0.1); /* Adjust alpha for desired transparency */
-  backdrop-filter: blur(10px); /* Adjust blur amount as needed */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
-  border-right: 1px solid rgba(255, 255, 255, 0.18); /* Softer border for glass effect */
+  /* background-color: rgba(255, 255, 255, 0.1); Adjust alpha for desired transparency */
+  /* backdrop-filter: blur(10px); Adjust blur amount as needed */
+  /* -webkit-backdrop-filter: blur(10px); Safari support */
+  /* border-right: 1px solid rgba(255, 255, 255, 0.18); Softer border for glass effect */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,10 +17,6 @@
   left: 0;
   z-index: var(--z-index-sidebar);
   transition: var(--transition-width);
-}
-
-.sidebarCollapsed {
-  /* width: var(--sidebar-width-collapsed); */
 }
 
 .logoContainer {
@@ -56,7 +52,7 @@
   border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: var(--box-shadow-soft);
   border-radius: 9999px;
-  padding: var(--space-md) var(--space-xs);
+  /* padding: var(--space-md) var(--space-xs); */
   /* Remove width: 100% to respect parent padding */
   /* width: 100%; */
   box-sizing: border-box; /* Ensure padding is included in width calculation if needed */
@@ -66,16 +62,15 @@
 }
 
 .navPillGroup {
-  flex-grow: 1;
   justify-content: flex-start;
-  margin-bottom: var(--space-md);
-  padding-top: var(--space-lg);
-  padding-bottom: var(--space-lg);
+  /* margin-bottom: var(--space-xs); */
+  /* padding-top: var(--space-sm); */
+  /* padding-bottom: var(--space-sm); */
 }
 
 .userPillGroup {
   margin-top: auto;
-  padding: var(--space-sm) var(--space-xs);
+  /* padding: var(--space-sm) var(--space-xs); */
 }
 
 .nav {
@@ -86,7 +81,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-lg);
+  gap: var(--space-xs);
 }
 
 .navLink {
@@ -118,6 +113,12 @@
 }
 
 .themeToggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   background: none;
   border: none;
   color: var(--text-light-color);
@@ -126,8 +127,8 @@
 }
 
 .themeToggle:hover {
-  color: var(--secondary-color);
-  transform: scale(1.1);
+  background-color: var(--hover-bg-light);
+  color: var(--text-color);
 }
 
 /* Responsive styles */
