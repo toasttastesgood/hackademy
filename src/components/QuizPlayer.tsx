@@ -4,10 +4,18 @@ import { useQuiz } from '../contexts/QuizProvider';
 import Card from './Card/Card';
 import styles from './QuizPlayer.module.css';
 import buttonStyles from './Button/Button.module.css';
-import { 
+import {
   getQuestionComponent,
   validateQuestionAnswer
 } from '../services/QuestionTypeRegistry';
+import {
+  Question, // Assuming Question union type is needed elsewhere or for clarity
+  MCQQuestion,
+  TrueFalseQuestion,
+  HighlightedBytesQuestion,
+  HexSelectionQuestion,
+  DragDropQuestion
+} from '../services/QuizValidator'; // Import specific types
 
 interface ProcessedQuestion {
   original: any;
@@ -80,15 +88,34 @@ const QuizPlayer: React.FC = () => {
           score: finalScore,
           correctAnswers: newScore,
           totalQuestions: quiz.questions.length,
-          questions: quiz.questions.map((q, i) => ({
-            text: q.text,
-            correct: validateQuestionAnswer(
-              q.type,
-              q,
-              updatedQuestions[i]?.selectedAnswer
-            ),
-            explanation: q.explanation
-          }))
+          questions: quiz.questions.map((q, i) => {
+            const selected = updatedQuestions[i]?.selectedAnswer;
+            const isCorrect = validateQuestionAnswer(q.type, q, selected);
+
+            // Determine the correct answer value based on question type
+            let correctAnswerValue: any = undefined;
+            if (q.type === 'mcq' || q.type === 'true_false' || q.type === 'highlighted_bytes') {
+              // These types use the correctAnswers array
+              const qWithType = q as MCQQuestion | TrueFalseQuestion | HighlightedBytesQuestion;
+              if (Array.isArray(qWithType.correctAnswers) && qWithType.correctAnswers.length > 0) {
+                correctAnswerValue = qWithType.correctAnswers[0];
+              }
+            } else if (q.type === 'hex_selection') {
+              // Hex selection uses correctOffset
+              correctAnswerValue = (q as HexSelectionQuestion).correctOffset;
+            } else if (q.type === 'drag_drop') {
+              // Drag drop uses itemOrder (might need specific handling in review)
+              correctAnswerValue = (q as DragDropQuestion).itemOrder;
+            }
+            // Add more types here if needed
+
+            return {
+              originalQuestion: q,
+              selectedAnswer: selected,
+              isCorrect: isCorrect,
+              correctAnswer: correctAnswerValue // Pass the determined value
+            };
+          })
         }
       });
     }

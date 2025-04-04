@@ -15,7 +15,7 @@ const Topbar: React.FC<TopbarProps> = ({
   onMenuToggle,
   isMobile = false,
 }) => {
-  const { isDarkMode } = useTheme();
+  const { colorMode } = useTheme(); // Get the current color mode
   const location = useLocation();
   const [pageTitle, setPageTitle] = useState<string>("Dashboard");
 
@@ -40,7 +40,7 @@ const Topbar: React.FC<TopbarProps> = ({
         {!isMobile && (
           <div className={styles.logoContainer}>
             <img
-              src={isDarkMode ? hackademyLight : hackademyDark}
+              src={colorMode === 'dark' ? hackademyLight : hackademyDark} // Check color mode
               alt="Hackademy"
               className={styles.logoImage}
             />

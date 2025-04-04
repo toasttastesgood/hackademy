@@ -2,31 +2,37 @@
 .btn {
   display: inline-block;
   padding: var(--space-sm) var(--space-md);
-  border: 1px solid transparent;
+  border: var(--border-width-base) solid transparent; /* Use variable */
   border-radius: var(--border-radius-md);
   cursor: pointer;
   font-size: var(--font-size-base);
   font-family: inherit;
+  font-weight: var(--font-weight-medium);
   text-align: center;
   text-decoration: none;
-  transition: all var(--duration-base) var(--ease-in-out);
-  background: none;
-  color: var(--text-color);
-  line-height: 1.4;
+  color: var(--text-primary); /* Default text color */
+  line-height: var(--line-height-normal); /* Use variable */
   position: relative;
   overflow: hidden;
   transform: translateZ(0);
+  transition: var(--transition-all); /* Use variable */
+  background-color: transparent; /* Default background */
+  /* Base shadow for neumorphic compatibility */
+  box-shadow: var(--button-outline-shadow, none);
 }
 
-.btn:hover {
+/* General Hover/Active - subtle scale */
+.btn:hover:not(:disabled) {
   transform: scale(1.02);
-  box-shadow: 0 4px 6px -1px var(--shadow-color-soft);
+  /* Hover shadow handled by specific variants */
 }
 
-.btn:active {
+.btn:active:not(:disabled) {
   transform: scale(0.98);
+  /* Active shadow handled by specific variants */
 }
 
+/* Ripple Effect (Keep as is for now) */
 .btn::after {
   content: '';
   position: absolute;
@@ -34,9 +40,10 @@
   left: 50%;
   width: 5px;
   height: 5px;
+  /* Consider theming this background if needed */
   background: rgba(255, 255, 255, 0.5);
   opacity: 0;
-  border-radius: 100%;
+  border-radius: var(--border-radius-full); /* Use variable */
   transform: scale(1, 1) translate(-50%, -50%);
   transform-origin: 50% 50%;
 }
@@ -56,69 +63,109 @@
   }
 }
 
+/* Disabled State */
 .btn:disabled,
 .btn[disabled] {
-  background-color: var(--disabled-bg-color);
-  color: var(--disabled-text-color);
+  background-color: var(--button-disabled-bg);
+  color: var(--button-disabled-text);
+  border-color: var(--button-disabled-border);
+  box-shadow: var(--button-disabled-shadow, none); /* Use variable */
   cursor: not-allowed;
-  opacity: 0.7;
-  border-color: transparent;
-  box-shadow: none;
-}
-
-.btnRounded {
-  border-radius: 100px;
+  opacity: 1; /* Remove opacity, rely on colors */
+  transform: none; /* Reset transform */
 }
 
 /* Modifiers */
+.btnRounded {
+  border-radius: var(--border-radius-full); /* Use variable */
+}
+
 .btnPrimary {
-  background-color: var(--secondary-color);
-  color: white;
-  border-color: var(--secondary-color);
-  box-shadow: 0 1px 2px 0 var(--shadow-color-medium);
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  border-color: var(--button-primary-border);
+  box-shadow: var(--button-primary-shadow, var(--shadow-sm)); /* Default shadow */
 }
 .btnPrimary:hover:not(:disabled) {
-  background-color: var(--secondary-color);
-  box-shadow: 0 4px 6px -1px var(--shadow-color-medium);
+  box-shadow: var(--button-primary-shadow, var(--shadow-md)); /* Default hover shadow */
+  /* Add brightness/opacity filter for non-neumorphic themes if desired */
+  filter: brightness(1.1);
 }
+.btnPrimary:active:not(:disabled) {
+   box-shadow: var(--button-primary-active-shadow, var(--shadow-inner)); /* Default active shadow */
+   filter: brightness(0.95);
+}
+[data-theme="neumorphic"] .btnPrimary:hover:not(:disabled),
+[data-theme="neumorphic"] .btnPrimary:active:not(:disabled) {
+  filter: none; /* Neumorphic uses shadow changes, not filter */
+}
+
 
 .btnSecondary {
-  background-color: var(--primary-color);
-  color: white;
-  border-color: var(--primary-color);
+  background-color: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+  border-color: var(--button-secondary-border);
+  box-shadow: var(--button-secondary-shadow, var(--shadow-sm));
 }
 .btnSecondary:hover:not(:disabled) {
-  background-color: var(--primary-color);
-  opacity: 0.9;
+  box-shadow: var(--button-secondary-shadow, var(--shadow-md));
+  filter: brightness(1.1);
+}
+.btnSecondary:active:not(:disabled) {
+  box-shadow: var(--button-secondary-active-shadow, var(--shadow-inner));
+  filter: brightness(0.95);
+}
+[data-theme="neumorphic"] .btnSecondary:hover:not(:disabled),
+[data-theme="neumorphic"] .btnSecondary:active:not(:disabled) {
+  filter: none;
 }
 
+
 .btnOutline {
-   border: 1px solid var(--border-color);
-   background-color: transparent;
-   color: var(--text-color);
+   border: var(--border-width-base) solid var(--button-outline-border);
+   background-color: var(--button-outline-bg);
+   color: var(--button-outline-text);
+   box-shadow: var(--button-outline-shadow, none); /* Use neumorphic base */
 }
 .btnOutline:hover:not(:disabled) {
-   background-color: var(--hover-bg-light);
+   background-color: var(--button-outline-hover-bg);
+   /* Keep neumorphic shadow on hover, bg changes */
 }
+.btnOutline:active:not(:disabled) {
+   box-shadow: var(--button-outline-active-shadow, none); /* Use neumorphic pressed */
+   background-color: var(--button-outline-hover-bg); /* Keep hover bg */
+}
+
 
 .btnFullWidth {
   display: block;
   width: 100%;
 }
 
+/* Status Buttons */
 .btnCorrect {
-  border-color: var(--correct-color);
-  background-color: color-mix(in srgb, var(--correct-color) 15%, transparent);
-  color: var(--correct-color);
+  border-color: var(--success-color);
+  /* Use color-mix with global variable */
+  background-color: color-mix(in srgb, var(--success-color) 15%, transparent);
+  color: var(--text-success); /* Use themed success text color */
 }
 
 .btnIncorrect {
-  border-color: var(--incorrect-color);
-  background-color: color-mix(in srgb, var(--incorrect-color) 15%, transparent);
-  color: var(--incorrect-color);
+  border-color: var(--error-color);
+  background-color: color-mix(in srgb, var(--error-color) 15%, transparent);
+  color: var(--text-error); /* Use themed error text color */
 }
 
 .btnSelected {
-  border-color: var(--secondary-color);
+  border-color: var(--secondary-color); /* Or use --border-accent? */
   background-color: color-mix(in srgb, var(--secondary-color) 15%, transparent);
+  /* Keep default text color or define a specific selected text color */
+}
+
+/* Specific Use Case (Positioning only) */
+.fixedReturnBtn {
+  position: fixed;
+  bottom: var(--space-xl);
+  right: var(--space-xl);
+  z-index: var(--z-index-sticky); /* Use z-index variable */
 }

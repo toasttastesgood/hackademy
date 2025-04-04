@@ -14,7 +14,8 @@ export interface MCQQuestion extends BaseQuestion {
 
 export interface TrueFalseQuestion extends BaseQuestion {
   type: 'true_false';
-  correctAnswer: boolean; // Assuming boolean for true/false
+  correctAnswers: boolean[]; // Changed to array of booleans
+  options?: string[]; // Optional options like ["True", "False"]
 }
 
 export interface HighlightedBytesQuestion extends BaseQuestion {
@@ -147,7 +148,14 @@ export function validateQuiz(quizData: unknown): ValidationResult {
         if (!isNonEmptyStringArray(q.wrongAnswers)) errors.push(`Quiz ${quizIdStr}, ${qIndexStr} (MCQ): 'wrongAnswers' must be a non-empty string array.`);
         break;
       case 'true_false':
-        if (!isBoolean(q.correctAnswer)) errors.push(`Quiz ${quizIdStr}, ${qIndexStr} (True/False): 'correctAnswer' must be a boolean.`);
+        // Check if correctAnswers is an array containing exactly one boolean
+        if (!Array.isArray(q.correctAnswers) || q.correctAnswers.length !== 1 || !isBoolean(q.correctAnswers[0])) {
+          errors.push(`Quiz ${quizIdStr}, ${qIndexStr} (True/False): 'correctAnswers' must be an array containing exactly one boolean value.`);
+        }
+        // Optional: Validate options if present
+        if (q.options !== undefined && (!isStringArray(q.options) || q.options.length !== 2)) {
+           errors.push(`Quiz ${quizIdStr}, ${qIndexStr} (True/False): 'options' if present, must be an array of two strings.`);
+        }
         break;
       case 'highlighted_bytes':
         if (!isNonEmptyString(q.hexDump) || !HEX_DUMP_REGEX.test(q.hexDump)) errors.push(`Quiz ${quizIdStr}, ${qIndexStr} (Highlighted Bytes): Invalid or empty 'hexDump'.`);

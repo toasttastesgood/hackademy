@@ -1,31 +1,178 @@
 .settingsPage {
-  max-width: 800px;
+  max-width: var(--container-max-width, 800px); /* Use global variable */
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto var(--space-xl); /* Add bottom margin */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg); /* Add gap between sections */
 }
 
+/* Applied to the Card component */
 .settingsSection {
-  /* Extends .card */
+  /* Card component handles its own styling */
 }
 
 .settingsSection h3 {
-  color: var(--secondary-color);
-  margin-bottom: var(--space-md);
+  color: var(--text-accent); /* Use themed accent color for section titles */
+  margin-bottom: var(--space-lg); /* Increase bottom margin */
+  font-size: var(--font-size-lg);
+  border-bottom: var(--border-width-base) solid var(--border-primary); /* Add separator */
+  padding-bottom: var(--space-sm);
 }
 
+/* Container for individual settings */
+.settingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) 0; /* Add vertical padding */
+  border-bottom: var(--border-width-base) solid var(--border-secondary); /* Separator */
+}
+.settingItem:last-child {
+  border-bottom: none; /* Remove border for last item */
+}
+.settingItem span:first-child {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Theme Selection Buttons */
 .themeOptions {
   display: flex;
-  /* gap: var(--space-md); */
+  gap: var(--space-sm); /* Add gap between buttons */
   margin-top: var(--space-md);
+  border-radius: var(--border-radius-md); /* Optional: round the group */
+  overflow: hidden; /* Clip corners if rounded */
 }
 
 .themeOption {
-  /* Extends .btn, .btn--outline */
-  flex: 1;
+  /* Base styling comes from .btn and .btnOutline in Button.module.css */
+  flex: 1; /* Make buttons fill space */
+  border-radius: 0; /* Remove individual radius if grouped */
+  border-width: 0; /* Remove individual borders if grouped */
+  border-right: var(--border-width-base) solid var(--border-secondary); /* Separator */
+}
+.themeOption:first-child {
+  border-top-left-radius: var(--border-radius-md);
+  border-bottom-left-radius: var(--border-radius-md);
+}
+.themeOption:last-child {
+  border-right: none; /* No border on the last button */
+  border-top-right-radius: var(--border-radius-md);
+  border-bottom-right-radius: var(--border-radius-md);
 }
 
+/* Active theme button style */
 .themeOption.active {
-  background-color: var(--secondary-color);
-  color: white;
-  border-color: var(--secondary-color);
+  /* Use secondary button styles for active state */
+  background-color: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+  border-color: var(--button-secondary-border); /* Ensure border matches */
+  box-shadow: var(--button-secondary-active-shadow, var(--shadow-inner)); /* Add inner shadow */
+  z-index: 2; /* Bring active button slightly forward */
+  position: relative;
 }
+/* Ensure non-active buttons don't show neumorphic shadows if active one does */
+[data-theme="neumorphic"] .themeOption:not(.active) {
+  box-shadow: none;
+}
+
+
+/* Toggle Switch Styles (Basic) */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px; /* Adjust size */
+  height: 28px; /* Adjust size */
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--border-secondary); /* Off state background */
+  transition: var(--transition-all);
+  border-radius: var(--border-radius-full);
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px; /* Adjust size */
+  width: 20px; /* Adjust size */
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--bg-secondary); /* Knob color */
+  transition: var(--transition-all);
+  border-radius: 50%;
+  box-shadow: var(--shadow-xs);
+}
+input:checked + .slider {
+  background-color: var(--secondary-color); /* On state background */
+}
+input:focus + .slider {
+  box-shadow: var(--shadow-focus-ring);
+}
+input:checked + .slider:before {
+  transform: translateX(22px); /* Adjust distance */
+}
+
+/* Confirmation Modal Styles (Basic) */
+.confirmationBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-backdrop);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-index-modal);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-in-out);
+}
+.confirmationBackdrop.show { /* Add .show class when active */
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.confirmationDialog {
+  /* Styling comes from Card component */
+  max-width: 400px;
+  width: 90%;
+  z-index: calc(var(--z-index-modal) + 1);
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform var(--duration-base) var(--ease-out), opacity var(--duration-base) var(--ease-out);
+}
+.confirmationBackdrop.show .confirmationDialog {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.confirmationDialog h4 {
+  color: var(--text-accent);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+.confirmationDialog p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.confirmationActions {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+/* Button styles are inherited from Button.module.css */

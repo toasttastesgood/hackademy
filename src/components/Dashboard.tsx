@@ -39,7 +39,6 @@ const Dashboard: React.FC = () => {
           {categories && Object.values(categories).map(category => (
             <div className={styles.categoryItem} // This is now a list item within the card
               key={category.name}
-              className="category-item" // Use a specific class for list items
               onClick={() => navigate(`/browse?category=${category.name}`)}
               style={{ cursor: 'pointer' }} // Make item clickable
             >

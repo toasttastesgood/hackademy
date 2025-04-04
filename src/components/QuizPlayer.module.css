@@ -1,23 +1,28 @@
 .quizPlayer {
-  max-width: 800px;
+  /* Use container max-width variable if defined, or keep fixed */
+  max-width: var(--container-max-width, 800px);
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto var(--space-xl); /* Add bottom margin */
 }
 
 .quizPlayer h1 {
   text-align: center;
   margin-bottom: var(--space-lg);
+  /* Heading color is inherited from global.css */
 }
 
+/* This class is applied to the Card component */
 .question {
-  padding: var(--space-xl);
+  /* Card component handles its own padding, bg, border, shadow */
   margin-top: var(--space-xl);
 }
 
 .question h2 {
-  color: var(--text-color);
+  /* Use primary text color for question number heading */
+  color: var(--text-primary);
   font-size: var(--font-size-lg);
   margin-bottom: var(--space-lg);
+  font-weight: var(--font-weight-semibold); /* Make it slightly bolder */
 }
 
 .options {
@@ -27,13 +32,22 @@
   margin: var(--space-lg) 0;
 }
 
+/* Styling for buttons used as options */
 .options .btn {
   text-align: left;
   width: 100%;
   justify-content: flex-start;
+  /* Button component handles its own styling */
 }
 
-.question > .btn {
+/* Styling for the main action button (Next/Finish) if needed */
+.actionButton {
   margin-top: var(--space-lg);
   font-size: var(--font-size-md);
+  /* Button component handles its own styling (e.g., btnPrimary) */
+  /* Ensure it's centered or positioned correctly if needed */
+  display: block; /* Make it block to center with margin */
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 150px; /* Give it a minimum width */
 }

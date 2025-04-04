@@ -4,15 +4,10 @@
   display: flex;
   min-height: 100vh;
   position: relative;
-  /* Apply the background gradient here */
-  background-image: linear-gradient(to top right, #accbee, #e7f0fd);
-  /* width: 100vw; */
-  
-  /* Add top padding to ensure content doesn't overlap */
-  /* padding-top: 4.5rem; */
-  
-  /* Prevent horizontal overflow */
+  background: var(--bg-primary); /* Use theme variable for background */
   overflow-x: hidden;
+  /* Ensure background applies correctly for themes like glass */
+  background-attachment: fixed;
 }
 
 .mainWrapper {
@@ -22,24 +17,40 @@
   min-width: 0;
   padding: 0;
   position: relative;
-  transition: var(--transition-margin);
-  width: 100vw;
-  z-index: 10;
+  /* Use variable for transition */
+  transition: margin-left var(--duration-base) var(--ease-in-out), transform var(--duration-base) var(--ease-in-out);
+  width: 100%; /* Let it fill remaining space */
+  z-index: var(--z-index-content); /* Use variable */
+  margin-left: var(--sidebar-width-collapsed); /* Default margin for collapsed sidebar */
 }
 
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: var(--z-index-sidebar);
+  height: 100vh; /* Ensure full height */
+  z-index: var(--z-index-sidebar); /* Use variable */
+  width: var(--sidebar-width-collapsed); /* Default width */
+  transition: width var(--duration-base) var(--ease-in-out), transform var(--duration-base) var(--ease-in-out);
+  /* Background/styling handled within Sidebar component itself */
 }
 
+.sidebarOpen {
+  width: var(--sidebar-width); /* Expanded width */
+}
+
+/* Adjust main wrapper margin when sidebar is open */
+.sidebarOpen ~ .mainWrapper {
+   margin-left: var(--sidebar-width);
+}
+
+
 .contentArea {
-  padding: 6rem 2rem 0 2rem;
-  /* padding-top: 6rem; Add top padding to the content area */
+  /* Use topbar height variable + spacing */
+  padding: calc(var(--topbar-height) + var(--space-lg)) var(--space-xl) var(--space-xl) var(--space-xl);
   flex-grow: 1;
-  margin-left: calc(4rem + 2px);
   overflow-y: auto;
+  /* Margin-left is handled by mainWrapper now */
 }
 
 /* Mobile Backdrop */
@@ -49,10 +60,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.3);
-  z-index: calc(var(--z-index-sidebar) - 1);
+  background-color: var(--bg-backdrop); /* Use variable */
+  z-index: var(--z-index-backdrop); /* Use variable */
   opacity: 0;
   pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-in-out);
 }
 
 .sidebarBackdropActive {
@@ -60,85 +72,62 @@
   pointer-events: all;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-  .sidebar {
-    height: 100vh;
-    /* width: 50px; */
-    transform: translateX(-5rem);
-    transition: transform 0.2s var(--ease-in-out);
-    
-  }
-  
-  .sidebarMobileOpen {
-    transform: translateX(0);
-    pointer-events: none;
-  }
+/* --- Responsive Styles --- */
 
-  .menuButton {
-    display: block;
-  }
-
-  .mainWrapper {
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(0);
-
-  }
-
-  /* .contentArea {
-    padding: 6rem 2rem 2rem 2rem;
-    margin-left: 0;
-  } */
-  /* .topbar {
-    width: 100%;
-    z-index: 50;
-  } */
-
-  /* .sidebarMobileOpen ~ .contentArea {
-    transform: translateX(calc(3rem+2px))
-  } */
-
-  .contentArea {
-    /* padding: 6rem 2rem 2rem 2rem; */
-    margin-left: 0;
-  }
-  .sidebarMobileOpen ~ .mainWrapper {
-    transform: translateX(4rem);
-  }
+/* Tablet & Desktop (Sidebar behavior changes here) */
+@media (min-width: 769px) {
+  /* Ensure mobile transforms are reset */
+   .sidebar {
+     transform: translateX(0);
+   }
+   .mainWrapper {
+     transform: translateX(0);
+   }
 }
 
+
+/* Mobile Styles (max-width: 768px) */
 @media (max-width: 768px) {
-  /* .layout-container {
-    flex-direction: column;
-  } */
-
-  .main-content {
-    margin-left: 0;
-    /* padding: var(--space-lg); */
+  .mainWrapper {
+    margin-left: 0; /* No margin push on mobile */
+    transition: transform var(--duration-base) var(--ease-in-out); /* Only transform */
+    transform: translateX(0);
+    width: 100vw; /* Ensure it takes full width */
   }
 
-  /* Adjust grid layouts for smaller screens */
-  .category-list,
-  .quiz-categories,
-  .category-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
+  .sidebar {
+    width: var(--sidebar-width); /* Mobile sidebar is full width when open */
+    transform: translateX(-100%); /* Start off-screen */
+    transition: transform var(--duration-base) var(--ease-in-out);
+    /* pointer-events: none; /* Let backdrop handle clicks */
   }
 
-  .dashboard .circular-progress {
-    width: 150px;
-    height: 150px;
-  }
-  
-  .dashboard .progress-text {
-    font-size: var(--font-size-lg);
+  .sidebarMobileOpen {
+    transform: translateX(0); /* Slide in */
+    /* pointer-events: auto; */
   }
 
-  .question.card {
-    padding: var(--space-lg);
+  /* Remove main content margin adjustment on mobile */
+  .sidebarOpen ~ .mainWrapper {
+     margin-left: 0;
   }
 
-  .options .btn {
-    padding: var(--space-sm) var(--space-md);
+  /* Content padding adjustment for mobile if needed */
+  .contentArea {
+     padding: calc(var(--topbar-height) + var(--space-md)) var(--space-md) var(--space-md) var(--space-md);
+     margin-left: 0; /* Ensure no margin */
   }
+
+  /* Keep main content shift if sidebar pushes it (optional behavior) */
+  /*
+  .sidebarMobileOpen ~ .mainWrapper {
+     transform: translateX(var(--sidebar-width));
+  }
+  */
+
+  /* Remove redundant/conflicting rules from previous version */
+  /* .category-list, .quiz-categories, .category-grid adjustments likely belong in their respective component CSS */
+  /* .dashboard adjustments belong in Dashboard.module.css */
+  /* .question.card adjustments belong in QuizPlayer/Review CSS */
+  /* .options .btn adjustments belong in Button/QuizPlayer CSS */
 }
