@@ -3,3 +3,5 @@ Plan out a quizlet style learning platform called Hackademy for learning cyberse
 Think through and plan out everything need for a navigation menu on the left side of the screen with a light/dark mode toggle as well as a dashboard (as the main page) with graphs (circle graph: overall course completion) and recommended categories/sections to practice. The navigation menu should have icons on the left edge of the screen and be expandable with a hamburger menu to show the labels. Design these changes with a refined and modern look with a focus on improving the user experience. The goal is to create a beautiful and fun to use cybersecurity and penetration testing learning platform that will be hosted on github pages, pull the quizzes from json files and store progress locally in the browser.
 
 Can you look through this web app and see what can be optimized or reused to make the codebase better and the web app look and work better?
+
+https://uiverse.io/switches?page=2

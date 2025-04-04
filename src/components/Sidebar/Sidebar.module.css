@@ -10,40 +10,16 @@
   flex-direction: column;
   align-items: center;
   /* Reduce horizontal padding to minimize space around pills */
-  padding: var(--space-xs) var(--space-xs);
+  /* padding: var(--space-xs) var(--space-xs); */
+  padding-top: 6rem;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
   z-index: var(--z-index-sidebar);
   transition: var(--transition-width);
-}
-
-.logoContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: var(--space-md);
-  transition: var(--transition-fast);
-}
-
-.logoIconPlaceholder {
-  font-size: 2rem;
-  margin-bottom: var(--space-xs);
-  color: var(--text-color);
-}
-
-.logoText {
-  font-weight: 600;
-  font-size: var(--font-size-sm);
-  color: var(--text-color);
-  white-space: nowrap;
-  transition: var(--transition-fast);
-}
-
-.sidebarCollapsed .logoText {
-  opacity: 0;
-  width: 0;
 }
 
 .navPillGroup,
@@ -88,8 +64,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   color: var(--text-light-color);
   background-color: transparent;
@@ -116,8 +92,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   background: none;
   border: none;
@@ -129,15 +105,4 @@
 .themeToggle:hover {
   background-color: var(--hover-bg-light);
   color: var(--text-color);
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-  .sidebar {
-    /* width: var(--sidebar-width-collapsed); */
-  }
-  
-  .sidebarCollapsed {
-    transform: translateX(-100%);
-  }
 }

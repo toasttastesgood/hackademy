@@ -1,46 +1,57 @@
 .quizReview {
-  padding: var(--space-xl);
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
 }
 
 .quizReview h1 {
-  color: var(--primary-color);
+  text-align: center;
   margin-bottom: var(--space-lg);
 }
 
 .summary {
   text-align: center;
-  margin-bottom: var(--space-xl);
+}
+
+.summary h2 {
+  color: var(--secondary-color);
 }
 
 .questionsReview {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
-  margin-bottom: var(--space-xl);
+  gap: var(--space-lg);
 }
 
-.question {
+.reviewQuestion {
   padding: var(--space-lg);
+}
+
+.reviewQuestion h3 {
+  margin-bottom: var(--space-md);
+  font-size: var(--font-size-md);
+  color: var(--text-color);
+}
+
+.resultCorrect {
+  border-left: 4px solid var(--correct-color);
+}
+
+.resultIncorrect {
+  border-left: 4px solid var(--incorrect-color);
 }
 
 .explanation {
   margin-top: var(--space-md);
-  padding: var(--space-md);
-  background-color: var(--hover-bg-light);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--hover-bg-light);
   border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  border-left: 3px solid var(--border-color);
 }
 
 .returnBtn {
   display: block;
-  margin: 0 auto;
-  width: 200px;
-}
-
-.fixedReturnBtn {
-  position: fixed;
-  bottom: var(--space-xl);
-  right: var(--space-xl);
-  z-index: 10;
+  margin: var(--space-xl) auto 0;
+  font-size: var(--font-size-md);
 }

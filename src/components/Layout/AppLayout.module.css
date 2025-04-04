@@ -6,38 +6,39 @@
   position: relative;
   /* Apply the background gradient here */
   background-image: linear-gradient(to top right, #accbee, #e7f0fd);
+  /* width: 100vw; */
+  
+  /* Add top padding to ensure content doesn't overlap */
+  /* padding-top: 4.5rem; */
+  
   /* Prevent horizontal overflow */
   overflow-x: hidden;
 }
 
-/*
-  Sidebar styling is now handled by src/components/Sidebar/Sidebar.module.css
-  AppLayout is only responsible for positioning.
-*/
-
-.sidebarCollapsed {
-  width: var(--sidebar-width-collapsed);
-}
-
 .mainWrapper {
-  flex: 1;
-  padding: var(--space-xl);
-  /* margin-left: var(--sidebar-width); */
-  transition: var(--transition-margin);
-  position: relative;
-  /* Remove background color, it's now on appContainer */
-  /* background-color: var(--background-color); */
-  min-width: 0;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  position: relative;
+  transition: var(--transition-margin);
+  width: 100vw;
+  z-index: 10;
 }
 
-.sidebarCollapsed + .mainWrapper {
-  /* margin-left: var(--sidebar-width-collapsed); */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-index-sidebar);
 }
 
 .contentArea {
+  padding: 6rem 2rem 0 2rem;
+  /* padding-top: 6rem; Add top padding to the content area */
   flex-grow: 1;
+  margin-left: calc(4rem + 2px);
   overflow-y: auto;
 }
 
@@ -48,11 +49,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5);
-  z-index: var(--z-index-backdrop);
+  background-color: rgba(0,0,0,0.3);
+  z-index: calc(var(--z-index-sidebar) - 1);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
 }
 
 .sidebarBackdropActive {
@@ -63,25 +63,82 @@
 /* Responsive styles */
 @media (max-width: 768px) {
   .sidebar {
-    /* width: var(--sidebar-width) !important; */
-    transform: translateX(-100%);
-    box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+    height: 100vh;
+    /* width: 50px; */
+    transform: translateX(-5rem);
+    transition: transform 0.2s var(--ease-in-out);
+    
   }
   
-  .sidebarActive {
+  .sidebarMobileOpen {
     transform: translateX(0);
+    pointer-events: none;
   }
 
-  .sidebarCollapsed {
-    transform: translateX(-100%);
+  .menuButton {
+    display: block;
   }
 
   .mainWrapper {
-    /* margin-left: 0 !important; */
-    /* padding: var(--space-md); */
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0);
+
   }
 
-  .sidebarCollapsed + .mainWrapper {
-    /* margin-left: 0; */
+  /* .contentArea {
+    padding: 6rem 2rem 2rem 2rem;
+    margin-left: 0;
+  } */
+  /* .topbar {
+    width: 100%;
+    z-index: 50;
+  } */
+
+  /* .sidebarMobileOpen ~ .contentArea {
+    transform: translateX(calc(3rem+2px))
+  } */
+
+  .contentArea {
+    /* padding: 6rem 2rem 2rem 2rem; */
+    margin-left: 0;
+  }
+  .sidebarMobileOpen ~ .mainWrapper {
+    transform: translateX(4rem);
+  }
+}
+
+@media (max-width: 768px) {
+  /* .layout-container {
+    flex-direction: column;
+  } */
+
+  .main-content {
+    margin-left: 0;
+    /* padding: var(--space-lg); */
+  }
+
+  /* Adjust grid layouts for smaller screens */
+  .category-list,
+  .quiz-categories,
+  .category-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .dashboard .circular-progress {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .dashboard .progress-text {
+    font-size: var(--font-size-lg);
+  }
+
+  .question.card {
+    padding: var(--space-lg);
+  }
+
+  .options .btn {
+    padding: var(--space-sm) var(--space-md);
   }
 }

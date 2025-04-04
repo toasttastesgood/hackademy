@@ -1,135 +1,31 @@
 .settingsPage {
-  padding: var(--space-xl);
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
 }
 
-.settingsPage h2 {
-  color: var(--primary-color);
-  margin-bottom: var(--space-lg);
-  text-align: center;
-}
-
 .settingsSection {
-  margin-bottom: var(--space-lg);
-  padding: var(--space-lg);
+  /* Extends .card */
 }
 
 .settingsSection h3 {
-  margin-top: 0;
-  margin-bottom: var(--space-md);
   color: var(--secondary-color);
-  border-bottom: 1px solid var(--border-light-color);
-  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
 }
 
-.settingItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-sm) 0;
-  margin-bottom: var(--space-sm);
-}
-
-.settingItem span:first-child {
-  color: var(--text-color);
-}
-
-/* Theme Options */
 .themeOptions {
   display: flex;
-  gap: var(--space-sm);
+  /* gap: var(--space-md); */
+  margin-top: var(--space-md);
 }
 
 .themeOption {
+  /* Extends .btn, .btn--outline */
   flex: 1;
-  /* Use styles from Button.module.css */
 }
 
 .themeOption.active {
-  background-color: var(--primary-color);
-  color: white;
-  border-color: var(--primary-color);
-}
-
-/* Toggle Switch */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px; /* Adjust size as needed */
-  height: 26px; /* Adjust size as needed */
-}
-
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--border-color);
-  transition: .4s;
-  border-radius: 26px; /* height */
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 18px; /* Adjust size */
-  width: 18px; /* Adjust size */
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
   background-color: var(--secondary-color);
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px var(--secondary-color);
-}
-
-input:checked + .slider:before {
-  transform: translateX(24px); /* width - height */
-}
-
-/* Confirmation Dialog */
-.confirmationBackdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* Ensure it's on top */
-}
-
-.confirmationDialog {
-  padding: var(--space-xl);
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
-}
-
-.confirmationDialog h4 {
-  margin-top: 0;
-  color: var(--incorrect-color); /* Use danger color for emphasis */
-}
-
-.confirmationActions {
-  display: flex;
-  justify-content: space-around;
-  margin-top: var(--space-lg);
+  color: white;
+  border-color: var(--secondary-color);
 }

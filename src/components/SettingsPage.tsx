@@ -22,8 +22,6 @@ const SettingsPage: React.FC = () => {
 
   return (
     <div className={styles.settingsPage}>
-      <h2>Settings</h2>
-
       {/* Appearance Section */}
       <Card className={styles.settingsSection}>
         <h3>Appearance</h3>

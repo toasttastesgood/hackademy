@@ -4,20 +4,22 @@ import styles from './Progress/CircularProgress.module.css';
 interface CircularProgressProps {
   percentage: number;
   size?: number;
+  className?: string;
   strokeWidth?: number;
 }
 
-const CircularProgress: React.FC<CircularProgressProps> = ({ 
+const CircularProgress: React.FC<CircularProgressProps> = ({
   percentage,
   size = 24,
-  strokeWidth = 3
+  strokeWidth = 3,
+  className = ''
 }) => {
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div className={styles.circularProgress}>
+    <div className={`${styles.circularProgress} ${className}`}>
       <svg width={size} height={size}>
         <circle
           className={styles.progressBg}

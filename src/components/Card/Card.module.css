@@ -3,8 +3,8 @@
   background: rgba(255, 255, 255, 0.8);
   border-radius: var(--border-radius-md);
   box-shadow: var(--box-shadow-soft);
-  padding: var(--space-lg);
-  margin-bottom: var(--space-lg);
+  padding: var(--space-lg); /* Padding for content inside the card */
+  margin-bottom: 2rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all var(--duration-base) var(--ease-in-out);
 }

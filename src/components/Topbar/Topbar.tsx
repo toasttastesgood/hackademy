@@ -1,19 +1,29 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styles from './Topbar.module.css';
-import { FiSearch, FiMenu, FiGithub } from 'react-icons/fi';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import styles from "./Topbar.module.css";
+import { FiSearch, FiMenu, FiGithub } from "react-icons/fi";
+import { useTheme } from "../../contexts/ThemeContext";
+import hackademyDark from "../../assets/hackademy_dark.png";
+import hackademyLight from "../../assets/hackademy_light.png";
 
 interface TopbarProps {
-  userName?: string;
   onMenuToggle?: () => void;
   isMobile?: boolean;
 }
 
-const Topbar: React.FC<TopbarProps> = ({ 
-  userName = "User", 
+const Topbar: React.FC<TopbarProps> = ({
   onMenuToggle,
-  isMobile = false 
+  isMobile = false,
 }) => {
+  const { isDarkMode } = useTheme();
+  const location = useLocation();
+  const [pageTitle, setPageTitle] = useState<string>("Dashboard");
+
+  useEffect(() => {
+    const path = location.pathname.split('/').filter(Boolean)[0] || 'Dashboard';
+    setPageTitle(path.charAt(0).toUpperCase() + path.slice(1));
+  }, [location]);
+
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
@@ -25,20 +35,29 @@ const Topbar: React.FC<TopbarProps> = ({
   };
 
   return (
-    <header className={styles.topbar}>
-      {isMobile && (
-        <button 
-          className={styles.menuButton}
-          onClick={onMenuToggle}
-          aria-label="Toggle menu"
-        >
-          <FiMenu size={24} />
-        </button>
-      )}
-
-      <div className={styles.greeting}>
-        <h2>Welcome back, {userName}!</h2>
+      <header className={styles.topbar}>
+      <div className={styles.logoAndTitle}>
+        {!isMobile && (
+          <div className={styles.logoContainer}>
+            <img
+              src={isDarkMode ? hackademyLight : hackademyDark}
+              alt="Hackademy"
+              className={styles.logoImage}
+            />
+          </div>
+        )}
+        {isMobile && (
+          <button
+            className={styles.menuButton}
+            onClick={onMenuToggle}
+            aria-label="Toggle menu"
+          >
+            <FiMenu size={24} />
+          </button>
+        )}
+        <div className={styles.title}>{pageTitle}</div>
       </div>
+      
 
       <div className={styles.actions}>
         <form onSubmit={handleSearchSubmit} className={styles.searchContainer}>
@@ -46,13 +65,13 @@ const Topbar: React.FC<TopbarProps> = ({
           <input
             type="search"
             placeholder="Search for study sets..."
-            className={styles.searchInput}
+              className={styles.searchInput}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type="submit" style={{ display: 'none' }} aria-label="Search"></button>
+          <button type="submit" style={{ display: "none" }} aria-label="Search"></button>
         </form>
-        
+
         {!isMobile && (
           <a href="https://github.com/toasttastesgood/hackademy" target="_blank" rel="noopener noreferrer" className={styles.githubButton} aria-label="View on GitHub">
             <FiGithub size={18} />

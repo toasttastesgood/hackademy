@@ -1,0 +1,64 @@
+.dashboard {
+  max-width: 800px;
+  width: 100%; 
+  margin: 0 auto;
+}
+
+.progressContainer {
+  display: flex;
+  justify-content: center;
+  margin: var(--space-xl) 0;
+}
+
+.circularProgress {
+  width: 200px;
+  height: 200px;
+}
+
+.circularProgress circle {
+  stroke-width: 10;
+}
+
+.progressText {
+  font-size: var(--font-size-xl);
+}
+
+.recommendedCategories h2 {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.categoryItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--border-radius-sm);
+  transition: background-color var(--duration-fast) var(--ease-in-out);
+}
+
+.categoryItem:hover {
+  background-color: var(--hover-bg-light);
+}
+
+.categoryItemInfo {
+  flex-grow: 1;
+  margin-right: var(--space-md);
+}
+
+.categoryItem h3 {
+  margin-bottom: var(--space-xs);
+  color: var(--text-color);
+  font-size: var(--font-size-base);
+}
+
+.categoryItem span {
+  font-size: var(--font-size-sm);
+  color: var(--text-light-color);
+}

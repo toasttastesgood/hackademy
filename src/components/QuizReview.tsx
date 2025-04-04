@@ -4,7 +4,6 @@ import { useQuiz } from '../contexts/QuizProvider';
 import Card from './Card/Card'; // Import the reusable Card component
 import styles from './QuizReview.module.css';
 import buttonStyles from './Button/Button.module.css';
-// import cardStyles from './Card/Card.module.css'; // No longer needed directly
 
 interface QuizResult {
   quizId: string;

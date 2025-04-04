@@ -63,14 +63,19 @@ const QuizzesList: React.FC<{ category: string }> = ({ category }) => {
   const quizzes = getQuizzesByCategory(category);
 
   return (
-    <ul>
-      {quizzes.map(quiz => (
-        <li key={quiz.id} onClick={() => navigate(`/quiz/${quiz.id}`)}>
-          <span>{quiz.title}</span>
-                    <CircularProgress percentage={progress[quiz.id]?.highestScore || 0} />
-        </li>
-      ))}
-    </ul>
+    <div className={styles.quizzesList}>
+      <ul>
+        {quizzes.map(quiz => (
+          <li key={quiz.id} onClick={() => navigate(`/quiz/${quiz.id}`)}>
+            <span className={styles.quizName}>{quiz.title}</span>
+            <CircularProgress
+              percentage={progress[quiz.id]?.highestScore || 0}
+              className={styles.circularProgress}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

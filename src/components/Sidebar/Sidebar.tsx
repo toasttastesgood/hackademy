@@ -14,27 +14,23 @@ const bottomLinks = [
 ];
 
 const ThemeToggle = () => {
-  const { darkMode, toggleTheme } = useTheme();
+  const { isDarkMode, toggleTheme } = useTheme();
   
   return (
     <button 
       onClick={toggleTheme}
       className={styles.themeToggle}
-      aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+      aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     >
-      {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
+      {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
     </button>
   );
 };
 
 const Sidebar: React.FC = () => {
+  const { isDarkMode } = useTheme();
   return (
     <aside className={styles.sidebar}>
-      <div className={styles.logoContainer}>
-        <div className={styles.logoIconPlaceholder}>📚</div>
-        <span className={styles.logoText}>Hackademy</span>
-      </div>
-
       <div className={styles.navPillGroup}>
         <nav className={styles.nav}>
           <ul>

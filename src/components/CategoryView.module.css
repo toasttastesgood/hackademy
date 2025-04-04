@@ -1,42 +1,11 @@
-/* Category View Component Styles */
-.categoryCard {
-  position: relative;
-  padding-bottom: 3.5rem;
-  height: fit-content;
+.categoryView {
+  /* max-width and margin handled by parent .quiz-browser */
 }
 
-.categoryCard h3 {
-  color: var(--secondary-color);
-  margin-bottom: var(--space-sm);
-}
-
-.progressInfo {
-  margin: var(--space-sm) 0;
-  font-size: var(--font-size-sm);
-  color: var(--text-light-color);
-}
-
-.progressInfo p {
-  margin: var(--space-xs) 0;
-}
-
-.chevronToggle {
-  position: absolute;
-  bottom: var(--space-sm);
-  left: 50%;
-  transform: translateX(-50%);
-  background: none;
-  border: none;
-  color: var(--secondary-color);
-  cursor: pointer;
-  padding: var(--space-xs);
-  font-size: var(--font-size-lg);
-  line-height: 1;
-  transition: var(--transition-transform);
-}
-
-.chevronToggle.expanded {
-  transform: translateX(-50%) rotate(180deg);
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
 }
 
 .quizzesList {
@@ -59,18 +28,18 @@
   background-color: var(--hover-bg-light);
 }
 
-.quizzesList .quizName {
+.quizName {
   flex-grow: 1;
   margin-right: var(--space-md);
 }
 
-.categoryView {
-  max-width: 1100px;
-  margin: 0 auto;
+/* Quiz List Progress Circle */
+.quizzesList .circularProgress {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 }
 
-.categoryGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--space-lg);
+.quizzesList .circularProgress circle {
+  stroke-width: 3;
 }

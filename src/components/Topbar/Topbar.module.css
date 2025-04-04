@@ -4,22 +4,35 @@
     align-items: center;
     /* padding: 1.2rem 2rem; */
     width: 100%;
-    position: sticky;
+    position:fixed;
     top: 0;
     z-index: 50;
-    /* background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px); */
-    /* border-bottom: 1px solid rgba(255, 255, 255, 0.3); */
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    gap: 1rem;
+    padding-left: calc(0.5rem + 1px);
 }
 
-.greeting h2 {
-    font-size: 1.6rem;
-    font-weight: 600;
-    margin-bottom: 0.1rem;
-    color: #1a202c;
+.logoAndTitle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
+.logoImage {
+    width: 4rem;
+    height: 4rem;
+    object-fit: contain;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2d3748;
+    margin: 0;
+}
 .greeting p {
     color: #4a5568;
     font-size: 0.9rem;
@@ -28,7 +41,8 @@
 .actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem; /* Increased spacing between the search bar and GitHub button */
+    padding-right: 2rem;
 }
 
 .searchContainer {
@@ -53,7 +67,7 @@
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     min-width: 280px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #2d3748;
     transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -72,13 +86,14 @@
 .githubButton {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
+    justify-content: center; /* Center the icon */
+    width: 40px; /* Slightly larger size */
+    height: 40px; /* Slightly larger size */
     background-color: #2d3748;
     color: #ffffff;
     border: none;
     border-radius: 50%;
+    padding: 0;
     transition: all 0.2s ease;
     cursor: pointer;
 }
@@ -89,44 +104,14 @@
 }
 
 .menuButton {
-    display: none;
-    background: none;
-    border: none;
-    color: #2d3748;
-    margin-right: 1rem;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+  background: none;
+  border: none;
+  color: #2d3748;
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .menuButton:hover {
     transform: scale(1.1);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .topbar {
-        padding: 1rem;
-    }
-
-    .menuButton {
-        display: block;
-    }
-
-    .greeting h2 {
-        font-size: 1.3rem;
-    }
-
-    .actions {
-        width: 100%;
-        gap: 1rem;
-    }
-
-    .searchInput {
-        min-width: auto;
-        width: 100%;
-    }
-
-    .upgradeButton {
-        display: none;
-    }
 }

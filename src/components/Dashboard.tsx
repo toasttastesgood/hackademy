@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../contexts/QuizProvider';
+import styles from './Dashboard.module.css';
 import CircularProgress from './CircularProgress'; // Import the component
 import Card from './Card/Card'; // Import the new Card component
-import '../App.css';
-import '../App.css';
+
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -21,8 +21,8 @@ const Dashboard: React.FC = () => {
     : 0;
 
   return (
-    <div className="dashboard" style={{ minHeight: 'calc(100vh - 4rem)' }}>
-      <Card className="progress-card"> {/* Wrap progress section in a Card */}
+    <div className={styles.dashboard} style={{ minHeight: 'calc(100vh - 4rem)' }}>
+      <Card className={styles.progressCard}> {/* Wrap progress section in a Card */}
         <h1>Your Learning Progress</h1>
         <div className="progress-container">
           <CircularProgress
@@ -33,11 +33,11 @@ const Dashboard: React.FC = () => {
         </div>
       </Card>
 
-      <Card className="recommended-categories-card">
+      <Card>
         <h2>Recommended Categories</h2>
         <div className="category-list">
           {categories && Object.values(categories).map(category => (
-            <div // This is now a list item within the card
+            <div className={styles.categoryItem} // This is now a list item within the card
               key={category.name}
               className="category-item" // Use a specific class for list items
               onClick={() => navigate(`/browse?category=${category.name}`)}

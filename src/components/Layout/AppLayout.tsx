@@ -33,26 +33,31 @@ const AppLayout: React.FC = () => {
 
   return (
     <div className={styles.appContainer}>
-      {/* Sidebar width is controlled by Sidebar.module.css and --sidebar-width variable */}
+      <Topbar
+        isMobile={isMobile}
+        onMenuToggle={toggleSidebar}
+      />
       <div
-        className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarActive : ''} ${!sidebarOpen && !isMobile ? styles.sidebarCollapsed : ''}`}
-      >
+        className={`${styles.sidebar} ${
+
+          isMobile
+            ? sidebarOpen
+              ? styles.sidebarMobileOpen 
+              : styles.sidebarMobileClosed
+              : sidebarOpen ? styles.sidebarMobileOpen : styles.sidebarCollapsed}`}
+              >
         <Sidebar />
       </div>
 
       {isMobile && sidebarOpen && (
         <div 
-          className={styles.sidebarBackdrop}
+          className={styles.sidebarBackdrop} 
           onClick={closeSidebar}
           role="presentation"
         />
       )}
 
       <div className={styles.mainWrapper}>
-        <Topbar 
-          isMobile={isMobile}
-          onMenuToggle={toggleSidebar}
-        />
         <main className={styles.contentArea}>
           <Outlet />
         </main>
