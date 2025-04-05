@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuiz } from '../contexts/QuizProvider';
-import Card from './Card/Card';
+// Card import removed, now used within QuizQuestionCard
 import styles from './QuizPlayer.module.css';
 import buttonStyles from './Button/Button.module.css';
+import QuizQuestionCard from './QuizQuestionCard'; // Import the new component
 import {
   getQuestionComponent,
   validateQuestionAnswer
@@ -17,9 +18,12 @@ import {
   DragDropQuestion
 } from '../services/QuizValidator'; // Import specific types
 
+// Define a union type for possible answer shapes
+type AnswerType = string | number | boolean | string[];
+
 interface ProcessedQuestion {
-  original: any;
-  selectedAnswer: any;
+  original: Question; // Use the imported Question union type
+  selectedAnswer: AnswerType | null; // Use the AnswerType union
 }
 
 const QuizPlayer: React.FC = () => {
@@ -30,15 +34,24 @@ const QuizPlayer: React.FC = () => {
   const quiz = quizzes[quizId || ''];
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [processedQuestions, setProcessedQuestions] = useState<ProcessedQuestion[]>([]);
-  const [selectedAnswer, setSelectedAnswer] = useState<any>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<AnswerType | null>(null);
   const [score, setScore] = useState(0);
 
+  useEffect(() => {
+    if (!quiz) {
+      console.error(`Quiz not found for ID: ${quizId}`);
+      // Optionally: Add a user notification/toast here
+      navigate('/', { replace: true }); // Navigate home if quiz doesn't exist
+    }
+  }, [quiz, quizId, navigate]); // Add dependencies
+
+  // Render null or a loading indicator while checking/navigating
   if (!quiz) {
-    return <div>Quiz not found</div>;
+    return null; // Or <LoadingSpinner />;
   }
 
   const question = quiz.questions[currentQuestion];
-  const QuestionComponent = getQuestionComponent(question.type);
+  // QuestionComponent logic moved to QuizQuestionCard
 
   useEffect(() => {
     if (!quiz) return;
@@ -93,7 +106,7 @@ const QuizPlayer: React.FC = () => {
             const isCorrect = validateQuestionAnswer(q.type, q, selected);
 
             // Determine the correct answer value based on question type
-            let correctAnswerValue: any = undefined;
+            let correctAnswerValue: AnswerType | undefined = undefined;
             if (q.type === 'mcq' || q.type === 'true_false' || q.type === 'highlighted_bytes') {
               // These types use the correctAnswers array
               const qWithType = q as MCQQuestion | TrueFalseQuestion | HighlightedBytesQuestion;
@@ -124,18 +137,13 @@ const QuizPlayer: React.FC = () => {
   return (
     <div className={styles.quizPlayer}>
       <h1>{quiz.title}</h1>
-      <Card className={styles.question}>
-        <h2>Question {currentQuestion + 1} of {quiz.questions.length}</h2>
-        <p>{question.text}</p>
-        
-        {QuestionComponent && (
-          <QuestionComponent
-            question={question}
-            onAnswer={setSelectedAnswer}
-            disabled={processedQuestion.selectedAnswer !== null}
-          />
-        )}
-      </Card>
+      <QuizQuestionCard
+        question={question}
+        questionNumber={currentQuestion + 1}
+        totalQuestions={quiz.questions.length}
+        onAnswer={setSelectedAnswer}
+        isAnswered={processedQuestion.selectedAnswer !== null}
+      />
 
       <button
         className={`${buttonStyles.btnPrimary} ${styles.actionButton} ${buttonStyles.btnRounded}`}

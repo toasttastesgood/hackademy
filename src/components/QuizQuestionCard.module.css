@@ -1,0 +1,31 @@
+/* Styles for QuizQuestionCard */
+
+/* This class is applied to the Card component */
+.question {
+  /* Card component handles its own padding, bg, border, shadow */
+  margin-top: var(--space-xl);
+}
+
+.question h2 {
+  /* Use primary text color for question number heading */
+  color: var(--text-primary);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-xs); /* Reduced margin */
+  font-weight: var(--font-weight-semibold); /* Make it slightly bolder */
+}
+
+.progressText {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg); /* Add margin below the progress text */
+  margin-top: 0; /* Ensure no extra top margin */
+}
+
+.questionText {
+  margin-bottom: var(--space-lg); /* Add space below question text */
+  color: var(--text-primary); /* Ensure primary text color */
+  line-height: var(--line-height-relaxed);
+}
+
+/* Styles for the dynamically rendered QuestionComponent might still be needed here */
+/* or within the specific question type components themselves */

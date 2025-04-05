@@ -163,6 +163,32 @@
   color: var(--text-primary);
 }
 
+/* Styles for non-MCQ answer paragraphs */
+.answerCorrect {
+  color: var(--text-success);
+  font-weight: var(--font-weight-medium);
+  /* Optional: Add a visual cue */
+  /* border-left: 3px solid var(--success-color); */
+  /* padding-left: calc(var(--space-md) - 3px); */
+}
+
+.answerIncorrect {
+  color: var(--text-error);
+  font-weight: var(--font-weight-medium);
+  text-decoration: line-through; /* Only for the user's incorrect answer */
+  /* Optional: Add a visual cue */
+  /* border-left: 3px solid var(--error-color); */
+  /* padding-left: calc(var(--space-md) - 3px); */
+}
+
+/* Ensure the 'Correct Answer' line doesn't get line-through */
+.answerCorrect strong {
+  text-decoration: none; /* Override potential inherited line-through */
+}
+.answerDetails p.answerCorrect {
+  text-decoration: none; /* Ensure the correct answer line itself is not struck through */
+}
+
 /* Explanation box (conditionally shown) */
 .explanation {
   margin-top: var(--space-lg); /* More space before explanation */

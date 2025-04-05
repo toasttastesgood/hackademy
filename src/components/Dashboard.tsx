@@ -35,24 +35,31 @@ const Dashboard: React.FC = () => {
 
       <Card>
         <h2>Recommended Categories</h2>
-        <div className="category-list">
-          {categories && Object.values(categories).map(category => (
-            <div className={styles.categoryItem} // This is now a list item within the card
-              key={category.name}
-              onClick={() => navigate(`/browse?category=${category.name}`)}
-              style={{ cursor: 'pointer' }} // Make item clickable
-            >
-              <div className="category-item-info"> {/* Group text info */}
-                <h3>{category.name}</h3>
-                <span>{category.completedCount}/{category.quizCount} quizzes completed</span>
+        <div className={styles.categoryList}> {/* Use CSS module class */}
+          {categories && Object.values(categories).length > 0 ? (
+            Object.values(categories).map(category => (
+              <div className={styles.categoryItem} // This is now a list item within the card
+                key={category.name}
+                onClick={() => navigate(`/browse?category=${category.name}`)}
+                style={{ cursor: 'pointer' }} // Make item clickable
+                role="button" // Add role for accessibility
+                tabIndex={0} // Make it focusable
+                onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(`/browse?category=${category.name}`); }} // Keyboard accessibility
+              >
+                <div className={styles.categoryItemInfo}> {/* Use CSS module class */}
+                  <h3>{category.name}</h3>
+                  <span>{category.completedCount}/{category.quizCount} quizzes completed</span>
+                </div>
+                <CircularProgress
+                  percentage={category.averageScore || 0} // Use category average score
+                  size={40} // Smaller size for list item
+                  strokeWidth={4}
+                />
               </div>
-              <CircularProgress
-                percentage={category.averageScore || 0} // Use category average score
-                size={40} // Smaller size for list item
-                strokeWidth={4}
-              />
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className={styles.emptyState}>No categories available yet.</p> // Empty state message
+          )}
         </div>
       </Card>
     </div>

@@ -1,17 +1,22 @@
-import React, { useState } from 'react'; // Import useState
+import React from 'react'; // Removed useState import
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuiz } from '../contexts/QuizProvider';
 import Card from './Card/Card';
 import styles from './QuizReview.module.css';
 import buttonStyles from './Button/Button.module.css';
+import { Question } from '../services/QuizValidator'; // Import Question type
+import QuizReviewItem from './QuizReviewItem'; // Import the new component
 // Import function to get the correct answer display logic if needed
 // import { getQuestionAnswerDisplay } from '../services/QuestionTypeRegistry'; // Assuming this exists or needs creation
 
+// Define a union type for possible answer shapes (matching QuizPlayer)
+type AnswerType = string | number | boolean | string[];
+
 interface QuestionReviewData {
-  originalQuestion: any; // Contains text, options, explanation, type etc.
-  selectedAnswer: any;
+  originalQuestion: Question; // Use the imported Question union type
+  selectedAnswer: AnswerType | null; // Use AnswerType, allow null
   isCorrect: boolean;
-  correctAnswer: any; // Explicitly passed correct answer
+  correctAnswer: AnswerType | undefined | null; // Use AnswerType, allow undefined/null
 }
 
 interface QuizResult {
@@ -22,64 +27,7 @@ interface QuizResult {
   questions: QuestionReviewData[]; // Use the new interface
 }
 
-// Helper function to render options with added safety checks
-const renderOptions = (questionData: QuestionReviewData) => {
-  // Use the explicitly passed correctAnswer
-  const { originalQuestion, selectedAnswer, correctAnswer } = questionData;
-
-  // Defensive checks for potentially missing properties
-  const options = originalQuestion?.options;
-  const questionType = originalQuestion?.type;
-
-  // Fallback for non-MCQ or missing options/correctAnswer
-  if (questionType !== 'multiple-choice' || !Array.isArray(options)) {
-    return (
-      <div className={styles.answerDetails}>
-        <p><strong>Your Answer:</strong> {JSON.stringify(selectedAnswer ?? 'Not Answered')}</p>
-        {/* Restore conditional display, ensuring it handles false/0 */}
-        {correctAnswer !== undefined && correctAnswer !== null ? (
-          <p><strong>Correct Answer:</strong> {JSON.stringify(correctAnswer)}</p>
-        ) : (
-          // Display nothing or a more appropriate message if no correct answer is applicable/available
-          // For instance, if the question type doesn't have a single 'correctAnswer' field
-          null // Or <p>Correct Answer: N/A</p> if preferred
-        )}
-      </div>
-    );
-  }
-
-  // Render MCQ options
-  return (
-    <ul className={styles.optionsList}>
-      {options.map((option: string, index: number) => {
-        const isUserSelection = selectedAnswer === option;
-        // Use the top-level correctAnswer for comparison
-        const isActuallyCorrect = correctAnswer !== undefined && correctAnswer !== null && correctAnswer === option;
-        let optionClass = styles.optionItem;
-
-        if (isUserSelection && isActuallyCorrect) {
-          optionClass += ` ${styles.optionSelectedCorrect}`;
-        } else if (isUserSelection && !isActuallyCorrect) {
-          optionClass += ` ${styles.optionSelectedIncorrect}`;
-        } else if (isActuallyCorrect) {
-          optionClass += ` ${styles.optionCorrectUnselected}`;
-        }
-
-        return (
-          <li key={index} className={optionClass}>
-            {option}
-            {/* Labeling Logic */}
-            {isUserSelection && !isActuallyCorrect ? (
-              ` (Your Answer)`
-            ) : isActuallyCorrect ? (
-              ` (Correct Answer)`
-            ) : null}
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
+// renderOptions function moved to QuizReviewItem.tsx
 
 
 const QuizReview: React.FC = () => {
@@ -88,9 +36,7 @@ const QuizReview: React.FC = () => {
   const { quizzes } = useQuiz();
   const result = location.state as QuizResult;
   const quiz = result ? quizzes[result.quizId] : null; // Check if result exists
-
-  // State to track which explanations are shown
-  const [showExplanation, setShowExplanation] = useState<Record<number, boolean>>({});
+  // State and toggle function moved to QuizReviewItem.tsx
 
   if (!result || !quiz) {
     // Redirect immediately if data is missing
@@ -98,9 +44,7 @@ const QuizReview: React.FC = () => {
     return null;
   }
 
-  const toggleExplanation = (index: number) => {
-    setShowExplanation(prev => ({ ...prev, [index]: !prev[index] }));
-  };
+  // Removed toggleExplanation function placeholder comment
 
   return (
     <div className={styles.quizReview}>
@@ -114,35 +58,7 @@ const QuizReview: React.FC = () => {
 
       <div className={styles.questionsReview}>
         {result.questions.map((qData, index) => (
-          <Card
-            key={index}
-            // Apply border style based on correctness
-            className={`${styles.reviewQuestion} ${qData.isCorrect ? styles.resultCorrect : styles.resultIncorrect}`}
-          >
-            {/* Explanation Toggle Button */}
-            <button
-              onClick={() => toggleExplanation(index)}
-              className={styles.explanationToggle}
-              aria-label={showExplanation[index] ? "Hide explanation" : "Show explanation"}
-              aria-expanded={showExplanation[index]}
-            >
-              ?
-            </button>
-
-            <h3>Question {index + 1}</h3>
-            <p className={styles.questionText}>{qData.originalQuestion.text}</p>
-
-            {/* Render Answer Options */}
-            {renderOptions(qData)}
-
-            {/* Conditionally Render Explanation */}
-            {showExplanation[index] && (
-              <div className={styles.explanation}>
-                <h4>Explanation</h4>
-                <p>{qData.originalQuestion.explanation}</p>
-              </div>
-            )}
-          </Card>
+          <QuizReviewItem key={index} qData={qData} index={index} />
         ))}
       </div>
 

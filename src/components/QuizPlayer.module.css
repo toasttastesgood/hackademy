@@ -21,8 +21,15 @@
   /* Use primary text color for question number heading */
   color: var(--text-primary);
   font-size: var(--font-size-lg);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-xs); /* Reduced margin */
   font-weight: var(--font-weight-semibold); /* Make it slightly bolder */
+}
+
+.progressText {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg); /* Add margin below the progress text */
+  margin-top: 0; /* Ensure no extra top margin */
 }
 
 .options {

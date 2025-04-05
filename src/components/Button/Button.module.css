@@ -41,7 +41,7 @@
   width: 5px;
   height: 5px;
   /* Consider theming this background if needed */
-  background: rgba(255, 255, 255, 0.5);
+  background: color-mix(in srgb, var(--text-on-primary, #fff) 50%, transparent); /* Use theme variable */
   opacity: 0;
   border-radius: var(--border-radius-full); /* Use variable */
   transform: scale(1, 1) translate(-50%, -50%);
@@ -88,12 +88,11 @@
 }
 .btnPrimary:hover:not(:disabled) {
   box-shadow: var(--button-primary-shadow, var(--shadow-md)); /* Default hover shadow */
-  /* Add brightness/opacity filter for non-neumorphic themes if desired */
-  filter: brightness(1.1);
+  /* Brightness filter removed, rely on shadow variables */
 }
 .btnPrimary:active:not(:disabled) {
    box-shadow: var(--button-primary-active-shadow, var(--shadow-inner)); /* Default active shadow */
-   filter: brightness(0.95);
+   /* Brightness filter removed, rely on shadow variables */
 }
 [data-theme="neumorphic"] .btnPrimary:hover:not(:disabled),
 [data-theme="neumorphic"] .btnPrimary:active:not(:disabled) {
@@ -109,11 +108,11 @@
 }
 .btnSecondary:hover:not(:disabled) {
   box-shadow: var(--button-secondary-shadow, var(--shadow-md));
-  filter: brightness(1.1);
+  /* Brightness filter removed, rely on shadow variables */
 }
 .btnSecondary:active:not(:disabled) {
   box-shadow: var(--button-secondary-active-shadow, var(--shadow-inner));
-  filter: brightness(0.95);
+  /* Brightness filter removed, rely on shadow variables */
 }
 [data-theme="neumorphic"] .btnSecondary:hover:not(:disabled),
 [data-theme="neumorphic"] .btnSecondary:active:not(:disabled) {
@@ -162,10 +161,4 @@
   /* Keep default text color or define a specific selected text color */
 }
 
-/* Specific Use Case (Positioning only) */
-.fixedReturnBtn {
-  position: fixed;
-  bottom: var(--space-xl);
-  right: var(--space-xl);
-  z-index: var(--z-index-sticky); /* Use z-index variable */
-}
+/* .fixedReturnBtn removed as it was unused and positioning is handled by consumers */

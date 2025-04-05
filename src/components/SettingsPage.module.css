@@ -77,6 +77,38 @@
   box-shadow: none;
 }
 
+/* Theme Preview Styles */
+.themePreview {
+  display: inline-block;
+  width: 1em; /* Relative to button font size */
+  height: 1em;
+  border-radius: var(--border-radius-sm);
+  margin-right: var(--space-sm);
+  vertical-align: middle; /* Align with button text */
+  border: 1px solid var(--border-secondary); /* Add a subtle border */
+}
+
+/* Specific Preview Colors (using light mode vars for simplicity) */
+.previewMaterial {
+  background-color: #f8fafc; /* --bg-primary (material light) */
+  border-color: #e2e8f0; /* --border-primary (material light) */
+}
+.previewGlass {
+  background: linear-gradient(to top right, #accbee, #e7f0fd); /* --bg-primary (glass light) */
+  border-color: rgba(255, 255, 255, 0.6); /* --border-primary (glass light) */
+}
+.previewNeumorphic {
+  background-color: #e2e8f0; /* --bg-primary (neumorphic light) */
+  box-shadow: inset 1px 1px 2px rgba(163, 177, 198, 0.6), inset -1px -1px 2px rgba(255, 255, 255, 0.7); /* Simplified neumorphic inset */
+  border: none;
+}
+.previewLight {
+  background-color: #f8fafc; /* Representative light background */
+}
+.previewDark {
+  background-color: #0f172a; /* Representative dark background */
+}
+
 
 /* Toggle Switch Styles (Basic) */
 .switch {
