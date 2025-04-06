@@ -1,17 +1,17 @@
-/* src/components/Sidebar/Sidebar.module.css */
+/* src/components/NewSidebar.module.css */
 
 .sidebar {
   display: flex;
   flex-direction: column;
   width: var(--sidebar-width-collapsed); /* Start collapsed */
-  height: calc(100vh - var(--topbar-height)); /* Adjust height */
+  height: 100vh;
   background-color: var(--card-bg); /* Use card background for theme consistency */
   border-right: var(--border-width-base) solid var(--border-primary);
   padding: var(--space-md) 0;
-  transition: width var(--duration-base) var(--ease-in-out), transform var(--duration-base) var(--ease-in-out); /* Add transform transition */
+  transition: width var(--duration-base) var(--ease-in-out);
   overflow: hidden; /* Hide labels when collapsed */
   position: fixed; /* Ensure it stays fixed */
-  top: var(--topbar-height); /* Start below topbar */
+  top: 0;
   left: 0;
   z-index: var(--z-index-sidebar);
   box-shadow: var(--shadow-md); /* Add subtle shadow */
@@ -24,7 +24,20 @@
 }
 */
 
-/* .logoContainer and .logo styles removed */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center logo when collapsed */
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-lg);
+  min-height: var(--topbar-height); /* Align roughly with topbar */
+}
+
+.logo {
+  height: 32px; /* Adjust as needed */
+  width: auto;
+  transition: opacity var(--duration-base) var(--ease-in-out);
+}
 
 .nav {
   flex-grow: 1;
@@ -94,22 +107,7 @@
   margin-right: var(--space-md);
 }
 
-*/
-
-/* --- Mobile Specific Styles --- */
-@media (max-width: 768px) {
-  .sidebar {
-    width: var(--sidebar-width); /* Full width on mobile */
-    transform: translateX(-100%); /* Start off-screen */
-    /* Ensure labels are visible on mobile when open */
-    overflow: visible;
-  }
-
-  .sidebar.mobileOpen {
-    transform: translateX(0); /* Slide in */
-  }
-
-  .navLabel {
-     opacity: 1; /* Always show labels on mobile */
-  }
+.sidebarExpanded .logoContainer {
+  justify-content: flex-start; // Align logo left when expanded
 }
+*/

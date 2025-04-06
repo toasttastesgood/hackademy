@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import Sidebar from '../Sidebar/Sidebar';
+// import Sidebar from '../Sidebar/Sidebar'; // Old sidebar
+import Sidebar from '../Sidebar/Sidebar'; // Import the renamed sidebar
 import Topbar from '../Topbar/Topbar';
 import styles from './AppLayout.module.css';
 
@@ -37,21 +38,12 @@ const AppLayout: React.FC = () => {
         isMobile={isMobile}
         onMenuToggle={toggleSidebar}
       />
-      <div
-        className={`${styles.sidebar} ${
-
-          isMobile
-            ? sidebarOpen
-              ? styles.sidebarMobileOpen 
-              : styles.sidebarMobileClosed
-              : sidebarOpen ? styles.sidebarMobileOpen : styles.sidebarCollapsed}`}
-              >
-        <Sidebar />
-      </div>
+      {/* Render the new sidebar directly. Expansion/mobile logic can be added later */}
+      <Sidebar isOpen={sidebarOpen} isMobile={isMobile} /> {/* Pass state */}
 
       {isMobile && sidebarOpen && (
         <div 
-          className={styles.sidebarBackdrop} 
+          className={`${styles.sidebarBackdrop} ${styles.sidebarBackdropActive}`} /* Apply active class */
           onClick={closeSidebar}
           role="presentation"
         />

@@ -4,83 +4,112 @@
     align-items: center;
     /* padding: 1.2rem 2rem; */
     width: 100%;
-    position:fixed;
+    position: fixed;
     top: 0;
-    z-index: 50;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    gap: 1rem;
-    padding-left: calc(0.5rem + 1px);
+    left: 0; /* Ensure it starts from the left edge */
+    right: 0; /* Ensure it spans full width */
+    z-index: var(--z-index-sticky); /* Use theme variable */
+    background: var(--card-bg); /* Use theme variable (e.g., card background) */
+    backdrop-filter: var(--card-backdrop-filter); /* Use theme variable */
+    -webkit-backdrop-filter: var(--card-backdrop-filter); /* Use theme variable */
+    border-bottom: var(--border-width-base) solid var(--border-primary); /* Use theme variables */
+    gap: var(--space-md); /* Use theme variable */
+    padding: 0 var(--space-lg); /* Adjust padding */
+    padding-left: 0.7rem;
+    height: var(--topbar-height); /* Use theme variable */
+    /* Removed padding-left adjustment for sidebar */
+    /* transition: padding-left var(--duration-base) var(--ease-in-out); */ /* Remove transition if not expanding */
 }
+
+/* Removed commented-out expansion styles */
 
 .logoAndTitle {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: var(--space-md); /* Use theme variable */
+}
+
+.logoContainer { /* Added container style */
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .logoImage {
-    width: 4rem;
-    height: 4rem;
+    height: calc(var(--topbar-height) * 0.6); /* Scale with topbar height */
+    width: auto;
     object-fit: contain;
 }
 
 .title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #2d3748;
+    font-size: var(--font-size-xl); /* Use theme variable */
+    font-weight: var(--font-weight-semibold); /* Use theme variable */
+    color: var(--text-primary); /* Use theme variable */
     margin: 0;
 }
-.greeting p {
-    color: #4a5568;
-    font-size: 0.9rem;
-}
+/* .greeting removed - not present in current Topbar.tsx */
 
 .actions {
     display: flex;
     align-items: center;
-    gap: 1rem; /* Increased spacing between the search bar and GitHub button */
-    padding-right: 2rem;
+    gap: var(--space-md); /* Use theme variable */
+    /* padding-right removed, handled by main topbar padding */
+}
+
+.searchButton {
+  /* Reuse githubButton styles for circle shape/size */
+  /* Add specific styles if needed */
+  padding: 0; /* Ensure no extra padding */
 }
 
 .searchContainer {
     position: relative;
     display: flex;
-    flex-grow: 1;
+    align-items: center; /* Align icon and input */
+    /* Start collapsed */
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: width var(--duration-base) var(--ease-in-out), opacity var(--duration-fast) var(--ease-in-out);
 }
 
+.searchContainer.expanded {
+    width: 280px; /* Or desired expanded width */
+    opacity: 1;
+    overflow: visible; /* Show content when expanded */
+    margin-left: var(--space-sm); /* Add space when expanded */
+}
 .searchIcon {
     position: absolute;
-    left: 12px;
+    left: var(--space-md); /* Use variable */
     top: 50%;
     transform: translateY(-50%);
-    color: #718096;
+    color: var(--text-secondary); /* Use theme variable */
     pointer-events: none;
 }
 
 .searchInput {
-    padding: 0.7rem 1rem 0.7rem 2.5rem;
-    border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    min-width: 280px;
-    font-size: 1rem;
-    color: #2d3748;
-    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    padding: var(--space-sm) var(--space-md) var(--space-sm) calc(var(--space-md) * 2 + 18px); /* Adjust padding for icon */
+    border-radius: var(--border-radius-full); /* Use theme variable */
+    border: var(--border-width-base) solid var(--input-border); /* Use theme variable */
+    background-color: var(--input-bg); /* Use theme variable */
+    box-shadow: var(--input-shadow, none); /* Use theme variable */
+    width: 100%; /* Fill container when expanded */
+    min-width: auto; /* Remove min-width */
+    font-size: var(--font-size-base); /* Use theme variable */
+    color: var(--input-text); /* Use theme variable */
+    transition: var(--transition-all); /* Use theme variable */
 }
 
 .searchInput::placeholder {
-    color: #718096;
+    color: var(--text-placeholder); /* Use theme variable */
 }
 
 .searchInput:focus {
     outline: none;
-    background-color: #ffffff;
-    border-color: rgba(59, 130, 246, 0.4);
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    background-color: var(--bg-secondary); /* Use theme variable */
+    border-color: var(--input-focus-border); /* Use theme variable */
+    box-shadow: var(--input-focus-shadow, none), var(--shadow-focus-ring); /* Use theme variables */
 }
 
 .githubButton {
@@ -89,29 +118,57 @@
     justify-content: center; /* Center the icon */
     width: 40px; /* Slightly larger size */
     height: 40px; /* Slightly larger size */
-    background-color: #2d3748;
-    color: #ffffff;
+    background-color: var(--button-secondary-bg); /* Use theme variable */
+    color: var(--button-secondary-text); /* Use theme variable */
     border: none;
     border-radius: 50%;
     padding: 0;
-    transition: all 0.2s ease;
+    transition: var(--transition-all); /* Use theme variable */
     cursor: pointer;
 }
 
 .githubButton:hover {
-    background-color: #1a202c;
+    background-color: color-mix(in srgb, var(--button-secondary-bg) 80%, black); /* Darken on hover */
     transform: scale(1.1);
 }
 
 .menuButton {
   background: none;
   border: none;
-  color: #2d3748;
-  margin-right: 1rem;
+  color: var(--text-primary); /* Use theme variable */
+  margin-right: var(--space-md); /* Use theme variable */
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: var(--transition-transform); /* Use theme variable */
 }
 
 .menuButton:hover {
     transform: scale(1.1);
+}
+
+/* --- Mobile Styles --- */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 var(--space-md); /* Adjust mobile padding */
+  }
+
+  .logoContainer {
+    display: none; /* Hide logo container on mobile */
+  }
+
+  .title {
+     font-size: var(--font-size-lg); /* Slightly smaller title on mobile */
+  }
+
+  .menuButton {
+     margin-right: 0; /* Remove right margin if it's the first element */
+     /* margin-left: calc(var(--space-md) * -1); Pull button slightly left to align icon */
+  }
+
+  .searchContainer.expanded {
+     width: 100%; /* Allow full width on mobile when expanded */
+     min-width: 150px; /* Ensure minimum tap target */
+  }
+  .searchButton {
+     /* Ensure button is visible */
+  }
 }

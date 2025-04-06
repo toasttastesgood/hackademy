@@ -24,25 +24,10 @@
   margin-left: var(--sidebar-width-collapsed); /* Default margin for collapsed sidebar */
 }
 
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh; /* Ensure full height */
-  z-index: var(--z-index-sidebar); /* Use variable */
-  width: var(--sidebar-width-collapsed); /* Default width */
-  transition: width var(--duration-base) var(--ease-in-out), transform var(--duration-base) var(--ease-in-out);
-  /* Background/styling handled within Sidebar component itself */
-}
-
-.sidebarOpen {
-  width: var(--sidebar-width); /* Expanded width */
-}
+/* .sidebar and .sidebarOpen styles removed - handled by Sidebar component */
 
 /* Adjust main wrapper margin when sidebar is open */
-.sidebarOpen ~ .mainWrapper {
-   margin-left: var(--sidebar-width);
-}
+/* .sidebarOpen ~ .mainWrapper rule removed - Expansion logic TBD */
 
 
 .contentArea {
@@ -77,9 +62,7 @@
 /* Tablet & Desktop (Sidebar behavior changes here) */
 @media (min-width: 769px) {
   /* Ensure mobile transforms are reset */
-   .sidebar {
-     transform: translateX(0);
-   }
+   /* .sidebar transform reset removed */
    .mainWrapper {
      transform: translateX(0);
    }
@@ -95,22 +78,11 @@
     width: 100vw; /* Ensure it takes full width */
   }
 
-  .sidebar {
-    width: var(--sidebar-width); /* Mobile sidebar is full width when open */
-    transform: translateX(-100%); /* Start off-screen */
-    transition: transform var(--duration-base) var(--ease-in-out);
-    /* pointer-events: none; /* Let backdrop handle clicks */
-  }
-
-  .sidebarMobileOpen {
-    transform: translateX(0); /* Slide in */
-    /* pointer-events: auto; */
-  }
+  /* Mobile .sidebar and .sidebarMobileOpen transform styles removed */
+  /* This logic will be handled within Sidebar component based on props */
 
   /* Remove main content margin adjustment on mobile */
-  .sidebarOpen ~ .mainWrapper {
-     margin-left: 0;
-  }
+  /* Mobile .sidebarOpen ~ .mainWrapper rule removed */
 
   /* Content padding adjustment for mobile if needed */
   .contentArea {

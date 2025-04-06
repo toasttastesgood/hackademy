@@ -1,8 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import styles from './Sidebar.module.css'; // Updated CSS module path
-// useTheme and logo imports removed
+import styles from './NewSidebar.module.css'; // New CSS module
+import { useTheme } from '../contexts/ThemeContext'; // Corrected path
 import { FiHome, FiFolder, FiSettings } from 'react-icons/fi';
+import hackademyLight from '../assets/hackademy_light.png'; // Corrected path
+import hackademyDark from '../assets/hackademy_dark.png'; // Corrected path
 
 const navigationLinks = [
   { path: '/', label: 'Home', icon: FiHome },
@@ -10,17 +12,19 @@ const navigationLinks = [
   { path: '/settings', label: 'Settings', icon: FiSettings },
 ];
 
-interface SidebarProps {
-  isOpen: boolean;
-  isMobile: boolean;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, isMobile }) => { // Accept props
-  // colorMode logic removed as logo is removed
+const NewSidebar: React.FC = () => {
+  const { colorMode } = useTheme(); // Use colorMode instead of isDarkMode
 
   return (
-    <aside className={`${styles.sidebar} ${isMobile && isOpen ? styles.mobileOpen : ''}`}>
-      {/* Logo container removed */}
+    <aside className={styles.sidebar}>
+      <div className={styles.logoContainer}>
+        <img
+          src={colorMode === 'dark' ? hackademyDark : hackademyLight}
+          alt="Hackademy Logo"
+          className={styles.logo}
+        />
+        {/* Optionally add text logo here if sidebar is expanded */}
+      </div>
       <nav className={styles.nav}>
         <ul>
           {navigationLinks.map((link) => (
@@ -46,4 +50,4 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, isMobile }) => { // Accept pr
   );
 };
 
-export default Sidebar; // Renamed export
+export default NewSidebar;

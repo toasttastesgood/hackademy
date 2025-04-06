@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react"; // Import useRef
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Topbar.module.css";
 import { FiSearch, FiMenu, FiGithub } from "react-icons/fi";
@@ -26,6 +26,8 @@ const Topbar: React.FC<TopbarProps> = ({
 
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null); // Ref for the input
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,19 +36,37 @@ const Topbar: React.FC<TopbarProps> = ({
     }
   };
 
+  const toggleSearch = () => {
+    setIsSearchExpanded(true);
+  };
+
+  // Focus input when search expands
+  useEffect(() => {
+    if (isSearchExpanded) {
+      searchInputRef.current?.focus();
+    }
+  }, [isSearchExpanded]);
+
+  // Collapse search if blurred and empty
+  const handleSearchBlur = () => {
+    if (!searchTerm) {
+      setIsSearchExpanded(false);
+    }
+  };
+
   return (
       <header className={styles.topbar}>
       <div className={styles.logoAndTitle}>
-        {!isMobile && (
-          <div className={styles.logoContainer}>
-            <img
-              src={colorMode === 'dark' ? hackademyLight : hackademyDark} // Check color mode
-              alt="Hackademy"
-              className={styles.logoImage}
-            />
-          </div>
-        )}
-        {isMobile && (
+        {/* Logo container is now always rendered, hidden on mobile via CSS */}
+        <div className={styles.logoContainer}>
+          <img
+            src={colorMode === 'dark' ? hackademyDark : hackademyLight} // Swapped logic to match asset names
+            alt="Hackademy"
+            className={styles.logoImage}
+          />
+        </div>
+        {/* Menu button only rendered on mobile */}
+        {isMobile ? (
           <button
             className={styles.menuButton}
             onClick={onMenuToggle}
@@ -54,23 +74,35 @@ const Topbar: React.FC<TopbarProps> = ({
           >
             <FiMenu size={24} />
           </button>
-        )}
+        ) : null}
         <div className={styles.title}>{pageTitle}</div>
       </div>
       
 
       <div className={styles.actions}>
-        <form onSubmit={handleSearchSubmit} className={styles.searchContainer}>
-          <FiSearch className={styles.searchIcon} size={18} />
-          <input
-            type="search"
-            placeholder="Search for study sets..."
+        {isSearchExpanded ? (
+          <form onSubmit={handleSearchSubmit} className={`${styles.searchContainer} ${styles.expanded}`}>
+            <FiSearch className={styles.searchIcon} size={18} />
+            <input
+              ref={searchInputRef} // Assign ref
+              type="search"
+              placeholder="Search..."
               className={styles.searchInput}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button type="submit" style={{ display: "none" }} aria-label="Search"></button>
-        </form>
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onBlur={handleSearchBlur} // Add blur handler
+            />
+            <button type="submit" style={{ display: "none" }} aria-label="Search"></button>
+          </form>
+        ) : (
+          <button
+            className={`${styles.searchButton} ${styles.githubButton}`} // Reuse github button style for circle
+            onClick={toggleSearch}
+            aria-label="Open search"
+          >
+            <FiSearch size={18} />
+          </button>
+        )}
 
         {!isMobile && (
           <a href="https://github.com/toasttastesgood/hackademy" target="_blank" rel="noopener noreferrer" className={styles.githubButton} aria-label="View on GitHub">
