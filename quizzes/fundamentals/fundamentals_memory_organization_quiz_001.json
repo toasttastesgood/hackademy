@@ -163,6 +163,38 @@
       "explanation": "Memory alignment improves memory access performance by ensuring that data is stored at addresses that are multiples of its size.",
       "correctAnswers": ["Improve memory access performance"],
       "wrongAnswers": ["Reduce memory capacity", "Protect memory from unauthorized access", "Increase memory speed"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which type of storage is directly accessible to the CPU?",
+      "difficulty": "hard",
+      "explanation": "Primary storage, often referred to as Memory or RAM, is the only type of memory directly accessible to the CPU.",
+      "correctAnswers": ["Primary Storage"],
+      "wrongAnswers": ["Secondary Storage", "Physical Storage", "Logical Storage"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which of the following is considered secondary storage?",
+      "difficulty": "hard",
+      "explanation": "Secondary storage is 'non-volatile' memory storage; basically any storage that is not Primary is Secondary. Hard-disk Drives (HDDs), Solid-state Drives (SSDs), and any kind of external storage technologies (USB drives, floppy disks, magnetic tape, etc)",
+      "correctAnswers": ["Solid-state Drives (SSDs)"],
+      "wrongAnswers": ["Registers", "Cache", "RAM"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the purpose of memory paging?",
+      "difficulty": "hard",
+      "explanation": "Memory Paging - When RAM is full, these will act as a form of virtual memory Utilizes least-used chunks of secondary storage to increase the capacity of primary storage, albeit at the cost of performance.",
+      "correctAnswers": ["Increase the capacity of primary storage"],
+      "wrongAnswers": ["Increase the speed of primary storage", "Decrease the capacity of secondary storage", "Decrease the speed of secondary storage"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the function of a device driver?",
+      "difficulty": "hard",
+      "explanation": "Device Drivers - Computer programs that operate or control a particular type of device that is attached to a system. Provides a software interface to hardware devices, enabling operating systems and other computer programs to access hardware functions.",
+      "correctAnswers": ["Enables operating systems to access hardware functions"],
+      "wrongAnswers": ["Manages virtual memory", "Controls CPU clock speed", "Provides network connectivity"]
     }
   ]
 }

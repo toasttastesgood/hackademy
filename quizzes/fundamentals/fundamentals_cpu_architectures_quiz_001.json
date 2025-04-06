@@ -163,6 +163,30 @@
       "explanation": "A memory management unit (MMU) manages memory access and provides virtual memory capabilities.",
       "correctAnswers": ["Manage memory access"],
       "wrongAnswers": ["Control peripherals", "Handle interrupts", "Define CPU instructions"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which architecture decodes starting at the lowest-addressed byte of the instruction (invariant endianness)?",
+      "difficulty": "hard",
+      "explanation": "RISC decodes starting at the lowest-addressed byte of the instruction (invariant endianness)",
+      "correctAnswers": ["RISC"],
+      "wrongAnswers": ["CISC", "x86", "SPARC"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which architecture spends more transistors on memory registers?",
+      "difficulty": "hard",
+      "explanation": "RISC spends more transistors on memory registers.",
+      "correctAnswers": ["RISC"],
+      "wrongAnswers": ["CISC", "x86", "SPARC"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which architecture has special instructions, as well as instructions that take more than one clock cycle?",
+      "difficulty": "hard",
+      "explanation": "CISC has special instructions, as well as instructions that take more than one clock cycle.",
+      "correctAnswers": ["CISC"],
+      "wrongAnswers": ["RISC", "x86", "SPARC"]
     }
   ]
 }

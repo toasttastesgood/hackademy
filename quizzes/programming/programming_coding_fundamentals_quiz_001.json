@@ -163,6 +163,30 @@
       "explanation": "Inheritance allows a class to inherit properties and methods from another class.",
       "correctAnswers": ["Inherit properties and methods"],
       "wrongAnswers": ["Create objects", "Define functions", "Control program flow"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the result of the boolean expression (True AND False) OR True?",
+      "difficulty": "hard",
+      "explanation": "(True AND False) evaluates to False. False OR True evaluates to True.",
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False", "Error", "Undefined"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which of the following is an example of a compiled programming language?",
+      "difficulty": "hard",
+      "explanation": "Examples of Compiled languages include: C, C++, Erlang, Rust, Go, etc.",
+      "correctAnswers": ["C++"],
+      "wrongAnswers": ["Python", "JavaScript", "Ruby"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which of the following is an example of an interpreted programming language?",
+      "difficulty": "hard",
+      "explanation": "Examples of Interpreted languages include: PHP, Ruby, Python, JavaScript, etc",
+      "correctAnswers": ["Python"],
+      "wrongAnswers": ["C++", "Rust", "Go"]
     }
   ]
 }

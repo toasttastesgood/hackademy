@@ -163,6 +163,30 @@
       "explanation": "The script iterates through the numbers 1, 2, and 3, printing each number on a new line.",
       "correctAnswers": ["1\\n2\\n3"],
       "wrongAnswers": ["1 2 3", "3 2 1", "Error"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the result of the boolean expression `(NOT True) OR (False AND True)`?",
+      "difficulty": "hard",
+      "explanation": "NOT True is False. False AND True is False. False OR False is False.",
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True", "Error", "Undefined"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which of the following languages typically results in faster execution due to its compilation process?",
+      "difficulty": "hard",
+      "explanation": "Compiled languages, like C++, are generally faster than interpreted languages because they are translated directly into machine code.",
+      "correctAnswers": ["C++"],
+      "wrongAnswers": ["Python", "JavaScript", "PHP"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which of the following is a key characteristic of interpreted languages?",
+      "difficulty": "hard",
+      "explanation": "Interpreted languages are executed line by line, making them more flexible but generally slower than compiled languages.",
+      "correctAnswers": ["Line-by-line execution"],
+      "wrongAnswers": ["Direct hardware access", "Static typing", "Pre-compilation"]
     }
   ]
 }

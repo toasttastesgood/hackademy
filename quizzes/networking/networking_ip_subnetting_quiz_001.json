@@ -163,6 +163,38 @@
       "explanation": "CIDR notation is used to represent IP addresses and their associated subnet mask.",
       "correctAnswers": ["Represent IP addresses and subnet masks"],
       "wrongAnswers": ["Encrypt network traffic", "Control network access", "Manage network devices"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the IPv6 link-local address prefix?",
+      "difficulty": "hard",
+      "explanation": "The IPv6 link-local address prefix is FE80::/10.",
+      "correctAnswers": ["FE80::/10"],
+      "wrongAnswers": ["2000::/3", "FC00::/7", "FF00::/8"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which IPv6 address type is used for one-to-many communication?",
+      "difficulty": "hard",
+      "explanation": "The IPv6 multicast address type is used for one-to-many communication.",
+      "correctAnswers": ["Multicast"],
+      "wrongAnswers": ["Unicast", "Anycast", "Global Unicast"]
+    },
+    {
+      "type": "mcq",
+      "text": "What is the maximum number of hosts in a /118 IPv6 subnet?",
+      "difficulty": "hard",
+      "explanation": "A /118 IPv6 subnet has 2^(128-118) = 2^10 = 1024 addresses. Subtracting the subnet and broadcast addresses, there are 1022 usable host addresses.",
+      "correctAnswers": ["1022"],
+      "wrongAnswers": ["1024", "2", "None"]
+    },
+    {
+      "type": "mcq",
+      "text": "Which IPv6 transition mechanism encapsulates IPv6 packets within IPv4 packets?",
+      "difficulty": "hard",
+      "explanation": "Tunneling encapsulates IPv6 packets within IPv4 packets.",
+      "correctAnswers": ["Tunneling"],
+      "wrongAnswers": ["Dual Stacking", "Translation", "NAT64"]
     }
   ]
 }

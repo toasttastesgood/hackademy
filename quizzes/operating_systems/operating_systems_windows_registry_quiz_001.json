@@ -163,6 +163,38 @@
       "explanation": "The SID S-1-5-[4a]-513 is a DOMAIN ADMINISTRATOR Acct.",
       "correctAnswers": ["S-1-5-[4a]-513"],
       "wrongAnswers": ["S-1-5-[4a]-512", "S-1-5-[4a]-514", "S-1-5-[4a]-515"]
+    },
+    {
+        "type": "mcq",
+        "text": "Which registry key contains information about registered applications, such as file associations and OLE Object Class IDs?",
+        "difficulty": "hard",
+        "explanation": "HKEY_CLASSES_ROOT (HKCR) contains information about registered applications, such as file associations and OLE Object Class IDs. Compilation of user-based HKCU\\Software\\Classes and machine-based HKLM\\Software\\Classes",
+        "correctAnswers": ["HKEY_CLASSES_ROOT (HKCR)"],
+        "wrongAnswers": ["HKEY_CURRENT_CONFIG (HKCC)", "HKEY_CURRENT_USER (HKCU)", "HKEY_LOCAL_MACHINE (HKLM)"]
+    },
+    {
+        "type": "mcq",
+        "text": "Which registry key acts as a pointer to the hardware profile currently being used?",
+        "difficulty": "hard",
+        "explanation": "HKEY_CURRENT_CONFIG (HKCC) doesn’t store any information itself, but acts as a pointer, or shortcut, to a registry key that keeps the information about the hardware profile currently being used.",
+        "correctAnswers": ["HKEY_CURRENT_CONFIG (HKCC)"],
+        "wrongAnswers": ["HKEY_CLASSES_ROOT (HKCR)", "HKEY_CURRENT_USER (HKCU)", "HKEY_LOCAL_MACHINE (HKLM)"]
+    },
+    {
+        "type": "mcq",
+        "text": "In which file are user profile settings stored?",
+        "difficulty": "hard",
+        "explanation": "User profile settings are stored in each user’s NTUSER.DAT and USRCLASS.dat files and are loaded at logon.",
+        "correctAnswers": ["NTUSER.DAT"],
+        "wrongAnswers": ["BOOTMGR", "WINLOAD.EXE", "NTOSKRNL.EXE"]
+    },
+    {
+        "type": "mcq",
+        "text": "Which registry key contains a SID sub-key for all loaded (logged in) user profiles?",
+        "difficulty": "hard",
+        "explanation": "HKEY_USERS (HKU) contains a SID sub-key for all loaded (logged in) user profiles. These user profile settings are stored in each user’s NTUSER.DAT and USRCLASS.dat files and are loaded at logon.",
+        "correctAnswers": ["HKEY_USERS (HKU)"],
+        "wrongAnswers": ["HKEY_CLASSES_ROOT (HKCR)", "HKEY_CURRENT_CONFIG (HKCC)", "HKEY_LOCAL_MACHINE (HKLM)"]
     }
   ]
 }

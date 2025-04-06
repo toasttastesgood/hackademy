@@ -163,6 +163,38 @@
       "explanation": "The traceroute command prints the route packets trace to network host.",
       "correctAnswers": ["Print the route packets trace to network host"],
       "wrongAnswers": ["Display network configuration", "Test network connectivity", "Resolve domain names to IP addresses"]
+    },
+    {
+        "type": "mcq",
+        "text": "Which IPv6 address type is equivalent to IPv4's private address ranges?",
+        "difficulty": "hard",
+        "explanation": "Unique Local Addresses (ULA) in IPv6 are similar in scope to IPv4 private addresses, providing addressing within a site.",
+        "correctAnswers": ["Unique Local Address (ULA)"],
+        "wrongAnswers": ["Global Unicast Address", "Link-Local Address", "Multicast Address"]
+    },
+    {
+        "type": "mcq",
+        "text": "What is the IPv6 equivalent of IPv4's APIPA (Automatic Private IP Addressing)?",
+        "difficulty": "hard",
+        "explanation": "IPv6 uses Link-Local Addresses (LLA) for automatic address configuration on a single link, similar to IPv4's APIPA.",
+        "correctAnswers": ["Link-Local Address (LLA)"],
+        "wrongAnswers": ["Unique Local Address (ULA)", "Global Unicast Address", "Multicast Address"]
+    },
+    {
+        "type": "mcq",
+        "text": "Which protocol is used to automatically configure IPv6 addresses without a DHCP server?",
+        "difficulty": "hard",
+        "explanation": "SLAAC (Stateless Address Autoconfiguration) allows devices to automatically configure IPv6 addresses without a DHCP server.",
+        "correctAnswers": ["SLAAC"],
+        "wrongAnswers": ["DHCPv6", "ARPv6", "ICMPv6"]
+    },
+    {
+        "type": "mcq",
+        "text": "What is the purpose of the Neighbor Discovery Protocol (NDP) in IPv6?",
+        "difficulty": "hard",
+        "explanation": "NDP (Neighbor Discovery Protocol) is used for address resolution, router discovery, and neighbor unreachability detection in IPv6.",
+        "correctAnswers": ["Address resolution, router discovery, and neighbor unreachability detection"],
+        "wrongAnswers": ["Dynamic IP address assignment", "Secure communication", "Routing table maintenance"]
     }
   ]
 }

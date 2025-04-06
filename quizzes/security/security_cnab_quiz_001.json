@@ -1,0 +1,170 @@
+{
+  "quiz_template": {
+    "id": "security_cnab_quiz_001",
+    "category": "security",
+    "title": "Security - CNAB Prep Quiz",
+    "description": "Quiz to prepare for the CNAB test, focusing on security topics.",
+    "questions": [
+      {
+        "type": "mcq",
+        "text": "Which Windows command displays a list of currently running processes?",
+        "difficulty": "hard",
+        "explanation": "The tasklist command displays a list of currently running processes on the local or a remote computer. The /svc option lists service information without truncation.",
+        "correctAnswers": ["tasklist"],
+        "wrongAnswers": ["ps", "netstat", "ipconfig"]
+      },
+      {
+        "type": "mcq",
+        "text": "Which of the following is the correct syntax for a UNC path?",
+        "difficulty": "medium",
+        "explanation": "The correct syntax for a UNC path is \\\\host-name\\share-name\\file-path.",
+        "correctAnswers": ["\\\\host-name\\share-name\\file-path"],
+        "wrongAnswers": ["//host-name/share-name/file-path", "host-name:share-name:file-path", "host-name/share-name/file-path"]
+      },
+      {
+        "type": "mcq",
+        "text": "Which of the following is the default log directory in UNIX-like systems?",
+        "difficulty": "medium",
+        "explanation": "Logs are stored by default in /var/log/ in UNIX-like systems.",
+        "correctAnswers": ["/var/log/"],
+        "wrongAnswers": ["/etc/log/", "/opt/log/", "/home/log/"]
+      },
+      {
+        "type": "mcq",
+        "text": "Which protocol uses TCP port 443?",
+        "difficulty": "medium",
+        "explanation": "HTTPS (Hypertext Transfer Protocol Secure) uses Transport Layer Security (TLS) or SSL to secure connections to web servers, and it operates on TCP port 443.",
+        "correctAnswers": ["HTTPS"],
+        "wrongAnswers": ["HTTP", "FTP", "SSH"]
+      },
+      {
+        "type": "true_false",
+        "text": "In the context of IPv4 addressing, PAT (Port Address Translation) involves translating a private IP address to a different public IP address while maintaining the same port number.",
+        "difficulty": "hard",
+        "explanation": "NAT (Network Address Translation) translates a private IP address to a different public IP address, while PAT (Port Address Translation) translates a private IP address to the same public IP address but with a different port number.",
+        "correctAnswers": [false],
+        "options": ["True", "False"]
+      },
+      {
+        "type": "mcq",
+        "text": "What is the purpose of the 'iptables' command in Linux?",
+        "difficulty": "hard",
+        "explanation": "iptables is the administration tool for IPv4 packet filtering and NAT, allowing you to set up, maintain, and inspect the tables of IP packet filter rules in the Linux kernel.",
+        "correctAnswers": ["Administration tool for IPv4 packet filtering and NAT"],
+        "wrongAnswers": ["Display network interface configuration", "Manage user accounts", "Monitor system performance"]
+      },
+      {
+        "type": "mcq",
+        "text": "Which of the following is a characteristic of RISC (Reduced Instruction Set Computing) architecture?",
+        "difficulty": "medium",
+        "explanation": "RISC architectures are characterized by a small, highly optimized set of instructions, a large number of registers, and a highly regular instruction pipeline, allowing for a low number of clock cycles per instruction.",
+        "correctAnswers": ["Small, highly optimized set of instructions"],
+        "wrongAnswers": ["Complex instructions that take multiple clock cycles", "Memory-to-memory operations", "Large code sizes"]
+      },
+      {
+        "type": "mcq",
+        "text": "What is the function of the Windows Registry?",
+        "difficulty": "medium",
+        "explanation": "The Windows Registry stores settings and options for the operating system and applications. It is a hierarchical database that contains low-level settings for the Microsoft Windows operating system and for applications that opt to use the registry.",
+        "correctAnswers": ["Stores settings and options for the operating system and applications"],
+        "wrongAnswers": ["Manages user accounts and permissions", "Controls network traffic", "Stores temporary files"]
+      },
+      {
+        "type": "mcq",
+        "text": "Which of the following is a characteristic of a worm?",
+        "difficulty": "medium",
+        "explanation": "A worm is a type of malware that targets vulnerabilities in operating systems to install themselves into networks. It can copy itself and spread through a network by exploiting security vulnerabilities.",
+        "correctAnswers": ["Targets vulnerabilities in operating systems to spread"],
+        "wrongAnswers": ["Disguises itself as legitimate software", "Requires a host application to run", "Gives remote control with admin privileges"]
+      },
+      {
+        "type": "true_false",
+        "text": "A hard link in Unix-like systems points to the file itself, while a symbolic link points to the inode of the file.",
+        "difficulty": "hard",
+        "explanation": "In POSIX-compliant systems (including Unix-Like systems), a hard link points to the inode of the file, instead of the file itself; hard link gains all the attributes of the original file and points to the same data block as the original file. A symbolic link contains a reference to another file or directory in the form of an absolute or relative path.",
+        "correctAnswers": [false],
+        "options": ["True", "False"]
+      },
+      {
+        "type": "mcq",
+        "text": "Which of the following is the default port for Kerberos?",
+        "difficulty": "medium",
+        "explanation": "Kerberos uses UDP port 88 by default.",
+        "correctAnswers": ["88"],
+        "wrongAnswers": ["53", "110", "443"]
+      },
+      {
+        "type": "mcq",
+        "text": "What is the purpose of the 'traceroute' command?",
+        "difficulty": "medium",
+        "explanation": "The traceroute command determines the path taken to a destination by sending ICMP echo requests to the destination with incrementally increasing TTL field values.",
+        "correctAnswers": ["Determines the path taken to a destination"],
+        "wrongAnswers": ["Displays active TCP connections", "Configures network interfaces", "Lists running processes"]
+      },
+      {
+        "type": "mcq",
+        "text": "Which of the following is a function of the Transport Layer (Layer 4) in the OSI model?",
+        "difficulty": "medium",
+        "explanation": "The Transport Layer manages delivery between systems and hosts. It breaks data into chunks (segments), handles segment sequencing, error recovery, and flow control.",
+        "correctAnswers": ["End-to-end connections and reliability"],
+        "wrongAnswers": ["Logical addressing and routing of messages", "Physical addressing and frame data heading", "Interface between user's application and network"]
+      },
+      {
+        "type": "true_false",
+        "text": "The /etc/shadow file contains password hashes for each user that has logged onto the machine in UNIX-like systems.",
+        "difficulty": "medium",
+        "explanation": "The /etc/shadow file contains password hashes for each user that has logged onto the machine in UNIX-like systems.",
+        "correctAnswers": [true],
+        "options": ["True", "False"]
+      },
+      {
+        "type": "mcq",
+        "text": "Which of the following is a characteristic of the BGP (Border Gateway Protocol)?",
+        "difficulty": "hard",
+        "explanation": "BGP is the only routing protocol that is still considered an Exterior Gateway Protocol. It is a path-vector routing protocol that makes routing decisions based on paths, network policies, or rule-sets configured by a network administrator.",
+        "correctAnswers": ["Only Routing Protocol is still considered an Exterior Gateway Protocol"],
+        "wrongAnswers": ["Uses hop count as a routing metric", "Based on link-state technology", "Scales well and provides extremely quick convergence times"]
+      },
+      {
+        "type": "mcq",
+        "text": "What is the purpose of the ARP (Address Resolution Protocol)?",
+        "difficulty": "medium",
+        "explanation": "ARP maps IP addresses to MAC addresses, associating known IP addresses to unknown MAC addresses. It operates on Layer 3 (Network).",
+        "correctAnswers": ["Maps IP addresses to MAC addresses"],
+        "wrongAnswers": ["Provides dynamic IP address allocation", "Secures network connections", "Routes packets between networks"]
+      },
+      {
+        "type": "true_false",
+        "text": "SysWOW64 is a subsystem of Windows OS capable of running 64-bit applications on 32-bit Windows.",
+        "difficulty": "medium",
+        "explanation": "SysWOW64 is a subsystem of Windows OS capable of running 32-bit applications on 64-bit Windows.",
+        "correctAnswers": [false],
+        "options": ["True", "False"]
+      },
+      {
+        "type": "mcq",
+        "text": "Which of the following is a function of a firewall?",
+        "difficulty": "medium",
+        "explanation": "A firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules. It establishes a barrier between a trusted network and an untrusted network.",
+        "correctAnswers": ["Monitors and controls network traffic based on security rules"],
+        "wrongAnswers": ["Provides intrusion detection", "Encrypts network traffic", "Manages user authentication"]
+      },
+      {
+        "type": "mcq",
+        "text": "What is the purpose of the 'DORA' process in DHCP?",
+        "difficulty": "medium",
+        "explanation": "DORA (Discover, Offer, Request, Acknowledge) is the process used by DHCP to grant IP addresses to connected devices in a network.",
+        "correctAnswers": ["Process used by DHCP to grant IP addresses"],
+        "wrongAnswers": ["Authentication protocol", "Encryption algorithm", "Routing protocol"]
+      },
+      {
+        "type": "true_false",
+        "text": "In TCP/IP communication, the SYN-ACK packet is sent by the client to the server during the three-way handshake.",
+        "difficulty": "medium",
+        "explanation": "In the TCP/IP three-way handshake, the SYN packet is sent by the client to the server, the SYN-ACK packet is sent by the server to the client, and the ACK packet is sent by the client back to the server.",
+        "correctAnswers": [false],
+        "options": ["True", "False"]
+      }
+    ]
+  }
+}

@@ -163,6 +163,38 @@
       "explanation": "Malware often modifies startup entries to ensure it runs automatically when the system boots.",
       "correctAnswers": ["Modifying startup entries"],
       "wrongAnswers": ["Encrypting system files", "Disabling firewall rules", "Deleting system logs"]
+    },
+    {
+        "type": "mcq",
+        "text": "Which of the following is a key component of the Kerberos authentication process?",
+        "difficulty": "hard",
+        "explanation": "Ticket Granting Tickets (TGTs) are a key component of the Kerberos authentication process, issued by the Authentication Server.",
+        "correctAnswers": ["Ticket Granting Ticket (TGT)"],
+        "wrongAnswers": ["Digital Certificate", "Public Key Infrastructure (PKI)", "Session Cookie"]
+    },
+    {
+        "type": "mcq",
+        "text": "Which of the following is a tool used for monitoring and alerting on specific file changes to ensure data integrity?",
+        "difficulty": "hard",
+        "explanation": "Tripwire is a security and data integrity tool for monitoring and alerting on specific file changes on a range of systems.",
+        "correctAnswers": ["Tripwire"],
+        "wrongAnswers": ["Nmap", "Wireshark", "Metasploit"]
+    },
+    {
+        "type": "mcq",
+        "text": "Which type of malware targets vulnerabilities in operating systems to install themselves into networks?",
+        "difficulty": "hard",
+        "explanation": "Worms target vulnerabilities in operating systems to install themselves into networks. Often used to launch DDoS attacks, steal data, etc. Can copy itself and spread through a network by exploiting security vulnerabilities.",
+        "correctAnswers": ["Worm"],
+        "wrongAnswers": ["Trojan", "Virus", "Rootkit"]
+    },
+    {
+        "type": "mcq",
+        "text": "Which type of malware is a piece of code that inserts itself into an application and executes when the app is run?",
+        "difficulty": "hard",
+        "explanation": "Virus: Piece of code that inserts itself into an application and executes when the app is run.",
+        "correctAnswers": ["Virus"],
+        "wrongAnswers": ["Trojan", "Worm", "Rootkit"]
     }
   ]
 }
