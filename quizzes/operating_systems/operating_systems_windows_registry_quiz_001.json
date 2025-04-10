@@ -21,12 +21,12 @@
       "wrongAnswers": ["HKEY_CURRENT_USER", "HKEY_CLASSES_ROOT", "HKEY_USERS"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The Windows Registry is stored entirely in memory.",
       "difficulty": "easy",
       "explanation": "The Windows Registry is stored on disk in files like NTUSER.DAT and USRCLASS.DAT, and loaded into memory at logon.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["HKEY_LOCAL_MACHINE", "HKEY_CURRENT_USER", "HKEY_USERS"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "HKEY_CURRENT_CONFIG stores hardware profile information.",
       "difficulty": "easy",
       "explanation": "HKEY_CURRENT_CONFIG acts as a pointer to a registry key that keeps the information about the hardware profile currently being used.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["SOFTWARE", "SAM", "SECURITY"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The SAM subkey in HKLM contains software and Windows settings.",
       "difficulty": "easy",
       "explanation": "The SOFTWARE subkey in HKLM contains software and Windows settings. The SAM subkey contains account information.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["System boot configuration", "Network interface settings", "Software installation information"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The Windows Registry is a flat database.",
       "difficulty": "easy",
       "explanation": "The Windows Registry is a hierarchical database.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["System boot configuration", "Network interface settings", "Software installation information"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Changes made in HKCU affect all users on the system.",
       "difficulty": "easy",
       "explanation": "Changes made in HKCU only affect the currently logged-in user.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["System Identification", "Software Installation Directory", "Service Interface Definition"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Each user account has a unique SID.",
       "difficulty": "easy",
       "explanation": "Each user account has a unique SID (Security Identifier).",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",

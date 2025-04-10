@@ -5,3 +5,15 @@ Think through and plan out everything need for a navigation menu on the left sid
 Can you look through this web app and see what can be optimized or reused to make the codebase better and the web app look and work better?
 
 https://uiverse.io/switches?page=2
+
+@/src/components/QuizBrowser.tsx 
+@/src/components/QuizBrowser.module.css 
+@/src/components/CategoryView.tsx 
+@/src/components/CategoryView.module.css 
+@/src/components/CircularProgress.tsx 
+@/src/components/Progress/CircularProgress.module.css 
+@/src/components/Card/Card.tsx 
+@/src/components/Card/Card.module.css 
+@/src/Styles/global.css 
+
+ Think of a few better layout options for the category view and the browse page

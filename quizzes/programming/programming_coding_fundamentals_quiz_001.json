@@ -21,12 +21,12 @@
       "wrongAnswers": ["Define a function", "Declare a variable", "Create a class"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A function is a block of code that performs a specific task.",
       "difficulty": "easy",
       "explanation": "A function is a block of code that performs a specific task.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["=", "+", "-"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The '=' operator is used for assignment, not comparison.",
       "difficulty": "easy",
       "explanation": "The '=' operator is used for assignment, not comparison.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["Loop", "Function", "Class"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A string is used to store numerical values.",
       "difficulty": "easy",
       "explanation": "A string is used to store text, not numerical values.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["x = 10;", "variable x = 10;", "x: int = 10;"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Comments are used to execute code.",
       "difficulty": "easy",
       "explanation": "Comments are used to explain code, not execute it.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["Define a function", "Declare a variable", "Create a loop"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A function can only have one parameter.",
       "difficulty": "easy",
       "explanation": "A function can have multiple parameters.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["+", "-", "*"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The '||' operator represents the AND operation.",
       "difficulty": "easy",
       "explanation": "The '||' operator represents the OR operation.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

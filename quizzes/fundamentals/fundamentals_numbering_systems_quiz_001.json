@@ -21,12 +21,12 @@
       "wrongAnswers": ["E0", "FF", "0F"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The octal number system is base 16.",
       "difficulty": "easy",
       "explanation": "The octal number system is base 8.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["11001100", "01011010", "10101010"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The binary number 1010 is equal to the decimal number 12.",
       "difficulty": "easy",
       "explanation": "The binary number 1010 is equal to the decimal number 10.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -77,12 +77,12 @@
       "wrongAnswers": ["11111", "10111", "011101"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The hexadecimal number 10 is equal to the decimal number 10.",
       "difficulty": "easy",
       "explanation": "The hexadecimal number 10 is equal to the decimal number 16.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -101,12 +101,12 @@
       "wrongAnswers": ["3A", "2B", "30"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The binary number 1111 is equal to the decimal number 16.",
       "difficulty": "easy",
       "explanation": "The binary number 1111 is equal to the decimal number 15.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -125,12 +125,12 @@
       "wrongAnswers": ["1100100", "100100", "0110100"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The hexadecimal number FF is equal to the decimal number 256.",
       "difficulty": "easy",
       "explanation": "The hexadecimal number FF is equal to the decimal number 255.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -149,12 +149,12 @@
       "wrongAnswers": ["2F", "1E", "20"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The octal number 10 is equal to the decimal number 10.",
       "difficulty": "easy",
       "explanation": "The octal number 10 is equal to the decimal number 8.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

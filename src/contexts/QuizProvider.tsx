@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
-import { validateQuiz, Quiz, Question } from '../services/QuizValidator'; // Import validator and types
+import { validateQuizPartial } from '../services/QuizValidator';
+import { Quiz, Question } from '../services/QuizTypes';
 
 // Remove duplicated type definitions here - they are now imported from QuizValidator.ts
 
@@ -8,6 +9,21 @@ interface ProgressData {
     attempts: number;
     highestScore: number;
     lastAttempt: string;
+  };
+}
+
+// Detailed tracking for individual questions within a quiz
+export interface QuestionStatus {
+  seen: boolean;
+  correct: boolean | null; // null if seen but not answered/irrelevant, true/false if answered
+  lastSeen?: string; // ISO timestamp of last attempt
+  correctCount?: number; // total times answered correctly
+  incorrectCount?: number; // total times answered incorrectly
+}
+
+interface QuizQuestionTracking {
+  [quizId: string]: {
+    [questionIndex: number]: QuestionStatus; // Use original index as identifier
   };
 }
 
@@ -29,6 +45,10 @@ interface QuizContextType {
   resetProgress: () => void;
   loadQuizzes: () => Promise<void>;
   updateProgress: (quizId: string, score: number) => void;
+  // New function to update detailed question tracking
+  updateQuestionTracking: (quizId: string, results: { questionIndex: number; isCorrect: boolean }[]) => void;
+  // Function to get tracking data for a specific quiz
+  getQuestionTrackingForQuiz: (quizId: string) => { [questionIndex: number]: QuestionStatus } | undefined;
   getQuizzesByCategory: (category: string) => Quiz[];
 }
 
@@ -39,6 +59,10 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [categories, setCategories] = useState<Record<string, CategoryData>>({});
   const [progress, setProgress] = useState<ProgressData>(() => {
     const saved = localStorage.getItem('quizProgress');
+    return saved ? JSON.parse(saved) : {};
+  });
+  const [questionTracking, setQuestionTracking] = useState<QuizQuestionTracking>(() => {
+    const saved = localStorage.getItem('quizQuestionTracking');
     return saved ? JSON.parse(saved) : {};
   });
   const [loading, setLoading] = useState(false);
@@ -59,7 +83,9 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Reset progress function
   const resetProgress = useCallback(() => {
     localStorage.removeItem('quizProgress');
+    localStorage.removeItem('quizQuestionTracking'); // Clear detailed tracking too
     setProgress({});
+    setQuestionTracking({}); // Reset tracking state
     // Recalculate categories with empty progress
     calculateCategories(quizzes, {});
   }, [quizzes]); // Include quizzes dependency for calculateCategories
@@ -80,6 +106,40 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return newProgress;
     });
   };
+
+  // Function to update detailed question tracking after a quiz session
+  const updateQuestionTracking = useCallback((quizId: string, results: { questionIndex: number; isCorrect: boolean }[]) => {
+    setQuestionTracking(prev => {
+      const newTracking = { ...prev };
+      if (!newTracking[quizId]) {
+        newTracking[quizId] = {};
+      }
+      const quizTracking = { ...newTracking[quizId] };
+
+      results.forEach(({ questionIndex, isCorrect }) => {
+        // Update status: mark as seen, update correctness
+        // If already correct, keep it correct. Otherwise, update with the latest result.
+        const currentStatus = quizTracking[questionIndex];
+        const nowIso = new Date().toISOString();
+        quizTracking[questionIndex] = {
+          seen: true,
+          correct: currentStatus?.correct === true ? true : isCorrect,
+          lastSeen: nowIso,
+          correctCount: (currentStatus?.correctCount || 0) + (isCorrect ? 1 : 0),
+          incorrectCount: (currentStatus?.incorrectCount || 0) + (isCorrect ? 0 : 1),
+        };
+      });
+
+      newTracking[quizId] = quizTracking;
+      localStorage.setItem('quizQuestionTracking', JSON.stringify(newTracking));
+      return newTracking;
+    });
+  }, []);
+
+  // Function to retrieve tracking data for a specific quiz
+  const getQuestionTrackingForQuiz = useCallback((quizId: string): { [questionIndex: number]: QuestionStatus } | undefined => {
+      return questionTracking[quizId];
+  }, [questionTracking]);
 
   const calculateCategories = (loadedQuizzes: Record<string, Quiz>, currentProgress: ProgressData) => {
     const categoryMap: Record<string, CategoryData> = {};
@@ -128,14 +188,12 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
           // --- Optional Validation Step ---
           if (validateQuizzesEnabled) {
-            const validationResult = validateQuiz(quizData);
-            if (!validationResult.isValid) {
-              // Errors are already logged by validateQuiz
-              console.warn(`Skipping invalid quiz file due to validation errors: ${path}`);
+            const { isValid, validQuiz } = validateQuizPartial(quizData);
+            if (!isValid || !validQuiz) {
+              console.warn(`Skipping invalid or empty quiz: ${path}`);
               continue; // Skip this quiz
             }
-            // Use validated data if validation is enabled
-            loadedQuizzes[validationResult.data!.id] = validationResult.data!;
+            loadedQuizzes[validQuiz.id] = validQuiz;
           } else {
             // --- Basic Structure Check (if validation is off) ---
             // Perform minimal checks to avoid runtime errors if validation is off
@@ -180,6 +238,8 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
       resetProgress,
       loadQuizzes,
       updateProgress,
+      updateQuestionTracking, // Expose new function
+      getQuestionTrackingForQuiz, // Expose getter
       getQuizzesByCategory: (category: string) =>
         Object.values(quizzes).filter(q => q.category === category)
     }}>

@@ -21,12 +21,12 @@
       "wrongAnswers": ["x86", "x64", "CISC"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Little-endian systems store the most significant byte (MSB) at the smallest memory address.",
       "difficulty": "medium",
       "explanation": "Little-endian systems store the least significant byte (LSB) at the smallest memory address, while big-endian systems store the MSB at the smallest address.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["Single-clock reduced instructions", "Register-to-register operations", "Large number of registers"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "x86 architectures allow more than 4GB of RAM to be installed.",
       "difficulty": "medium",
       "explanation": "x86 architectures are limited to a maximum of 4GB of RAM. x64 architectures allow more than 4GB of RAM.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -77,12 +77,12 @@
       "wrongAnswers": ["Managing system memory", "Controlling peripheral devices", "Displaying the GUI"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Virtualization allows multiple operating systems to run simultaneously on a single physical machine.",
       "difficulty": "easy",
       "explanation": "Virtualization enables multiple operating systems to run concurrently on a single physical machine, sharing hardware resources.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -101,12 +101,12 @@
       "wrongAnswers": ["1024 bytes", "2048 bytes", "4096 bytes"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Kernel space is where user applications are executed.",
       "difficulty": "medium",
       "explanation": "User applications are executed in user space, while the kernel space is reserved for the operating system kernel.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -125,12 +125,12 @@
       "wrongAnswers": ["Improve CPU performance", "Reduce power consumption", "Enhance data security"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A hard link and the original file have different inodes.",
       "difficulty": "medium",
       "explanation": "A hard link points to the inode of the file, instead of the file itself; hard link gains all the attributes of the original file and points to the same data block as the original file",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -149,12 +149,12 @@
       "wrongAnswers": ["Points directly to the inode of the file", "Increases the link count of the file", "Contains the actual data of the file"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The Windows Registry is stored entirely in memory and not on disk.",
       "difficulty": "medium",
       "explanation": "The Windows Registry is stored on disk in files like NTUSER.DAT and USRCLASS.DAT, and loaded into memory at logon.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

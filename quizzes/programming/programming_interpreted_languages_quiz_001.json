@@ -21,12 +21,12 @@
       "wrongAnswers": ["Compiled before execution", "Platform-dependent", "Requires a linker"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Interpreted languages are generally faster than compiled languages.",
       "difficulty": "easy",
       "explanation": "Interpreted languages are generally slower than compiled languages.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["Compile source code", "Link object files", "Create executable files"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Interpreted languages are platform-independent.",
       "difficulty": "easy",
       "explanation": "Interpreted languages are generally platform-independent, as long as the interpreter is available for the platform.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": [".js", ".sh", ".c"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "JavaScript is primarily used for server-side development.",
       "difficulty": "easy",
       "explanation": "JavaScript is primarily used for client-side (front-end) development, although it can also be used for server-side development with Node.js.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["Validate data", "Encrypt data", "Compress data"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "PHP is primarily used for client-side development.",
       "difficulty": "easy",
       "explanation": "PHP is primarily used for server-side development.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["Define variables", "Create functions", "Handle errors"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Ruby is a compiled language.",
       "difficulty": "easy",
       "explanation": "Ruby is an interpreted language.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["Read user input", "Create files", "Send network requests"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'console.log()' function is used to display output in PHP.",
       "difficulty": "easy",
       "explanation": "The 'console.log()' function is used to display output in JavaScript, not PHP.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

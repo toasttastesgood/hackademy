@@ -14,9 +14,9 @@
     },
     {
       "text": "XSS attacks can be prevented by properly sanitizing user input.",
-      "type": "true_false",
-      "correctAnswers": [true],
-      "options": ["True", "False"],
+      "type": "mcq",
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"],
       "explanation": "Input sanitization is a primary defense against XSS attacks.",
       "difficulty": "easy"
     }

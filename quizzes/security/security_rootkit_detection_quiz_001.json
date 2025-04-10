@@ -21,12 +21,12 @@
       "wrongAnswers": ["Easy to detect", "Require user interaction", "Self-replicating"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Rootkits always operate in user space.",
       "difficulty": "easy",
       "explanation": "Rootkits can operate in user space, kernel space, or even firmware.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["Firewall logs", "Antivirus signatures", "Network traffic analysis"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Signature-based antivirus software is effective against all rootkits.",
       "difficulty": "easy",
       "explanation": "Signature-based antivirus software is not effective against rootkits that use advanced hiding techniques.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["Encrypting system files", "Disabling firewall rules", "Deleting system logs"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A rootkit can modify the operating system kernel.",
       "difficulty": "easy",
       "explanation": "A rootkit can modify the operating system kernel.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["Encrypt system files", "Disable firewall rules", "Delete system logs"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A blue screen of death (BSOD) is always caused by a rootkit.",
       "difficulty": "easy",
       "explanation": "A blue screen of death (BSOD) can be caused by various hardware and software issues, not just rootkits.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["Operate in user space", "Operate in kernel space", "Operate in firmware"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A user-mode rootkit is more difficult to detect than a kernel-mode rootkit.",
       "difficulty": "medium",
       "explanation": "A kernel-mode rootkit is generally more difficult to detect than a user-mode rootkit.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["Encrypt system files", "Disable firewall rules", "Delete system logs"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A rootkit can prevent system updates.",
       "difficulty": "easy",
       "explanation": "A rootkit can prevent system updates to maintain its presence.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",

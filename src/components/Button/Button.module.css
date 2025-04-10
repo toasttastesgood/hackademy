@@ -1,164 +1,162 @@
-/* Button Component Styles */
+/* src/components/Button/Button.module.css */
+
 .btn {
-  display: inline-block;
-  padding: var(--space-sm) var(--space-md);
-  border: var(--border-width-base) solid transparent; /* Use variable */
-  border-radius: var(--border-radius-md);
-  cursor: pointer;
-  font-size: var(--font-size-base);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm); /* Space between text and icons */
   font-family: inherit;
   font-weight: var(--font-weight-medium);
-  text-align: center;
-  text-decoration: none;
-  color: var(--text-primary); /* Default text color */
-  line-height: var(--line-height-normal); /* Use variable */
-  position: relative;
-  overflow: hidden;
-  transform: translateZ(0);
-  transition: var(--transition-all); /* Use variable */
-  background-color: transparent; /* Default background */
-  /* Base shadow for neumorphic compatibility */
-  box-shadow: var(--button-outline-shadow, none);
+  line-height: var(--line-height-none);
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: var(--border-width-base) solid transparent; /* Base border */
+  border-radius: var(--border-radius-md);
+  transition: var(--transition-all);
+  text-decoration: none; /* Remove underline from link variant */
 }
 
-/* General Hover/Active - subtle scale */
-.btn:hover:not(:disabled) {
-  transform: scale(1.02);
-  /* Hover shadow handled by specific variants */
+.btn:focus {
+  outline: none; /* Focus handled by focus-visible */
 }
 
-.btn:active:not(:disabled) {
-  transform: scale(0.98);
-  /* Active shadow handled by specific variants */
+.btn:focus-visible {
+  /* Focus ring applied globally, but ensure base shadow is included */
+  box-shadow: var(--button-primary-shadow, none), var(--shadow-focus-ring);
 }
 
-/* Ripple Effect (Keep as is for now) */
-.btn::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  /* Consider theming this background if needed */
-  background: color-mix(in srgb, var(--text-on-primary, #fff) 50%, transparent); /* Use theme variable */
-  opacity: 0;
-  border-radius: var(--border-radius-full); /* Use variable */
-  transform: scale(1, 1) translate(-50%, -50%);
-  transform-origin: 50% 50%;
-}
-
-.btn:focus:not(:active)::after {
-  animation: ripple var(--duration-slow) var(--ease-in-out);
-}
-
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(20, 20);
-    opacity: 0;
-  }
-}
-
-/* Disabled State */
 .btn:disabled,
 .btn[disabled] {
-  background-color: var(--button-disabled-bg);
-  color: var(--button-disabled-text);
-  border-color: var(--button-disabled-border);
-  box-shadow: var(--button-disabled-shadow, none); /* Use variable */
   cursor: not-allowed;
-  opacity: 1; /* Remove opacity, rely on colors */
-  transform: none; /* Reset transform */
+  opacity: 0.65;
+  box-shadow: none; /* Remove shadow on disabled */
 }
 
-/* Modifiers */
-.btnRounded {
-  border-radius: var(--border-radius-full); /* Use variable */
+/* --- Sizes --- */
+.small {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-sm);
 }
 
-.btnPrimary {
+.medium {
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-base);
+}
+
+.large {
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--font-size-lg);
+}
+
+/* --- Variants --- */
+
+/* Primary */
+.primary {
   background-color: var(--button-primary-bg);
   color: var(--button-primary-text);
   border-color: var(--button-primary-border);
-  box-shadow: var(--button-primary-shadow, var(--shadow-sm)); /* Default shadow */
+  box-shadow: var(--button-primary-shadow, none);
 }
-.btnPrimary:hover:not(:disabled) {
-  box-shadow: var(--button-primary-shadow, var(--shadow-md)); /* Default hover shadow */
-  /* Brightness filter removed, rely on shadow variables */
+.primary:not(:disabled):hover {
+  filter: brightness(90%); /* Simple hover effect */
+  box-shadow: var(--shadow-lg, none); /* Use theme shadow */
 }
-.btnPrimary:active:not(:disabled) {
-   box-shadow: var(--button-primary-active-shadow, var(--shadow-inner)); /* Default active shadow */
-   /* Brightness filter removed, rely on shadow variables */
+.primary:not(:disabled):active {
+  filter: brightness(80%);
+  box-shadow: var(--button-primary-active-shadow, none);
 }
-[data-theme="neumorphic"] .btnPrimary:hover:not(:disabled),
-[data-theme="neumorphic"] .btnPrimary:active:not(:disabled) {
-  filter: none; /* Neumorphic uses shadow changes, not filter */
+.primary:focus-visible {
+   box-shadow: var(--button-primary-shadow, none), var(--shadow-focus-ring);
 }
 
-
-.btnSecondary {
+/* Secondary */
+.secondary {
   background-color: var(--button-secondary-bg);
   color: var(--button-secondary-text);
   border-color: var(--button-secondary-border);
-  box-shadow: var(--button-secondary-shadow, var(--shadow-sm));
+  box-shadow: var(--button-secondary-shadow, none);
 }
-.btnSecondary:hover:not(:disabled) {
-  box-shadow: var(--button-secondary-shadow, var(--shadow-md));
-  /* Brightness filter removed, rely on shadow variables */
+.secondary:not(:disabled):hover {
+  filter: brightness(90%);
+  box-shadow: var(--shadow-lg, none);
 }
-.btnSecondary:active:not(:disabled) {
-  box-shadow: var(--button-secondary-active-shadow, var(--shadow-inner));
-  /* Brightness filter removed, rely on shadow variables */
+.secondary:not(:disabled):active {
+  filter: brightness(80%);
+  box-shadow: var(--button-secondary-active-shadow, none);
 }
-[data-theme="neumorphic"] .btnSecondary:hover:not(:disabled),
-[data-theme="neumorphic"] .btnSecondary:active:not(:disabled) {
-  filter: none;
+.secondary:focus-visible {
+   box-shadow: var(--button-secondary-shadow, none), var(--shadow-focus-ring);
+}
+
+/* Outline */
+.outline {
+  background-color: var(--button-outline-bg);
+  color: var(--button-outline-text);
+  border-color: var(--button-outline-border);
+  box-shadow: var(--button-outline-shadow, none);
+}
+.outline:not(:disabled):hover {
+  background-color: var(--button-outline-hover-bg);
+  border-color: color-mix(in srgb, var(--button-outline-text) 50%, transparent); /* Darken border slightly */
+}
+.outline:not(:disabled):active {
+  background-color: color-mix(in srgb, var(--button-outline-hover-bg) 80%, black); /* Darker active */
+  box-shadow: var(--button-outline-active-shadow, none);
+}
+.outline:focus-visible {
+   box-shadow: var(--button-outline-shadow, none), var(--shadow-focus-ring);
+}
+
+/* Ghost (Subtle background on hover) */
+.ghost {
+  background-color: transparent;
+  color: var(--text-link); /* Use link color */
+  border-color: transparent;
+  box-shadow: none;
+}
+.ghost:not(:disabled):hover {
+  background-color: var(--bg-accent); /* Use accent background */
+  color: var(--text-accent);
+}
+.ghost:not(:disabled):active {
+  background-color: color-mix(in srgb, var(--bg-accent) 80%, black);
+}
+.ghost:focus-visible {
+   box-shadow: none, var(--shadow-focus-ring); /* No base shadow */
 }
 
 
-.btnOutline {
-   border: var(--border-width-base) solid var(--button-outline-border);
-   background-color: var(--button-outline-bg);
-   color: var(--button-outline-text);
-   box-shadow: var(--button-outline-shadow, none); /* Use neumorphic base */
+/* Link (Looks like a link) */
+.link {
+  background-color: transparent;
+  color: var(--text-link);
+  border-color: transparent;
+  box-shadow: none;
+  padding: 0; /* Remove padding */
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
-.btnOutline:hover:not(:disabled) {
-   background-color: var(--button-outline-hover-bg);
-   /* Keep neumorphic shadow on hover, bg changes */
+.link:not(:disabled):hover {
+  color: color-mix(in srgb, var(--text-link) 80%, black);
 }
-.btnOutline:active:not(:disabled) {
-   box-shadow: var(--button-outline-active-shadow, none); /* Use neumorphic pressed */
-   background-color: var(--button-outline-hover-bg); /* Keep hover bg */
-}
-
-
-.btnFullWidth {
-  display: block;
-  width: 100%;
-}
-
-/* Status Buttons */
-.btnCorrect {
-  border-color: var(--success-color);
-  /* Use color-mix with global variable */
-  background-color: color-mix(in srgb, var(--success-color) 15%, transparent);
-  color: var(--text-success); /* Use themed success text color */
+.link:focus-visible {
+   box-shadow: none, var(--shadow-focus-ring); /* No base shadow */
+   /* Optional: Add outline instead of shadow for links */
+   /* outline: 2px solid var(--border-focus); */
+   /* outline-offset: 2px; */
 }
 
-.btnIncorrect {
-  border-color: var(--error-color);
-  background-color: color-mix(in srgb, var(--error-color) 15%, transparent);
-  color: var(--text-error); /* Use themed error text color */
+
+/* --- Icons & Content --- */
+.iconWrapper {
+  display: inline-flex; /* Keep icon size contained */
+  align-items: center;
+  justify-content: center;
+  /* Adjust icon size based on button size if needed */
 }
 
-.btnSelected {
-  border-color: var(--secondary-color); /* Or use --border-accent? */
-  background-color: color-mix(in srgb, var(--secondary-color) 15%, transparent);
-  /* Keep default text color or define a specific selected text color */
+.content {
+  flex-grow: 1; /* Allow text to take available space */
 }
-
-/* .fixedReturnBtn removed as it was unused and positioning is handled by consumers */

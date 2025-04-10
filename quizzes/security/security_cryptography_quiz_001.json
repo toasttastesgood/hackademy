@@ -21,12 +21,12 @@
       "wrongAnswers": ["RSA", "Diffie-Hellman", "ECC"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Asymmetric encryption uses the same key for encryption and decryption.",
       "difficulty": "easy",
       "explanation": "Asymmetric encryption uses different keys for encryption and decryption.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["Encryption", "Compression", "Routing"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Hashing is a form of encryption.",
       "difficulty": "easy",
       "explanation": "Hashing is a one-way function used for integrity, not encryption.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["AES", "RSA", "DES"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A collision occurs when two different messages produce the same hash value.",
       "difficulty": "easy",
       "explanation": "A collision occurs when two different messages produce the same hash value.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["AES", "RSA", "SHA-256"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A digital certificate verifies the identity of a website.",
       "difficulty": "easy",
       "explanation": "A digital certificate verifies the identity of a website.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["RSA", "SHA-256", "Diffie-Hellman"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A stream cipher encrypts data one bit or byte at a time.",
       "difficulty": "easy",
       "explanation": "A stream cipher encrypts data one bit or byte at a time.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["Encrypting a message", "Compressing a message", "Routing a message"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Cryptography provides confidentiality, integrity, and availability.",
       "difficulty": "easy",
       "explanation": "Cryptography primarily provides confidentiality and integrity.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

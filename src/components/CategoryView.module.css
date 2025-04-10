@@ -1,45 +1,167 @@
+/* src/components/CategoryView.module.css */
+
 .categoryView {
-  /* max-width and margin handled by parent .quiz-browser */
+  display: flex;
+  gap: var(--space-xl); /* Gap between filter list and quiz pane */
+  width: 100%;
+  align-items: flex-start; /* ADDED: Prevent category list from stretching vertically */
+  /* max-width and margin handled by parent .quizBrowser */
 }
 
-.categoryGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-lg);
+/* --- Left Pane: Category Filter List --- */
+.categoryList {
+  flex: 0 0 220px; /* Fixed width for the category list, adjust as needed */
+  background-color: var(--bg-secondary); /* Optional: subtle background */
+  border-radius: var(--border-radius-md);
+  padding: var(--space-md);
+  border: var(--border-width-base) solid var(--border-primary);
+  height: fit-content; /* Make it only as tall as needed */
+  position: sticky; /* Make it sticky */
+  /* Adjust top offset relative to the new scroll parent (.mainWrapper) */
+  top: var(--space-lg); /* Stick below the top padding of mainWrapper */
 }
 
-.quizzesList {
-  margin-top: var(--space-md);
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--border-light-color);
+.categoryList h4 {
+  font-size: var(--font-size-md);
+  margin-bottom: var(--space-md);
+  color: var(--text-primary); /* Use primary text color */
+  border-bottom: var(--border-width-base) solid var(--border-secondary);
+  padding-bottom: var(--space-sm);
 }
 
-.quizzesList ul li {
+.categoryList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.categoryList li {
+  padding: var(--space-sm) var(--space-md);
+  margin: 0 calc(var(--space-md) * -1); /* Extend clickable area */
+  cursor: pointer;
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition-colors);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-sm) 0;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.categoryList li:hover {
+  background-color: var(--bg-accent);
+  color: var(--text-accent);
+}
+
+.categoryList li.activeCategory {
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.quizCount {
+  font-size: var(--font-size-xs);
+  opacity: 0.8;
+}
+
+/* --- Right Pane: Quiz List --- */
+.quizListPane {
+  flex: 1; /* Take remaining space */
+  min-width: 0; /* Prevent overflow issues */
+}
+
+.quizzesGrid { /* Renamed from quizzesList */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Adjust minmax */
+  gap: var(--space-lg);
+}
+
+/* Individual Quiz Card Styling */
+.quizCard {
+  /* Inherits base Card styles */
+  padding: var(--space-md); /* Adjust padding if needed */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0; /* Remove margin from Card component */
+}
+
+.quizCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items top */
+  margin-bottom: var(--space-xs);
+}
+
+.quizCard h3 {
+  font-size: var(--font-size-md);
+  margin-bottom: 0; /* Remove bottom margin */
+  color: var(--text-primary);
+  flex-grow: 1; /* Allow title to take space */
+  margin-right: var(--space-sm); /* Space before tag */
+}
+
+.quizCategoryTag {
+  font-size: var(--font-size-xs);
+  background-color: var(--bg-accent);
+  color: var(--text-accent);
+  padding: var(--space-xs);
   border-radius: var(--border-radius-sm);
+  white-space: nowrap;
+  flex-shrink: 0; /* Prevent tag from shrinking */
 }
 
-.quizzesList ul li:hover {
-  background-color: var(--hover-bg-light);
+.quizDescription {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+  flex-grow: 1; /* Allow description to push footer down */
 }
 
-.quizName {
-  flex-grow: 1;
-  margin-right: var(--space-md);
+.quizCardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto; /* Push footer to bottom */
+  padding-top: var(--space-md); /* Space above footer */
+  border-top: var(--border-width-base) solid var(--border-primary); /* Separator */
 }
 
-/* Quiz List Progress Circle */
-.quizzesList .circularProgress {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+.quizProgress {
+  /* Styles for the circular progress within the quiz card */
 }
 
-.quizzesList .circularProgress circle {
-  stroke-width: 3;
+/* Adjust progress percentage text size for quiz cards */
+.quizProgress > div:last-child { /* Target the percentage div */
+   font-size: var(--font-size-xs);
+}
+
+.emptyQuizList {
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+
+/* Remove old styles */
+/* .quizName, .quizzesList .circularProgress, etc. are replaced */
+
+/* --- Media Query for smaller screens --- */
+@media (max-width: 768px) {
+  .categoryView {
+    flex-direction: column; /* Stack panes vertically */
+    gap: var(--space-lg);
+  }
+
+  .categoryList {
+    flex: 0 0 auto; /* Reset flex basis */
+    width: 100%; /* Full width */
+    position: static; /* Remove sticky positioning */
+    margin-bottom: var(--space-lg); /* Add space below filter */
+  }
+
+  .quizzesGrid {
+     /* Adjust columns for smaller screens if needed */
+     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
 }

@@ -21,12 +21,12 @@
       "wrongAnswers": ["ifconfig", "netstat", "route"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'ps' command is used to list running processes in Windows.",
       "difficulty": "easy",
       "explanation": "The 'ps' command is used to list running processes in Unix-like systems, not Windows.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["netstat", "ipconfig", "traceroute"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'ifconfig' command is used to configure network interfaces in Windows.",
       "difficulty": "easy",
       "explanation": "The 'ifconfig' command is used to configure network interfaces in Unix-like systems, not Windows.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["tracert", "netstat", "route"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'arp' command is used to display and modify the ARP cache.",
       "difficulty": "easy",
       "explanation": "The 'arp' command is used to display and modify entries in the Address Resolution Protocol (ARP) cache.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["cd", "ls", "dir"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'dir' command is used to list directory contents in Linux.",
       "difficulty": "easy",
       "explanation": "The 'ls' command is used to list directory contents in Linux, while 'dir' is used in Windows.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["dir", "ls", "pwd"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'grep' command is used to search for patterns in files.",
       "difficulty": "easy",
       "explanation": "The 'grep' command is used to search for patterns in files.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["taskkill", "stop", "end"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'taskkill' command is used to terminate a process in Linux.",
       "difficulty": "easy",
       "explanation": "The 'taskkill' command is used to terminate a process in Windows, not Linux.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

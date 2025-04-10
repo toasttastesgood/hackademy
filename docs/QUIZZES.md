@@ -77,7 +77,7 @@ interface MCQQuestion extends BaseQuestion {
 ```typescript
 interface TrueFalseQuestion extends BaseQuestion {
   type: 'true_false';
-  correctAnswers: boolean[]; // Array containing exactly ONE boolean (true or false)
+  correctAnswer: boolean; // boolean (true or false)
   options?: string[];        // Optional: Custom labels like ["Yes", "No"] (defaults to "True"/"False")
 }
 ```
@@ -86,9 +86,9 @@ interface TrueFalseQuestion extends BaseQuestion {
 
 ```json
 {
-  "type": "true_false",
+  "type": "mcq",
   "text": "HTTP is a stateless protocol.",
-  "correctAnswers": [true],
+  "correctAnswer": true,
   "explanation": "HTTP is inherently stateless, meaning each request is independent."
 }
 ```
@@ -137,8 +137,7 @@ Used for ordering items correctly.
 ```typescript
 interface DragDropQuestion extends BaseQuestion {
   type: 'drag_drop';
-  items: string[];        // Array of items to be ordered (presented shuffled)
-  itemOrder: string[];    // Array containing the same items in the CORRECT order
+  itemOrder: string[];    // Array of items in the CORRECT order
 }
 ```
 

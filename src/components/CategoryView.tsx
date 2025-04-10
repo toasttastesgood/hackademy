@@ -1,117 +1,143 @@
-import React, { useState, useEffect } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
+import React, { useState, useEffect, useMemo } from 'react';
+// Removed FiChevronDown as it's not used in the new layout
 import CircularProgress from './CircularProgress';
 import { useQuiz } from '../contexts/QuizProvider';
 import { useNavigate } from 'react-router-dom';
-import Card from './Card/Card'; // Import the reusable Card component
-// import cardStyles from './Card/Card.module.css'; // No longer needed directly if Card handles its styles
-import progressStyles from './Progress/CircularProgress.module.css';
+import Card from './Card/Card';
+// Removed progressStyles import as CircularProgress handles its own styles now
 import styles from './CategoryView.module.css';
+import Button from './Button/Button'; // Import Button component
+import { Quiz } from '../services/QuizTypes'; // Import Quiz type if not already globally available
 
-interface CategoryCardProps {
-  category: string;
-  quizCount: number;
-  completedCount: number;
-  averageScore: number;
-  onToggle: () => void;
-  isExpanded: boolean;
+// Removed the old CategoryCard component entirely
+
+// --- New QuizzesList Component for the Right Pane ---
+interface QuizzesListProps {
+  selectedCategory: string | null;
 }
 
-const CategoryCard: React.FC<CategoryCardProps> = ({
-  category,
-  quizCount,
-  completedCount,
-  averageScore,
-  onToggle,
-  isExpanded
-}) => {
-  const { progress } = useQuiz();
-  const completionPercentage = progress && Object.keys(progress).length > 0
-    ? averageScore
-    : 0;
-  
-  return (
-    <Card className={styles.categoryCard} onClick={onToggle}> {/* Use the Card component */}
-      <h3>{category}</h3>
-      <div className={styles.progressInfo}>
-        <p>Quizzes: {quizCount}</p>
-        <p>Completed: {completedCount}/{quizCount}</p>
-        <p>Average Score: {averageScore}%</p>
-      </div>
-      <div className={progressStyles.progressBar}>
-        <div 
-          className={progressStyles.progressBarFill}
-          style={{ width: `${completionPercentage}%` }}
-        />
-      </div>
-      <div className={`${styles.chevronToggle} ${isExpanded ? styles.expanded : ''}`}>
-        <FiChevronDown />
-      </div>
-      
-      {isExpanded && (
-        <div className={styles.quizzesList}>
-          <QuizzesList category={category} />
-        </div>
-      )}
-    </Card>
-  );
-};
-
-const QuizzesList: React.FC<{ category: string }> = ({ category }) => {
-  const { getQuizzesByCategory, progress } = useQuiz();
+const QuizzesList: React.FC<QuizzesListProps> = ({ selectedCategory }) => {
+  const { getQuizzesByCategory, progress, quizzes: allQuizzes } = useQuiz(); // Get all quizzes too
   const navigate = useNavigate();
-  const quizzes = getQuizzesByCategory(category);
+
+  const quizzesToDisplay = useMemo(() => {
+    if (!selectedCategory || selectedCategory === 'All') {
+      // If 'All' or null, return all quizzes sorted alphabetically by title
+      return Object.values(allQuizzes).sort((a, b) => a.title.localeCompare(b.title));
+    }
+    // Otherwise, get quizzes for the specific category
+    return getQuizzesByCategory(selectedCategory);
+  }, [selectedCategory, getQuizzesByCategory, allQuizzes]);
+
+
+  const getButtonLabel = (quizId: string): string => {
+      const quizProgress = progress[quizId];
+      // If highestScore exists, the quiz has been attempted.
+      if (quizProgress?.highestScore !== undefined) return "Retake Quiz";
+      return "Start Quiz";
+  };
+
+
+  if (quizzesToDisplay.length === 0) {
+    return <p className={styles.emptyQuizList}>No quizzes found for this category.</p>;
+  }
 
   return (
-    <div className={styles.quizzesList}>
-      <ul>
-        {quizzes.map(quiz => (
-          <li key={quiz.id} onClick={() => navigate(`/quiz/${quiz.id}`)}>
-            <span className={styles.quizName}>{quiz.title}</span>
-            <CircularProgress
-              percentage={progress[quiz.id]?.highestScore || 0}
-              className={styles.circularProgress}
-            />
-          </li>
-        ))}
-      </ul>
+    <div className={styles.quizzesGrid}> {/* Changed to grid layout */}
+      {quizzesToDisplay.map((quiz: Quiz) => ( // Ensure quiz has Quiz type
+        <Card key={quiz.id} className={styles.quizCard}>
+          <div className={styles.quizCardHeader}>
+            <h3>{quiz.title}</h3>
+            {/* Display category only if 'All' is selected */}
+            {(!selectedCategory || selectedCategory === 'All') && (
+                 <span className={styles.quizCategoryTag}>{quiz.category}</span>
+            )}
+          </div>
+          {quiz.description && <p className={styles.quizDescription}>{quiz.description}</p>}
+          {/* Add difficulty later if available in data */}
+          {/* <p className={styles.quizDifficulty}>Difficulty: {quiz.difficulty || 'N/A'}</p> */}
+          <div className={styles.quizCardFooter}>
+             <CircularProgress
+               percentage={progress[quiz.id]?.highestScore || 0}
+               size={40}
+               strokeWidth={4}
+               className={styles.quizProgress}
+             />
+             <Button
+                onClick={() => navigate(`/quiz/${quiz.id}`)}
+                variant="primary" // Or choose appropriate variant
+                size="small"
+             >
+                {getButtonLabel(quiz.id)}
+             </Button>
+          </div>
+        </Card>
+      ))}
     </div>
   );
 };
 
+// --- Updated CategoryView Component ---
 const CategoryView: React.FC<{ initialExpandedCategory?: string | null }> = ({ initialExpandedCategory }) => {
-  const { categories, loading, error, progress } = useQuiz();
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(
-    initialExpandedCategory || null
+  const { categories, loading, error } = useQuiz(); // Removed progress, handled in QuizzesList
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(
+    initialExpandedCategory || 'All' // Default to 'All' if nothing is passed
   );
 
+  // Update selectedCategory if initialExpandedCategory changes (e.g., from URL)
   useEffect(() => {
-    if (initialExpandedCategory) {
-      setExpandedCategory(initialExpandedCategory);
-    }
+    setSelectedCategory(initialExpandedCategory || 'All');
   }, [initialExpandedCategory]);
+
+  const handleCategoryClick = (categoryName: string | null) => {
+    setSelectedCategory(categoryName);
+    // Optional: Update URL search params here if desired
+  };
 
   if (loading) return <div>Loading categories...</div>;
   if (error) return <div>Error: {error}</div>;
 
+  // Sort categories alphabetically for the list
+  const sortedCategories = useMemo(() => {
+      return Object.values(categories).sort((a, b) => a.name.localeCompare(b.name));
+  }, [categories]);
+
   return (
     <div className={styles.categoryView}>
-      <h2>Browse by Category</h2>
-      <div className={styles.categoryGrid}>
-        {Object.values(categories).map(category => (
-          <CategoryCard
-            key={category.name}
-            category={category.name}
-            quizCount={category.quizCount}
-            completedCount={category.completedCount}
-            averageScore={category.averageScore}
-            onToggle={() => 
-              setExpandedCategory(expandedCategory === category.name ? null : category.name)
-            }
-            isExpanded={expandedCategory === category.name}
-          />
-        ))}
-      </div>
+      {/* Left Pane: Category Filter List */}
+      <aside className={styles.categoryList}>
+        <h4>Categories</h4>
+        <ul>
+          <li
+            key="all-categories"
+            className={selectedCategory === 'All' ? styles.activeCategory : ''}
+            onClick={() => handleCategoryClick('All')}
+            role="button"
+            tabIndex={0}
+            onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCategoryClick('All'); }}
+          >
+            All Categories
+          </li>
+          {sortedCategories.map(category => (
+            <li
+              key={category.name}
+              className={selectedCategory === category.name ? styles.activeCategory : ''}
+              onClick={() => handleCategoryClick(category.name)}
+              role="button"
+              tabIndex={0}
+              onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCategoryClick(category.name); }}
+            >
+              {category.name}
+              <span className={styles.quizCount}>({category.quizCount})</span>
+            </li>
+          ))}
+        </ul>
+      </aside>
+
+      {/* Right Pane: Quizzes List */}
+      <main className={styles.quizListPane}>
+        <QuizzesList selectedCategory={selectedCategory} />
+      </main>
     </div>
   );
 };

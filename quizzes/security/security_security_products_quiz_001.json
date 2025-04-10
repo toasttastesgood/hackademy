@@ -21,12 +21,12 @@
       "wrongAnswers": ["Application firewall", "Proxy firewall", "Stateful firewall"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A proxy firewall inspects traffic at the application layer.",
       "difficulty": "easy",
       "explanation": "A proxy firewall inspects traffic at the application layer.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["Monitor for malicious activity", "Encrypt network traffic", "Manage network devices"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "An IPS is placed out-of-band and passively monitors network traffic.",
       "difficulty": "easy",
       "explanation": "An IPS is placed in-line and actively prevents or blocks intrusions.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["Detect based on signatures", "Encrypt malware code", "Compress malware code"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A VPN encrypts network traffic.",
       "difficulty": "easy",
       "explanation": "A VPN (Virtual Private Network) encrypts network traffic to provide secure communication.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["Firewall", "Antivirus", "IDS"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Biometrics is an example of something you have authentication factor.",
       "difficulty": "easy",
       "explanation": "Biometrics is an example of something you are authentication factor.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["Wireshark", "Regedit", "Cmd"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A vulnerability scanner identifies and exploits vulnerabilities.",
       "difficulty": "easy",
       "explanation": "A vulnerability scanner identifies vulnerabilities, but does not exploit them.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["DDoS", "Phishing", "Malware"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A data loss prevention (DLP) system prevents unauthorized access to data.",
       "difficulty": "easy",
       "explanation": "A data loss prevention (DLP) system prevents sensitive data from leaving the organization.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

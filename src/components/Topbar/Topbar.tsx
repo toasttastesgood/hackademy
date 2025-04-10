@@ -9,20 +9,26 @@ import hackademyLight from "../../assets/hackademy_light.png";
 interface TopbarProps {
   onMenuToggle?: () => void;
   isMobile?: boolean;
+  quizTitle?: string;
 }
 
 const Topbar: React.FC<TopbarProps> = ({
   onMenuToggle,
   isMobile = false,
+  quizTitle,
 }) => {
   const { colorMode } = useTheme(); // Get the current color mode
   const location = useLocation();
   const [pageTitle, setPageTitle] = useState<string>("Dashboard");
 
   useEffect(() => {
-    const path = location.pathname.split('/').filter(Boolean)[0] || 'Dashboard';
-    setPageTitle(path.charAt(0).toUpperCase() + path.slice(1));
-  }, [location]);
+    if (quizTitle) {
+      setPageTitle(quizTitle);
+    } else {
+      const path = location.pathname.split('/').filter(Boolean)[0] || 'Dashboard';
+      setPageTitle(path.charAt(0).toUpperCase() + path.slice(1));
+    }
+  }, [location, quizTitle]);
 
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();

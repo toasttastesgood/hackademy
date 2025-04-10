@@ -21,12 +21,12 @@
       "wrongAnswers": ["OSPF", "BGP", "EIGRP"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "OSPF is a distance-vector routing protocol.",
       "difficulty": "easy",
       "explanation": "OSPF (Open Shortest Path First) is a link-state routing protocol.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["90", "120", "200"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "EIGRP is a link-state routing protocol.",
       "difficulty": "easy",
       "explanation": "EIGRP (Enhanced Interior Gateway Routing Protocol) is an advanced distance-vector routing protocol.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["A single network device", "A virtual network", "A network security system"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "BGP is used for routing within an autonomous system.",
       "difficulty": "easy",
       "explanation": "BGP is used for routing between autonomous systems.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["1", "90", "110"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A lower administrative distance indicates a less preferred route.",
       "difficulty": "easy",
       "explanation": "A lower administrative distance indicates a more preferred route.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["16", "255", "Unlimited"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "RIPv2 supports VLSM.",
       "difficulty": "easy",
       "explanation": "RIPv2 supports VLSM (Variable Length Subnet Masking).",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["Prevent routing loops", "Encrypt routing updates", "Manage network devices"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Distance-vector routing protocols send the entire routing table during updates.",
       "difficulty": "medium",
       "explanation": "Distance-vector routing protocols send the entire routing table during updates.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",

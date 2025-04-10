@@ -14,13 +14,14 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
   strokeWidth = 3,
   className = ''
 }) => {
-  const radius = (size - strokeWidth) / 2;
+  // Ensure the radius accounts for half the stroke width to fit inside the SVG box
+  const radius = (size / 2) - (strokeWidth / 2);
   const circumference = radius * 2 * Math.PI;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
     <div className={`${styles.circularProgress} ${className}`}>
-      <svg width={size} height={size}>
+      <svg width={size} height={size} overflow="visible"> {/* Add overflow="visible" */}
         <circle
           className={styles.progressBg}
           strokeWidth={strokeWidth}

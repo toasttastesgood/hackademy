@@ -20,11 +20,6 @@ const questionTypeRegistry: Record<string, QuestionTypeHandler> = {
     validateAnswer: (question, answer) => 
       question.correctAnswers.includes(answer)
   },
-  true_false: {
-    component: TrueFalseQuestion,
-    validateAnswer: (question, answer) => 
-      question.correctAnswers.includes(answer === 'True')
-  },
   hex_selection: {
     component: HexSelectionQuestion,
     validateAnswer: (question, answer) => 

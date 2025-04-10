@@ -21,12 +21,12 @@
       "wrongAnswers": ["Telnet", "FTP", "HTTP"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Telnet is a secure protocol.",
       "difficulty": "easy",
       "explanation": "Telnet is an unencrypted protocol and is not secure.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["Translate domain names to IP addresses", "Secure network connections", "Route packets across networks"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "SMTP is used for receiving emails.",
       "difficulty": "easy",
       "explanation": "SMTP (Simple Mail Transfer Protocol) is used for sending emails, while POP3 and IMAP are used for receiving emails.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["HTTP", "FTP", "SSH"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "ARP translates IP addresses to MAC addresses.",
       "difficulty": "easy",
       "explanation": "ARP (Address Resolution Protocol) translates IP addresses to MAC addresses.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["SMTP", "HTTP", "DNS"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "SNMP is used for encrypting network traffic.",
       "difficulty": "easy",
       "explanation": "SNMP (Simple Network Management Protocol) is used for managing and monitoring network devices.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["Routing between networks", "Encrypting network traffic", "Managing network devices"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "SMB is used for translating domain names to IP addresses.",
       "difficulty": "easy",
       "explanation": "SMB (Server Message Block) is used for file sharing, printing, and inter-process communication.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["File transfer", "Remote access", "Network management"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "TFTP uses TCP for data transfer.",
       "difficulty": "easy",
       "explanation": "TFTP (Trivial File Transfer Protocol) uses UDP for data transfer.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

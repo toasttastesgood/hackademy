@@ -21,12 +21,12 @@
       "wrongAnswers": ["chmod -x", "execute", "run"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Shell scripts are compiled before execution.",
       "difficulty": "easy",
       "explanation": "Shell scripts are interpreted, not compiled.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["<", "|", "&"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The '==' operator is used for string comparison in bash scripts.",
       "difficulty": "easy",
       "explanation": "The '=' operator is used for string comparison in bash scripts.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["$variable = value", "set variable = value", "let variable = value"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Variables are referenced using the '$' symbol in bash scripts.",
       "difficulty": "easy",
       "explanation": "Variables are referenced using the '$' symbol in bash scripts.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["del", "remove", "erase"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'rmdir' command is used to remove a file in a bash script.",
       "difficulty": "easy",
       "explanation": "The 'rmdir' command is used to remove an empty directory in a bash script, while 'rm' is used to remove a file.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["tail -n 10", "cat -n 10", "less -n 10"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'cat' command is used to edit a file in a bash script.",
       "difficulty": "easy",
       "explanation": "The 'cat' command is used to display the contents of a file, not edit it.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["head -n 10", "cat -n 10", "less -n 10"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'chmod' command is used to change file ownership in Linux.",
       "difficulty": "easy",
       "explanation": "The 'chmod' command is used to change file permissions, not ownership. The 'chown' command is used to change file ownership.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

@@ -21,12 +21,12 @@
       "wrongAnswers": ["Store user data", "Store temporary files", "Store operating system"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "SSD is volatile memory.",
       "difficulty": "easy",
       "explanation": "SSD (Solid State Drive) is non-volatile memory.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["Faster than SRAM", "More expensive than SRAM", "Non-volatile"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Cache memory is slower than RAM.",
       "difficulty": "easy",
       "explanation": "Cache memory is faster than RAM.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["Divide memory into fixed-size pages", "Protect memory from unauthorized access", "Increase memory capacity"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Memory paging is a hardware-based memory management technique.",
       "difficulty": "medium",
       "explanation": "Memory paging can be implemented in hardware or software.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["Control peripherals", "Handle interrupts", "Define CPU instructions"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Memory fragmentation can lead to inefficient memory usage.",
       "difficulty": "easy",
       "explanation": "Memory fragmentation can lead to inefficient memory usage.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["Store user data", "Store temporary files", "Store operating system"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A TLB (Translation Lookaside Buffer) is a cache for page table entries.",
       "difficulty": "medium",
       "explanation": "A TLB (Translation Lookaside Buffer) is a cache for page table entries.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["Increase memory capacity", "Reduce power consumption", "Improve memory speed"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Memory leaks can lead to system instability.",
       "difficulty": "easy",
       "explanation": "Memory leaks can lead to system instability by consuming available memory.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",

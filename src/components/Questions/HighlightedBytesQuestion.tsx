@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react'; // Removed useState import
 import HexView from '../HexView/HexView';
 import styles from '../QuizPlayer.module.css';
 import { QuestionComponentProps } from './types';
@@ -21,13 +21,14 @@ export interface HighlightedBytesQuestionProps extends QuestionComponentProps {
 const HighlightedBytesQuestion: React.FC<HighlightedBytesQuestionProps> = ({
   question,
   onAnswer,
-  disabled = false
+  disabled = false,
+  currentAnswer // Destructure the new prop
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  // Removed internal selectedOption state
 
   const handleSelect = (option: string) => {
     if (disabled) return;
-    setSelectedOption(option);
+    // setSelectedOption(option); // No longer needed
     onAnswer(option);
   };
 
@@ -45,7 +46,8 @@ const HighlightedBytesQuestion: React.FC<HighlightedBytesQuestionProps> = ({
         wrongAnswers={question.wrongAnswers}
         onSelect={handleSelect}
         disabled={disabled}
-        selectedAnswer={selectedOption}
+        // Pass the currentAnswer prop down
+        selectedAnswer={typeof currentAnswer === 'string' ? currentAnswer : null}
       />
     </div>
   );

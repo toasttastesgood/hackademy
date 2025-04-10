@@ -58,3 +58,88 @@
   margin-right: auto;
   min-width: 150px; /* Give it a minimum width */
 }
+
+/* Container for Previous/Next buttons */
+.navigationButtons {
+  display: flex;
+  justify-content: space-between; /* Pushes buttons to ends */
+  align-items: center;
+  margin-top: var(--space-xl); /* Space above buttons */
+}
+
+/* Styling for individual nav buttons */
+.navButton {
+  display: inline-flex; /* Align icon and text */
+  align-items: center;
+  gap: var(--space-xs); /* Space between icon and text */
+  min-width: 120px; /* Ensure decent width */
+  justify-content: center; /* Center content */
+}
+
+/* Specific adjustments for the main action button if needed */
+.navButton.actionButton {
+  /* Inherits primary styles, add overrides if necessary */
+  /* e.g., slightly larger font or padding */
+}
+
+/* Removed old .shuffleButton styles */
+/* Score summary styling */
+.scoreSummary {
+  text-align: center;
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-xl);
+}
+
+/* Style for the option the user selected AND was correct */
+.optionSelectedCorrect {
+  border-color: var(--success-color);
+  background-color: color-mix(in srgb, var(--success-color) 15%, transparent);
+  color: var(--text-success);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Style for the option the user selected BUT was incorrect */
+.optionSelectedIncorrect {
+  border-color: var(--error-color);
+  background-color: color-mix(in srgb, var(--error-color) 15%, transparent);
+  color: var(--text-error);
+  font-weight: var(--font-weight-medium);
+  text-decoration: line-through; /* Indicate it's wrong */
+}
+
+/* Style for the correct option that the user DID NOT select */
+.optionCorrectUnselected {
+  border-color: var(--success-color);
+  /* Optional: Add a subtle background or keep it default */
+  /* background-color: color-mix(in srgb, var(--success-color) 5%, transparent); */
+  color: var(--text-success); /* Highlight the text */
+}
+
+/* Correct/Incorrect border indicators for review questions */
+.correctBorder,
+.incorrectBorder {
+  position: relative;
+  padding-left: var(--space-md);
+}
+
+/* Common pseudo-element for both */
+.correctBorder::before,
+.incorrectBorder::before {
+  content: '';
+  position: absolute;
+  top: var(--space-md);
+  bottom: var(--space-md);
+  left: 0;
+  width: 6px;
+  border-radius: var(--border-radius-md);
+}
+
+/* Color specific */
+.correctBorder::before {
+  background-color: var(--success-color);
+}
+
+.incorrectBorder::before {
+  background-color: var(--error-color);
+}

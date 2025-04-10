@@ -4,6 +4,7 @@
 .question {
   /* Card component handles its own padding, bg, border, shadow */
   margin-top: var(--space-xl);
+  position: relative; /* Add relative positioning */
 }
 
 .question h2 {
@@ -12,6 +13,35 @@
   font-size: var(--font-size-lg);
   margin-bottom: var(--space-xs); /* Reduced margin */
   font-weight: var(--font-weight-semibold); /* Make it slightly bolder */
+}
+
+/* Styles for the shuffle toggle button */
+.shuffleToggleBtn {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md); /* Position top-right */
+  background: none;
+  border: none;
+  color: var(--text-secondary); /* Default color */
+  font-size: var(--font-size-lg); /* Adjust icon size */
+  cursor: pointer;
+  padding: var(--space-xs);
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition-colors);
+  z-index: var(--z-index-content);
+}
+
+.shuffleToggleBtn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-hover);
+}
+
+.shuffleToggleBtn.shuffleActive {
+  color: var(--primary-color); /* Highlight color when active */
+}
+
+.shuffleToggleBtn.shuffleActive:hover {
+  color: color-mix(in srgb, var(--primary-color) 80%, black);
 }
 
 .progressText {

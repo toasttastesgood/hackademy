@@ -21,12 +21,12 @@
       "wrongAnswers": ["Define a function", "Declare a variable", "Create a class"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Shell scripts are typically compiled before execution.",
       "difficulty": "easy",
       "explanation": "Shell scripts are interpreted, not compiled.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["A function", "A class", "A loop"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "WMIC is a shell scripting language used in Unix-like systems.",
       "difficulty": "easy",
       "explanation": "WMIC (Windows Management Instrumentation Command-line) is a shell scripting language used in Windows.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -77,12 +77,12 @@
       "wrongAnswers": ["Define a function", "Declare a variable", "Create a class"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Interpreted languages are typically platform-dependent.",
       "difficulty": "easy",
       "explanation": "Interpreted languages are typically platform-independent, as long as the interpreter is available for the platform.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -101,12 +101,12 @@
       "wrongAnswers": ["Store data", "Control program flow", "Define a class"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "C++ is an interpreted language.",
       "difficulty": "easy",
       "explanation": "C++ is a compiled language.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -125,12 +125,12 @@
       "wrongAnswers": ["20", "17", "12"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A linear search algorithm is more efficient than a binary search algorithm for large datasets.",
       "difficulty": "medium",
       "explanation": "A binary search algorithm is more efficient than a linear search algorithm for large datasets because it cuts the list in half with each iteration.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -149,12 +149,12 @@
       "wrongAnswers": ["function my_function()", "void my_function()", "my_function = function()"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'wmic' command is used for managing network interfaces in Windows.",
       "difficulty": "medium",
       "explanation": "The 'wmic' command is used for a variety of system administration tasks in Windows, but not specifically for managing network interfaces.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

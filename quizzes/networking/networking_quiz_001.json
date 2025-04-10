@@ -21,12 +21,12 @@
       "wrongAnswers": ["Maps MAC addresses to IP addresses", "Provides IP addresses to devices", "Routes packets across networks"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "UDP is a connection-oriented protocol.",
       "difficulty": "easy",
       "explanation": "UDP (User Datagram Protocol) is a connectionless protocol, while TCP (Transmission Control Protocol) is connection-oriented.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["Amplify network signals", "Filter network traffic based on MAC addresses", "Convert analog signals to digital signals"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The OSI model has 5 layers.",
       "difficulty": "easy",
       "explanation": "The OSI (Open Systems Interconnection) model has 7 layers.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -77,12 +77,12 @@
       "wrongAnswers": ["ipconfig", "tracert", "ping"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A firewall is a network security system that monitors and controls incoming and outgoing network traffic.",
       "difficulty": "easy",
       "explanation": "A firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -101,12 +101,12 @@
       "wrongAnswers": ["POP3", "IMAP", "FTP"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "NAT translates private IP addresses to different public IP addresses.",
       "difficulty": "medium",
       "explanation": "NAT (Network Address Translation) translates private IP addresses to one or multiple routable IP addresses. PAT translates private to same public IP address, different port.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -125,12 +125,12 @@
       "wrongAnswers": ["OSPF", "BGP", "EIGRP"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A MAC address operates at the Network Layer (Layer 3) of the OSI model.",
       "difficulty": "easy",
       "explanation": "MAC addresses operate at the Data Link Layer (Layer 2) of the OSI model.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -149,12 +149,12 @@
       "wrongAnswers": ["802.11", "802.1", "802.15.1"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A hub sends signals to a specific port based on MAC addresses.",
       "difficulty": "easy",
       "explanation": "Switches send signals to specific ports based on MAC addresses, while hubs broadcast signals to all connected ports.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

@@ -1,26 +1,15 @@
+/* src/components/QuizBrowser.module.css */
+
 .quizBrowser {
-  max-width: 1100px;
+  /* Use container max-width variable if defined, or set a reasonable default */
+  max-width: var(--container-max-width, 1100px);
   width: 100%;
-  margin: 0 auto;
+  margin: var(--space-lg) auto; /* Add top/bottom margin */
+  padding: 0 var(--space-md); /* Add horizontal padding for smaller screens */
 }
 
-.quizBrowser h1 {
-  text-align: center;
-  margin-bottom: var(--space-xl);
-}
-
-.quizCategories {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--space-lg);
-}
-
-.quizCard h2 {
-  color: var(--secondary-color);
-  margin-bottom: var(--space-sm);
-  font-size: var(--font-size-lg);
-}
-
-.quizCard .btn {
-  margin-top: var(--space-md);
-}
+/* Remove styles related to h1, .quizCategories, .quizCard as these are now handled within CategoryView */
+/* .quizBrowser h1 { ... } */
+/* .quizCategories { ... } */
+/* .quizCard h2 { ... } */
+/* .quizCard .btn { ... } */

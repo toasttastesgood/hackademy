@@ -7,9 +7,11 @@ const QuizBrowser: React.FC = () => {
   const [searchParams] = useSearchParams();
   const selectedCategory = searchParams.get('category');
 
+  // The initialExpandedCategory prop is passed down to CategoryView
+  // to handle potential deep linking or navigation state.
   return (
     <div className={styles.quizBrowser}>
-      <h1>Hackademy Quizzes</h1>
+      {/* Title is removed, handled by layout or CategoryView potentially */}
       <CategoryView initialExpandedCategory={selectedCategory} />
     </div>
   );

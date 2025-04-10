@@ -1,70 +1,125 @@
+/* src/components/Dashboard.module.css */
 .dashboard {
-  max-width: 800px;
-  width: 100%; 
-  margin: 0 auto;
-}
-
-.progressContainer {
+  max-width: 900px; /* Slightly wider */
+  width: 100%;
+  margin: var(--space-lg) auto; /* Add top/bottom margin */
+  padding: 0 var(--space-md); /* Add horizontal padding for smaller screens */
   display: flex;
-  justify-content: center;
-  margin: var(--space-xl) 0;
+  flex-direction: column;
+  gap: var(--space-xl); /* Add gap between cards */
 }
 
-/* Removed .circularProgress, .circularProgress circle, and .progressText rules */
-/* Size and stroke are controlled by props in CircularProgress component */
-/* Percentage text is styled within CircularProgress component */
+/* Loading and Error States */
+.loading,
+.error {
+  text-align: center;
+  padding: var(--space-xl);
+  color: var(--text-secondary);
+}
 
-.recommendedCategories h2 {
+.error {
+  color: var(--text-error);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Progress Summary Card */
+.progressSummaryCard h2 {
   text-align: center;
   margin-bottom: var(--space-lg);
 }
 
-.categoryList {
-  display: flex;
-  flex-direction: column;
-  /* Removed gap, using border instead */
-  padding: 0; /* Let Card handle padding */
-  margin: 0; /* Let Card handle margin */
-}
-
-.categoryItem {
+.progressContent {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: var(--space-md); /* Use consistent padding */
-  /* border-radius removed, Card handles rounding */
-  transition: background-color var(--duration-fast) var(--ease-in-out);
-  border-bottom: var(--border-width-base) solid var(--border-primary); /* Add separator */
+  justify-content: center; /* Center items horizontally */
+  gap: var(--space-xl); /* Space between circle and text */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
-.categoryItem:last-child {
-  border-bottom: none; /* Remove border for the last item */
-  border-bottom: none; /* Remove border for the last item */
-} /* Added missing closing brace */
-
-.categoryItem:hover {
-  background-color: var(--bg-accent); /* Use standard accent background for hover */
+.progressStats {
+  text-align: left; /* Align text to the left */
+  line-height: var(--line-height-snug);
 }
 
-.categoryItemInfo {
-  flex-grow: 1;
-  margin-right: var(--space-md);
+.progressStats p {
+  margin-bottom: var(--space-sm); /* Smaller margin between stats */
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
 }
 
-.categoryItem h3 {
-  margin-bottom: var(--space-xs);
-  color: var(--text-primary); /* Use primary text color */
-  font-size: var(--font-size-base);
+.progressStats strong {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
 }
 
-.categoryItem span {
+/* Explore Categories Card */
+.categoryGrid h2 { /* Target h2 within the parent Card */
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.categoryGrid {
+  display: grid;
+  /* Adjust columns for different screen sizes */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
+  gap: var(--space-lg); /* Gap between category cards */
+  padding-top: var(--space-md); /* Add some space below the title */
+}
+
+/* Individual Category Card Styling using Grid */
+.categoryCard {
+  /* Inherits base Card styles */
+  padding: var(--space-md);
+  margin-bottom: 0; /* Remove margin from Card component */
+  display: grid; /* Use Grid layout */
+  grid-template-rows: auto 1fr auto auto; /* Title, Spacer, Stats, Progress */
+  grid-template-columns: 1fr; /* Single column */
+  align-items: center; /* Center items horizontally */
+  text-align: center;
+  min-height: 180px; /* Ensure a minimum height for alignment */
+}
+
+/* Remove intermediate flex container styles */
+/* .categoryCardContent { ... } */
+/* .categoryCardBottom { ... } */
+
+.categoryTitle {
+  grid-row: 1 / 2; /* Place title in the first row */
+  font-size: var(--font-size-md);
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm); /* Space below title */
+  align-self: start; /* Align title to the top of its grid area */
+}
+
+.categoryStats {
+  grid-row: 3 / 4; /* Place stats in the third row */
   font-size: var(--font-size-sm);
-  color: var(--text-secondary); /* Use secondary text color */
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs); /* Space below stats */
+  align-self: end; /* Align stats to the bottom of its grid area */
 }
+
+.categoryProgress {
+  grid-row: 4 / 5; /* Place progress in the fourth row */
+  justify-self: center; /* Center progress horizontally */
+  align-self: end; /* Align progress to the bottom */
+}
+
+/* Adjust progress percentage text size for category cards */
+.categoryProgress > div:last-child { /* Target the percentage div */
+   font-size: var(--font-size-xs);
+}
+
+/* Adjust progress percentage text size for category cards */
+.categoryProgress > div:last-child { /* Target the percentage div */
+   font-size: var(--font-size-xs);
+}
+
 
 .emptyState {
-  padding: var(--space-lg) var(--space-md);
+  padding: var(--space-lg) 0; /* Padding top/bottom */
   text-align: center;
   color: var(--text-secondary);
   font-style: italic;
+  grid-column: 1 / -1; /* Span full width if grid is empty */
 }

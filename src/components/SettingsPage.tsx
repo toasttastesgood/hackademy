@@ -6,7 +6,7 @@ import React from 'react'; // Removed useState import
 import styles from './SettingsPage.module.css';
 import AppearanceSettings from './AppearanceSettings'; // Import the new component
 import DataValidationSettings from './DataValidationSettings'; // Import the new component
-
+import QuizSettings from './QuizSettings'; // Import the new quiz settings component
 const SettingsPage: React.FC = () => {
   // Use the new context structure
   // Theme context usage moved to AppearanceSettings
@@ -19,6 +19,8 @@ const SettingsPage: React.FC = () => {
       <AppearanceSettings />
 
       <DataValidationSettings />
+
+      <QuizSettings />
     </div>
   );
 };

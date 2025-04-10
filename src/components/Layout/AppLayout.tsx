@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+import { useQuizTitle } from '../../contexts/QuizTitleContext';
 // import Sidebar from '../Sidebar/Sidebar'; // Old sidebar
 import Sidebar from '../Sidebar/Sidebar'; // Import the renamed sidebar
 import Topbar from '../Topbar/Topbar';
 import styles from './AppLayout.module.css';
 
 const AppLayout: React.FC = () => {
+  const { quizTitle } = useQuizTitle();
   const [isMobile, setIsMobile] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -37,6 +39,7 @@ const AppLayout: React.FC = () => {
       <Topbar
         isMobile={isMobile}
         onMenuToggle={toggleSidebar}
+        quizTitle={quizTitle}
       />
       {/* Render the new sidebar directly. Expansion/mobile logic can be added later */}
       <Sidebar isOpen={sidebarOpen} isMobile={isMobile} /> {/* Pass state */}

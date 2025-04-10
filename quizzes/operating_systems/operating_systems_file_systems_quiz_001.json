@@ -21,12 +21,12 @@
       "wrongAnswers": ["ext4", "XFS", "ZFS"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "ext4 is a Windows file system.",
       "difficulty": "easy",
       "explanation": "ext4 is a Linux file system.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["Encrypt file contents", "Compress file size", "Protect file from unauthorized access"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A hard link creates a new copy of a file.",
       "difficulty": "easy",
       "explanation": "A hard link creates a new directory entry that points to the same inode as the original file.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["New copy of a file", "Directory entry", "File metadata"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Deleting a symbolic link deletes the original file.",
       "difficulty": "easy",
       "explanation": "Deleting a symbolic link only deletes the link, not the original file.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["Improve file access speed", "Encrypt file contents", "Compress file size"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "FAT32 supports file sizes larger than 4GB.",
       "difficulty": "easy",
       "explanation": "FAT32 does not support file sizes larger than 4GB.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["Physical storage device", "File system", "Directory entry"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A sector is the smallest unit of storage on a hard drive.",
       "difficulty": "easy",
       "explanation": "A sector is the smallest unit of storage on a hard drive.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["Control drive speed", "Cool the drive", "Protect the drive from damage"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A track is a concentric circle on a hard drive platter.",
       "difficulty": "easy",
       "explanation": "A track is a concentric circle on a hard drive platter.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",

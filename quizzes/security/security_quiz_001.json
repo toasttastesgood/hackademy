@@ -21,12 +21,12 @@
       "wrongAnswers": ["Replicate itself across a network", "Encrypt user data", "Steal user credentials"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A worm requires a host file to infect a system.",
       "difficulty": "easy",
       "explanation": "A worm targets vulnerabilities in operating systems to install themselves into networks and does not require a host file.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["Encrypt user data", "Control user access", "Monitor file changes"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Kerberos is an authentication protocol that uses tickets to verify identity.",
       "difficulty": "easy",
       "explanation": "Kerberos works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -77,12 +77,12 @@
       "wrongAnswers": ["ARP", "DHCP", "DNS"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "Hashing is a two-way function used to protect data confidentiality.",
       "difficulty": "easy",
       "explanation": "Hashing is a one-way function used to ensure data integrity, while encryption is a two-way function used to protect data confidentiality.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -101,12 +101,12 @@
       "wrongAnswers": ["Prevent malicious activity", "Encrypt network traffic", "Control user access"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "An Intrusion Prevention System (IPS) is placed out-of-band and passively monitors network traffic.",
       "difficulty": "medium",
       "explanation": "IPSs are placed in-line and are able to actively prevent or block intrusions that are detected.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -125,12 +125,12 @@
       "wrongAnswers": ["Encrypt user data", "Manage disk quotas", "Control user access"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A Trojan can replicate itself without user interaction.",
       "difficulty": "easy",
       "explanation": "Trojans do not replicate themselves; they rely on user interaction to spread.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -149,12 +149,12 @@
       "wrongAnswers": ["Prevent malware infections", "Encrypt network traffic", "Control user access"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A signature-based antivirus is effective against zero-day exploits.",
       "difficulty": "medium",
       "explanation": "Signature-based antivirus software is not effective against zero-day exploits because it relies on known malware signatures.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

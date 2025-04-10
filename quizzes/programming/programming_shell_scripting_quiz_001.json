@@ -21,12 +21,12 @@
       "wrongAnswers": ["$0", "$*", "$@"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The $0 variable contains the name of the script being executed.",
       "difficulty": "easy",
       "explanation": "The $0 variable contains the name of the script being executed.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["variable = `command`", "variable = command", "execute command"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'if' statement in a bash script requires an 'else' block.",
       "difficulty": "easy",
       "explanation": "The 'else' block in an 'if' statement is optional.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["-d", "-e", "-x"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The '&&' operator is used to execute a command only if the previous command fails.",
       "difficulty": "easy",
       "explanation": "The '&&' operator is used to execute a command only if the previous command succeeds.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["array[0]=item1", "array={item1, item2, item3}", "array=item1, item2, item3"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'break' command is used to exit a loop in a bash script.",
       "difficulty": "easy",
       "explanation": "The 'break' command is used to exit a loop in a bash script.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["-f", "-e", "-x"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'exit' command is used to terminate a script.",
       "difficulty": "easy",
       "explanation": "The 'exit' command is used to terminate a script.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": [">", "1>", "&>"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The 'source' command is used to execute a script in a subshell.",
       "difficulty": "easy",
       "explanation": "The 'source' command is used to execute a script in the current shell.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",

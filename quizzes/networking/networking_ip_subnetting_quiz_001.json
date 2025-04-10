@@ -21,12 +21,12 @@
       "wrongAnswers": ["192.168.1.1", "192.168.1.10", "192.168.1.255"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A /24 subnet mask has 256 usable host addresses.",
       "difficulty": "easy",
       "explanation": "A /24 subnet mask has 254 usable host addresses (256 total addresses minus the network and broadcast addresses).",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -45,12 +45,12 @@
       "wrongAnswers": ["2", "6", "8"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "VLSM allows for different subnet masks within the same network.",
       "difficulty": "easy",
       "explanation": "VLSM (Variable Length Subnet Masking) allows for different subnet masks within the same network.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -69,12 +69,12 @@
       "wrongAnswers": ["192.168.0.0/28", "10.0.0.0/7", "192.169.0.0/16"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The CIDR notation /16 represents a subnet mask of 255.255.0.0.",
       "difficulty": "easy",
       "explanation": "The CIDR notation /16 represents a subnet mask of 255.255.0.0.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -93,12 +93,12 @@
       "wrongAnswers": ["192.168.5.0", "192.168.5.31", "192.168.5.32"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A /31 subnet can be used for point-to-point links.",
       "difficulty": "medium",
       "explanation": "A /31 subnet can be used for point-to-point links.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",
@@ -117,12 +117,12 @@
       "wrongAnswers": ["255.255.255.0", "255.255.255.192", "255.255.255.240"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "The IP address 169.254.0.0/16 is a public IP address range.",
       "difficulty": "easy",
       "explanation": "The IP address 169.254.0.0/16 is an APIPA (Automatic Private IP Addressing) range, which is not routable on the internet.",
-      "correctAnswers": [false],
-      "options": ["True", "False"]
+      "correctAnswers": ["False"],
+      "wrongAnswers": ["True"]
     },
     {
       "type": "mcq",
@@ -141,12 +141,12 @@
       "wrongAnswers": ["172.16.5.0", "172.16.5.16", "172.16.5.32"]
     },
     {
-      "type": "true_false",
+      "type": "mcq",
       "text": "A /23 subnet mask allows for more host addresses than a /24 subnet mask.",
       "difficulty": "easy",
       "explanation": "A /23 subnet mask allows for more host addresses than a /24 subnet mask.",
-      "correctAnswers": [true],
-      "options": ["True", "False"]
+      "correctAnswers": ["True"],
+      "wrongAnswers": ["False"]
     },
     {
       "type": "mcq",

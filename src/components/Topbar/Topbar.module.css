@@ -15,7 +15,7 @@
     border-bottom: var(--border-width-base) solid var(--border-primary); /* Use theme variables */
     gap: var(--space-md); /* Use theme variable */
     padding: 0 var(--space-lg); /* Adjust padding */
-    padding-left: 0.7rem;
+    padding-left: 0.1rem;
     height: var(--topbar-height); /* Use theme variable */
     /* Removed padding-left adjustment for sidebar */
     /* transition: padding-left var(--duration-base) var(--ease-in-out); */ /* Remove transition if not expanding */
@@ -36,7 +36,7 @@
 }
 
 .logoImage {
-    height: calc(var(--topbar-height) * 0.6); /* Scale with topbar height */
+    height: calc(var(--topbar-height) * 0.9); /* Scale with topbar height */
     width: auto;
     object-fit: contain;
 }

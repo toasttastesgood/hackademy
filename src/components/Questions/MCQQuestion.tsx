@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react'; // Removed useState import
 import styles from '../QuizPlayer.module.css';
 import { QuestionComponentProps } from './types';
 import MultipleChoiceOptions from './MultipleChoiceOptions';
@@ -13,13 +13,19 @@ export interface MCQQuestionProps extends QuestionComponentProps {
 const MCQQuestion: React.FC<MCQQuestionProps> = ({
   question,
   onAnswer,
-  disabled = false
+  disabled = false,
+  currentAnswer,
+  // Destructure feedback props to pass them down
+  isShowingFeedback,
+  correctAnswerValue,
+  instantFeedbackEnabled,
+  isAnswerLocked,
 }) => {
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  // Removed internal selectedAnswer state. The value comes from the currentAnswer prop.
 
   const handleSelect = (answer: string) => {
     if (disabled) return;
-    setSelectedAnswer(answer);
+    // setSelectedAnswer(answer); // No longer needed
     onAnswer(answer);
   };
 
@@ -29,7 +35,14 @@ const MCQQuestion: React.FC<MCQQuestionProps> = ({
       wrongAnswers={question.wrongAnswers}
       onSelect={handleSelect}
       disabled={disabled}
-      selectedAnswer={selectedAnswer}
+      // Pass the currentAnswer prop down instead of internal state
+      // Ensure currentAnswer is compatible (string | null for MCQ)
+      selectedAnswer={typeof currentAnswer === 'string' ? currentAnswer : null}
+      // Pass feedback props down
+      isShowingFeedback={isShowingFeedback}
+      correctAnswerValue={correctAnswerValue}
+      instantFeedbackEnabled={instantFeedbackEnabled}
+      isAnswerLocked={isAnswerLocked}
     />
   );
 };
