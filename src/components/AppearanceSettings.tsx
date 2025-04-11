@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme, BaseTheme, ColorMode } from '../contexts/ThemeContext';
+import { useSettings, ThemeName, ColorMode } from '../contexts/SettingsContext'; // Import useSettings and types
 import Card from './Card/Card';
 import buttonStyles from './Button/Button.module.css';
 import styles from './SettingsPage.module.css'; // Reuse styles for now
@@ -9,20 +9,20 @@ import styles from './SettingsPage.module.css'; // Reuse styles for now
  * Uses the ThemeContext to get and set theme preferences.
  */
 const AppearanceSettings: React.FC = () => {
-  const { baseTheme, setBaseTheme, colorMode, setColorMode } = useTheme();
+  const { settings, setTheme, setMode } = useSettings(); // Use the new hook
 
   // Helper function to generate base theme button props
-  const getBaseThemeButtonProps = (buttonTheme: BaseTheme) => ({
-    className: `${buttonStyles.btn} ${buttonStyles.btnOutline} ${styles.themeOption} ${baseTheme === buttonTheme ? styles.active : ''}`,
-    onClick: () => setBaseTheme(buttonTheme),
-    disabled: baseTheme === buttonTheme,
+  const getBaseThemeButtonProps = (buttonTheme: ThemeName) => ({
+    className: `${buttonStyles.btn} ${buttonStyles.outline} ${styles.themeOption} ${settings.theme === buttonTheme ? styles.active : ''}`, // Use settings.theme and correct button style
+    onClick: () => setTheme(buttonTheme), // Use setTheme from useSettings
+    disabled: settings.theme === buttonTheme,
   });
 
   // Helper function to generate color mode button props
   const getColorModeButtonProps = (buttonMode: ColorMode) => ({
-      className: `${buttonStyles.btn} ${buttonStyles.btnOutline} ${styles.themeOption} ${colorMode === buttonMode ? styles.active : ''}`,
-      onClick: () => setColorMode(buttonMode),
-      disabled: colorMode === buttonMode,
+      className: `${buttonStyles.btn} ${buttonStyles.outline} ${styles.themeOption} ${settings.mode === buttonMode ? styles.active : ''}`, // Use settings.mode and correct button style
+      onClick: () => setMode(buttonMode), // Use setMode from useSettings
+      disabled: settings.mode === buttonMode,
   });
 
   return (

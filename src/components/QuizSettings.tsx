@@ -1,85 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react'; // Removed useState, useEffect
+import { useSettings } from '../contexts/SettingsContext'; // Import useSettings
 import Card from './Card/Card';
 import styles from './SettingsPage.module.css'; // Reuse styles for consistency
-import Switch from 'react-switch';
+import Switch from 'react-switch'; // Keep Switch import
 
-const QUIZ_QUESTIONS_COUNT_KEY = 'quizQuestionsCount';
-const QUIZ_SHUFFLE_ENABLED_KEY = 'quizShuffleEnabled';
-const QUIZ_INSTANT_FEEDBACK_ENABLED_KEY = 'quizInstantFeedbackEnabled';
-const QUIZ_INSTANT_FEEDBACK_DELAY_KEY = 'quizInstantFeedbackDelay';
-const DEFAULT_QUESTIONS_COUNT = 20;
-const DEFAULT_FEEDBACK_DELAY = 3; // Default delay in seconds
+// Constants for localStorage keys and defaults removed
 
 const QuizSettings: React.FC = () => {
-  const [questionsCount, setQuestionsCount] = useState<number>(() => {
-    const storedCount = localStorage.getItem(QUIZ_QUESTIONS_COUNT_KEY);
-    return storedCount ? parseInt(storedCount, 10) : DEFAULT_QUESTIONS_COUNT;
-  });
-  const [shuffleEnabled, setShuffleEnabled] = useState<boolean>(() => {
-    const storedValue = localStorage.getItem(QUIZ_SHUFFLE_ENABLED_KEY);
-    // Default to true if not set
-    return storedValue !== null ? JSON.parse(storedValue) : true;
-  });
-  const [instantFeedbackEnabled, setInstantFeedbackEnabled] = useState<boolean>(() => {
-    const storedValue = localStorage.getItem(QUIZ_INSTANT_FEEDBACK_ENABLED_KEY);
-    return storedValue !== null ? JSON.parse(storedValue) : false; // Default to off
-  });
-  const [feedbackDelay, setFeedbackDelay] = useState<number>(() => {
-    const storedValue = localStorage.getItem(QUIZ_INSTANT_FEEDBACK_DELAY_KEY);
-    // Ensure stored value is valid, otherwise use default
-    const parsedValue = storedValue ? parseInt(storedValue, 10) : DEFAULT_FEEDBACK_DELAY;
-    return !isNaN(parsedValue) && parsedValue >= 1 ? parsedValue : DEFAULT_FEEDBACK_DELAY;
-  });
+  const {
+    settings,
+    setQuizQuestionsCount,
+    setQuizShuffleEnabled,
+    setQuizInstantFeedbackEnabled,
+    setQuizInstantFeedbackDelay,
+  } = useSettings();
 
-  // Effect to save question count
-  useEffect(() => {
-    localStorage.setItem(QUIZ_QUESTIONS_COUNT_KEY, questionsCount.toString());
-  }, [questionsCount]);
+  // Local state and initial loading from localStorage removed
 
-  // Effect to save shuffle setting
-  useEffect(() => {
-    localStorage.setItem(QUIZ_SHUFFLE_ENABLED_KEY, JSON.stringify(shuffleEnabled));
-  }, [shuffleEnabled]);
-
-  // Effect to save instant feedback setting
-  useEffect(() => {
-    localStorage.setItem(QUIZ_INSTANT_FEEDBACK_ENABLED_KEY, JSON.stringify(instantFeedbackEnabled));
-  }, [instantFeedbackEnabled]);
-
-  // Effect to save feedback delay setting
-  useEffect(() => {
-    localStorage.setItem(QUIZ_INSTANT_FEEDBACK_DELAY_KEY, feedbackDelay.toString());
-  }, [feedbackDelay]);
+  // useEffect hooks for saving to localStorage removed (handled by SettingsContext)
 
   const handleCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
-    if (!isNaN(value) && value > 0) { // Ensure positive integer
-      setQuestionsCount(value);
+    // Use the setter from useSettings
+    if (!isNaN(value) && value > 0) {
+      setQuizQuestionsCount(value);
     } else if (event.target.value === '') {
-       setQuestionsCount(DEFAULT_QUESTIONS_COUNT);
+       // Optionally reset to default if input is cleared, or just prevent invalid input
+       // For now, let's just ensure it's a positive number. The context holds the default.
+       // If you want reset-on-clear behavior, you'd need the default value from context or constants.
     }
   };
 
   const handleShuffleToggle = (checked: boolean) => {
-    setShuffleEnabled(checked);
+    setQuizShuffleEnabled(checked); // Use setter from useSettings
   };
 
   const handleInstantFeedbackToggle = (checked: boolean) => {
-    setInstantFeedbackEnabled(checked);
+    setQuizInstantFeedbackEnabled(checked); // Use setter from useSettings
   };
 
   const handleDelayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
-    if (!isNaN(value) && value >= 1) { // Ensure positive integer >= 1
-      setFeedbackDelay(value);
+    // Use the setter from useSettings
+    if (!isNaN(value) && value >= 1) {
+      setQuizInstantFeedbackDelay(value);
     } else if (event.target.value === '') {
-       setFeedbackDelay(DEFAULT_FEEDBACK_DELAY);
+       // Similar to count, handle clear behavior if desired.
     }
   };
 
   return (
     <Card className={styles.settingsCard}>
-      <h2>Quiz Settings</h2>
+      <h3>Quiz Settings</h3> {/* Changed to h3 for consistency with AppearanceSettings */}
       {/* Questions Count Setting */}
       <div className={styles.settingItem}>
         <label htmlFor="questionsCount">Questions per Quiz Session:</label>
@@ -87,7 +59,7 @@ const QuizSettings: React.FC = () => {
           type="number"
           id="questionsCount"
           name="questionsCount"
-          value={questionsCount}
+          value={settings.quizQuestionsCount} // Use value from settings
           onChange={handleCountChange}
           min="1"
           className={styles.inputField}
@@ -102,7 +74,7 @@ const QuizSettings: React.FC = () => {
         <label htmlFor="shuffleToggle">Shuffle Questions:</label>
         <Switch
           onChange={handleShuffleToggle}
-          checked={shuffleEnabled}
+          checked={settings.quizShuffleEnabled} // Use value from settings
           id="shuffleToggle"
           onColor="#86d3ff"
           onHandleColor="#2693e6"
@@ -125,7 +97,7 @@ const QuizSettings: React.FC = () => {
         <label htmlFor="instantFeedbackToggle">Instant Feedback:</label>
         <Switch
           onChange={handleInstantFeedbackToggle}
-          checked={instantFeedbackEnabled}
+          checked={settings.quizInstantFeedbackEnabled} // Use value from settings
           id="instantFeedbackToggle"
           onColor="#86d3ff"
           onHandleColor="#2693e6"
@@ -145,14 +117,14 @@ const QuizSettings: React.FC = () => {
       </div>
 
       {/* Feedback Delay Setting (Conditional) */}
-      {instantFeedbackEnabled && (
+      {settings.quizInstantFeedbackEnabled && ( // Use value from settings
         <div className={styles.settingItem}>
           <label htmlFor="feedbackDelay">Feedback Delay (seconds):</label>
           <input
             type="number"
             id="feedbackDelay"
             name="feedbackDelay"
-            value={feedbackDelay}
+            value={settings.quizInstantFeedbackDelay} // Use value from settings
             onChange={handleDelayChange}
             min="1"
             className={styles.inputField}

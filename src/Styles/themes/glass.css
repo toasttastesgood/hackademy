@@ -1,0 +1,130 @@
+/* src/Styles/themes/glass.css */
+
+/* --- Glass Theme --- */
+:root[data-theme="glass"] {
+  /* Shadows (Softer for Glass) */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --shadow-inner: inset 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+
+  /* Components */
+  --card-shadow: var(--shadow-md);
+  --card-backdrop-filter: blur(var(--blur-md)); /* Apply blur */
+  --button-primary-shadow: none; /* Flat buttons */
+  --button-primary-active-shadow: var(--shadow-inner);
+  --button-secondary-shadow: none;
+  --button-secondary-active-shadow: var(--shadow-inner);
+  --button-outline-shadow: none;
+  --button-outline-active-shadow: var(--shadow-inner);
+  --button-disabled-shadow: none;
+  --input-shadow: none;
+  --input-focus-shadow: none;
+}
+
+
+/* --- Glass Theme - Light Mode --- */
+:root[data-theme="glass"][data-mode="light"] {
+  --primary-color: #6366f1;         /* Indigo 500 */
+  --secondary-color: #10b981;       /* Emerald 500 */
+  --accent-color: #f59e0b;          /* Amber 500 */
+  --neutral-color: #64748b;         /* Slate 500 */
+  --success-color: #22c55e;         /* Green 500 */
+  --warning-color: #facc15;         /* Yellow 400 */
+  --error-color: #ef4444;           /* Red 500 */
+  --info-color: #3b82f6;            /* Blue 500 */
+  --bg-primary: linear-gradient(to top right, #accbee, #e7f0fd); /* Gradient */
+  --bg-secondary: rgba(255, 255, 255, 0.45); /* More opaque for light */
+  --bg-accent: rgba(255, 255, 255, 0.3);
+  --bg-backdrop: rgba(0, 0, 0, 0.1);
+  --text-primary: #1e293b;          /* Slate 800 */
+  --text-secondary: #475569;        /* Slate 600 */
+  --text-accent: var(--primary-color);
+  --text-on-primary: #ffffff;
+  --text-on-secondary: #ffffff;
+  --text-disabled: #94a3b8;         /* Slate 400 */
+  --text-placeholder: #94a3b8;
+  --text-link: var(--secondary-color);
+  --text-error: var(--error-color);
+  --text-success: var(--success-color);
+  --border-primary: rgba(255, 255, 255, 0.6); /* More opaque border */
+  --border-secondary: rgba(255, 255, 255, 0.4);
+  --border-accent: var(--primary-color);
+  --border-focus: var(--secondary-color);
+  --card-bg: var(--bg-secondary);
+  --card-border: var(--border-primary);
+  --button-primary-bg: var(--primary-color);
+  --button-primary-text: var(--text-on-primary);
+  --button-primary-border: transparent;
+  --button-secondary-bg: var(--secondary-color);
+  --button-secondary-text: var(--text-on-secondary);
+  --button-secondary-border: transparent;
+  --button-outline-bg: rgba(255, 255, 255, 0.2);
+  --button-outline-text: var(--text-primary);
+  --button-outline-border: var(--border-secondary);
+  --button-outline-hover-bg: rgba(255, 255, 255, 0.3);
+  --button-disabled-bg: rgba(200, 200, 200, 0.3);
+  --button-disabled-text: var(--text-disabled);
+  --button-disabled-border: transparent;
+  --input-bg: rgba(255, 255, 255, 0.3);
+  --input-border: var(--border-secondary);
+  --input-text: var(--text-primary);
+  --input-focus-border: var(--border-focus);
+  --tooltip-bg: rgba(30, 41, 59, 0.8); /* Darker tooltip */
+  --tooltip-text: #ffffff;
+  --shadow-focus-ring: 0 0 0 3px color-mix(in srgb, var(--secondary-color) 30%, transparent);
+}
+
+/* --- Glass Theme - Dark Mode --- */
+:root[data-theme="glass"][data-mode="dark"] {
+  --primary-color: #818cf8;         /* Indigo 400 */
+  --secondary-color: #34d399;       /* Emerald 400 */
+  --accent-color: #fcd34d;          /* Amber 300 */
+  --neutral-color: #94a3b8;         /* Slate 400 */
+  --success-color: #4ade80;         /* Green 400 */
+  --warning-color: #fde047;         /* Yellow 300 */
+  --error-color: #f87171;           /* Red 400 */
+  --info-color: #60a5fa;            /* Blue 400 */
+  --bg-primary: linear-gradient(to bottom right, #0f172a, #1e293b); /* Dark Gradient */
+  --bg-secondary: rgba(30, 41, 59, 0.5); /* Dark transparent */
+  --bg-accent: rgba(51, 65, 85, 0.4);   /* Darker transparent */
+  --bg-backdrop: rgba(0, 0, 0, 0.5);
+  --text-primary: #f1f5f9;          /* Slate 100 */
+  --text-secondary: #94a3b8;        /* Slate 400 */
+  --text-accent: var(--primary-color);
+  --text-on-primary: #1e293b;
+  --text-on-secondary: #0f172a;
+  --text-disabled: #475569;         /* Slate 600 */
+  --text-placeholder: #64748b;      /* Slate 500 */
+  --text-link: var(--secondary-color);
+  --text-error: var(--error-color);
+  --text-success: var(--success-color);
+  --border-primary: rgba(255, 255, 255, 0.15); /* Subtle white border */
+  --border-secondary: rgba(255, 255, 255, 0.1);
+  --border-accent: var(--primary-color);
+  --border-focus: var(--secondary-color);
+  --card-bg: var(--bg-secondary);
+  --card-border: var(--border-primary);
+  --button-primary-bg: var(--primary-color);
+  --button-primary-text: var(--text-on-primary);
+  --button-primary-border: transparent;
+  --button-secondary-bg: var(--secondary-color);
+  --button-secondary-text: var(--text-on-secondary);
+  --button-secondary-border: transparent;
+  --button-outline-bg: rgba(51, 65, 85, 0.3); /* Dark transparent */
+  --button-outline-text: var(--text-primary);
+  --button-outline-border: var(--border-secondary);
+  --button-outline-hover-bg: rgba(51, 65, 85, 0.5);
+  --button-disabled-bg: rgba(51, 65, 85, 0.2);
+  --button-disabled-text: var(--text-disabled);
+  --button-disabled-border: transparent;
+  --input-bg: rgba(51, 65, 85, 0.4);
+  --input-border: var(--border-secondary);
+  --input-text: var(--text-primary);
+  --input-focus-border: var(--border-focus);
+  --tooltip-bg: rgba(241, 245, 249, 0.8); /* Lighter tooltip */
+  --tooltip-text: #0f172a;
+  --shadow-focus-ring: 0 0 0 3px color-mix(in srgb, var(--secondary-color) 40%, transparent);
+}

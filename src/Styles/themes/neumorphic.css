@@ -1,0 +1,151 @@
+/* src/Styles/themes/neumorphic.css */
+
+/* --- Neumorphic Theme --- */
+:root[data-theme="neumorphic"] {
+  /* Neumorphic Shadow Definitions (depend on light/dark mode colors) */
+  --neumorphic-shadow-distance: 5px;
+  --neumorphic-shadow-blur: 10px;
+
+  /* These will be defined fully in the color mode sections */
+  --neumorphic-light-shadow-color: rgba(255, 255, 255, 0.7); /* Placeholder */
+  --neumorphic-dark-shadow-color: rgba(163, 177, 198, 0.6); /* Placeholder */
+
+  --neumorphic-shadow-raised:
+    calc(var(--neumorphic-shadow-distance) * -1) calc(var(--neumorphic-shadow-distance) * -1) var(--neumorphic-shadow-blur) var(--neumorphic-light-shadow-color),
+    var(--neumorphic-shadow-distance) var(--neumorphic-shadow-distance) var(--neumorphic-shadow-blur) var(--neumorphic-dark-shadow-color);
+
+  --neumorphic-shadow-pressed:
+    inset calc(var(--neumorphic-shadow-distance) * -1) calc(var(--neumorphic-shadow-distance) * -1) var(--neumorphic-shadow-blur) var(--neumorphic-light-shadow-color),
+    inset var(--neumorphic-shadow-distance) var(--neumorphic-shadow-distance) var(--neumorphic-shadow-blur) var(--neumorphic-dark-shadow-color);
+
+  /* Override standard shadows */
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: var(--neumorphic-shadow-raised);
+  --shadow-lg: var(--neumorphic-shadow-raised);
+  --shadow-xl: var(--neumorphic-shadow-raised);
+  --shadow-inner: var(--neumorphic-shadow-pressed);
+
+  /* Components */
+  --card-shadow: var(--neumorphic-shadow-raised);
+  --card-backdrop-filter: none;
+  --card-border-radius: var(--border-radius-lg); /* Often more rounded */
+  --button-primary-shadow: var(--neumorphic-shadow-raised);
+  --button-primary-active-shadow: var(--neumorphic-shadow-pressed);
+  --button-secondary-shadow: var(--neumorphic-shadow-raised);
+  --button-secondary-active-shadow: var(--neumorphic-shadow-pressed);
+  --button-outline-shadow: var(--neumorphic-shadow-raised);
+  --button-outline-active-shadow: var(--neumorphic-shadow-pressed);
+  --button-disabled-shadow: none; /* Flat when disabled */
+  --input-shadow: var(--neumorphic-shadow-pressed); /* Inputs often look pressed */
+  --input-focus-shadow: var(--neumorphic-shadow-pressed); /* Focus ring handled separately */
+}
+
+
+/* --- Neumorphic Theme - Light Mode --- */
+:root[data-theme="neumorphic"][data-mode="light"] {
+  --primary-color: #6366f1;         /* Indigo 500 */
+  --secondary-color: #10b981;       /* Emerald 500 */
+  --accent-color: #f59e0b;          /* Amber 500 */
+  --neutral-color: #a0aec0;         /* Gray 500 - Adjusted */
+  --success-color: #22c55e;         /* Green 500 */
+  --warning-color: #facc15;         /* Yellow 400 */
+  --error-color: #ef4444;           /* Red 500 */
+  --info-color: #3b82f6;            /* Blue 500 */
+  --bg-primary: #e2e8f0;            /* Slate 200 - Base surface color */
+  --bg-secondary: var(--bg-primary); /* Elements match background */
+  --bg-accent: color-mix(in srgb, var(--primary-color) 10%, var(--bg-primary));
+  --bg-backdrop: rgba(0, 0, 0, 0.1);
+  --text-primary: #2d3748;          /* Gray 800 */
+  --text-secondary: #4a5568;        /* Gray 700 */
+  --text-accent: var(--primary-color);
+  --text-on-primary: #ffffff;
+  --text-on-secondary: #ffffff;
+  --text-disabled: #a0aec0;         /* Gray 500 */
+  --text-placeholder: #a0aec0;
+  --text-link: var(--secondary-color);
+  --text-error: #c53030;            /* Red 700 */
+  --text-success: #2f855a;          /* Green 700 */
+  --border-primary: transparent;
+  --border-secondary: transparent;
+  --border-accent: transparent;
+  --border-focus: var(--secondary-color);
+  --card-bg: var(--bg-primary);
+  --card-border: transparent;
+  --button-primary-bg: var(--primary-color);
+  --button-primary-text: var(--text-on-primary);
+  --button-primary-border: transparent;
+  --button-secondary-bg: var(--secondary-color);
+  --button-secondary-text: var(--text-on-secondary);
+  --button-secondary-border: transparent;
+  --button-outline-bg: var(--bg-primary);
+  --button-outline-text: var(--text-primary);
+  --button-outline-border: transparent;
+  --button-disabled-bg: #cbd5e1;    /* Slate 300 */
+  --button-disabled-text: var(--text-disabled);
+  --button-disabled-border: transparent;
+  --input-bg: var(--bg-primary);
+  --input-border: transparent;
+  --input-text: var(--text-primary);
+  --input-focus-border: var(--border-focus);
+  --tooltip-bg: var(--text-primary);
+  --tooltip-text: var(--bg-primary);
+  --shadow-focus-ring: 0 0 0 2px color-mix(in srgb, var(--secondary-color) 30%, transparent);
+  /* Neumorphic shadow colors for light mode */
+  --neumorphic-light-shadow-color: rgba(255, 255, 255, 0.7);
+  --neumorphic-dark-shadow-color: rgba(163, 177, 198, 0.6); /* Derived from bg */
+}
+
+/* --- Neumorphic Theme - Dark Mode --- */
+:root[data-theme="neumorphic"][data-mode="dark"] {
+  --primary-color: #818cf8;         /* Indigo 400 */
+  --secondary-color: #34d399;       /* Emerald 400 */
+  --accent-color: #fcd34d;          /* Amber 300 */
+  --neutral-color: #64748b;         /* Slate 500 - Adjusted */
+  --success-color: #4ade80;         /* Green 400 */
+  --warning-color: #fde047;         /* Yellow 300 */
+  --error-color: #f87171;           /* Red 400 */
+  --info-color: #60a5fa;            /* Blue 400 */
+  --bg-primary: #2d3748;            /* Gray 800 - Base surface color */
+  --bg-secondary: var(--bg-primary);
+  --bg-accent: color-mix(in srgb, var(--primary-color) 10%, var(--bg-primary));
+  --bg-backdrop: rgba(0, 0, 0, 0.4);
+  --text-primary: #e2e8f0;          /* Slate 200 */
+  --text-secondary: #a0aec0;        /* Gray 500 */
+  --text-accent: var(--primary-color);
+  --text-on-primary: #1a202c;       /* Dark text on light primary */
+  --text-on-secondary: #1a202c;     /* Dark text on light secondary */
+  --text-disabled: #718096;         /* Gray 600 */
+  --text-placeholder: #718096;
+  --text-link: var(--secondary-color);
+  --text-error: #f56565;            /* Red 500 */
+  --text-success: #68d391;          /* Green 500 */
+  --border-primary: transparent;
+  --border-secondary: transparent;
+  --border-accent: transparent;
+  --border-focus: var(--secondary-color);
+  --card-bg: var(--bg-primary);
+  --card-border: transparent;
+  --button-primary-bg: var(--primary-color);
+  --button-primary-text: var(--text-on-primary);
+  --button-primary-border: transparent;
+  --button-secondary-bg: var(--secondary-color);
+  --button-secondary-text: var(--text-on-secondary);
+  --button-secondary-border: transparent;
+  --button-outline-bg: var(--bg-primary);
+  --button-outline-text: var(--text-primary);
+  --button-outline-border: transparent;
+  --button-disabled-bg: #4a5568;    /* Gray 700 */
+  --button-disabled-text: var(--text-disabled);
+  --button-disabled-border: transparent;
+  --input-bg: var(--bg-primary);
+  --input-border: transparent;
+  --input-text: var(--text-primary);
+  --input-focus-border: var(--border-focus);
+  --tooltip-bg: var(--text-primary);
+  --tooltip-text: var(--bg-primary);
+  --shadow-focus-ring: 0 0 0 2px color-mix(in srgb, var(--secondary-color) 40%, transparent);
+  /* Neumorphic shadow colors for dark mode */
+  --neumorphic-light-shadow-color: rgba(74, 85, 104, 0.6); /* Derived from bg */
+  --neumorphic-dark-shadow-color: rgba(0, 0, 0, 0.4);
+}

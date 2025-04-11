@@ -143,3 +143,25 @@
 .incorrectBorder::before {
   background-color: var(--error-color);
 }
+
+/* Override default disabled opacity for feedback options */
+/* Ensure feedback colors are visible even when buttons are disabled (locked) */
+/* Increase specificity by including parent */
+.options > .optionSelectedCorrect:disabled,
+.options > .optionSelectedIncorrect:disabled,
+.options > .optionCorrectUnselected:disabled {
+  opacity: 1; /* Keep full opacity to show feedback colors */
+  cursor: default; /* Indicate non-interactive state clearly */
+}
+
+/* Optional: Adjust text color slightly for disabled feedback states if needed */
+/*
+.optionSelectedCorrect:disabled { color: var(--text-success); }
+.optionSelectedIncorrect:disabled { color: var(--text-error); }
+.optionCorrectUnselected:disabled { color: var(--text-success); }
+*/
+.optionSelected {
+  border-color: var(--primary-color, #007bff);
+  background-color: color-mix(in srgb, var(--primary-color, #007bff) 10%, transparent);
+  font-weight: var(--font-weight-medium);
+}

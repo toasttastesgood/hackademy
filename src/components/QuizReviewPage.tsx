@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import QuizQuestionCard from './QuizQuestionCard';
 import styles from './QuizPlayer.module.css'; // Reuse existing layout styles
-import buttonStyles from './Button/Button.module.css';
+import Button from './Button/Button';
 
 const QuizReviewPage: React.FC = () => {
   const location = useLocation();
@@ -26,12 +26,13 @@ const QuizReviewPage: React.FC = () => {
       <div className={styles.quizPlayer}>
         <h1>Quiz Review</h1>
         <p>Error: No review data found.</p>
-        <button
-          className={`${buttonStyles.btn} ${buttonStyles.btnPrimary}`}
+        <Button
+          variant="primary"
+          className={styles.actionButton}
           onClick={() => navigate('/')}
         >
           Back to Dashboard
-        </button>
+        </Button>
       </div>
     );
   }
@@ -65,8 +66,6 @@ const QuizReviewPage: React.FC = () => {
             totalQuestions={totalQuestions}
             onAnswer={() => {}}
             currentAnswer={q.selectedAnswer}
-            isShuffleActive={false}
-            onToggleShuffle={() => {}}
             isShowingFeedback={true}
             correctAnswerValueForFeedback={q.correctAnswer}
             isDisabled={true}
@@ -77,18 +76,20 @@ const QuizReviewPage: React.FC = () => {
       ))}
 
       <div className={styles.navigationButtons}>
-        <button
-          className={`${buttonStyles.btn} ${buttonStyles.btnOutline} ${styles.navButton}`}
+        <Button
+          variant="outline"
+          className={`${styles.navButton} ${styles.actionButton}`}
           onClick={() => navigate(`/quiz/${quizId}`)}
         >
           Retake Quiz
-        </button>
-        <button
-          className={`${buttonStyles.btn} ${buttonStyles.btnPrimary} ${styles.navButton}`}
+        </Button>
+        <Button
+          variant="primary"
+          className={`${styles.navButton} ${styles.actionButton}`}
           onClick={() => navigate('/')}
         >
           Back to Dashboard
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -1,393 +1,332 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'; // Added useRef
+import React, { useState, useEffect, useCallback } from 'react'; // Removed useRef
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuiz } from '../contexts/QuizProvider';
 import { useQuizTitle } from '../contexts/QuizTitleContext';
+import { useSettings } from '../contexts/SettingsContext'; // Import useSettings
 import styles from './QuizPlayer.module.css';
-import buttonStyles from './Button/Button.module.css';
+// Button import removed, handled by QuizNavigation
 import QuizQuestionCard from './QuizQuestionCard';
 import {
   validateQuestionAnswer
 } from '../services/QuestionTypeRegistry';
+// Question type imports remain for calculating correct answer value
 import {
-  Question,
   MCQQuestion,
   HighlightedBytesQuestion,
   HexSelectionQuestion,
   DragDropQuestion
 } from '../services/QuizTypes';
-import { QuestionStatus } from '../contexts/QuizProvider';
-import { FaRandom, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { selectQuestions, SessionQuestion } from '../services/QuestionSelector';
+// QuestionStatus import removed (was unused)
+// Fa icons removed, handled by QuizNavigation
+// selectQuestions, SessionQuestion imports removed, handled by useQuizSession
+import { useQuizSession } from '../hooks/useQuizSession'; // Import the session hook
+import { useInstantFeedback } from '../hooks/useInstantFeedback'; // Import the feedback hook
+import QuizNavigation from './QuizNavigation'; // Import the navigation component
+// validateQuestionAnswer is already imported above
 
-// Define AnswerType locally or import if shared
-type AnswerType = string | number | boolean | string[];
-
-
-interface SessionResult {
+// AnswerType and SessionResult are defined/imported within hooks
+type AnswerType = string | number | boolean | string[]; // Keep for local calculation if needed
+interface SessionResult { // Keep for local calculation if needed
   questionIndex: number; // Original index
   selectedAnswer: AnswerType | null;
   isCorrect: boolean;
   correctAnswer: AnswerType | undefined | null;
 }
 
-// localStorage Keys
-const QUIZ_QUESTIONS_COUNT_KEY = 'quizQuestionsCount';
-const QUIZ_SHUFFLE_ENABLED_KEY = 'quizShuffleEnabled';
-const QUIZ_INSTANT_FEEDBACK_ENABLED_KEY = 'quizInstantFeedbackEnabled';
-const QUIZ_INSTANT_FEEDBACK_DELAY_KEY = 'quizInstantFeedbackDelay';
 
-// Defaults
-const DEFAULT_QUESTIONS_COUNT = 20;
-const DEFAULT_FEEDBACK_DELAY = 3; // Default delay in seconds
+// SessionResult interface moved up or handled by hook import
 
-// Helper function to shuffle an array
-function shuffleArray<T>(array: T[]): T[] {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
+// localStorage Keys and defaults for feedback removed, now handled by SettingsContext
+
+// shuffleArray helper removed, handled by useQuizSession
 
 
 const QuizPlayer: React.FC = () => {
   const { quizId } = useParams<{ quizId: string }>();
   const navigate = useNavigate();
-  const {
-    quizzes,
-    updateProgress,
-    getQuestionTrackingForQuiz,
-    updateQuestionTracking
-  } = useQuiz();
+  const { updateProgress, updateQuestionTracking } = useQuiz();
   const { setQuizTitle } = useQuizTitle();
-
-  const quiz = quizId ? quizzes[quizId] : undefined;
-
-  // --- State ---
-  const [currentSessionIndex, setCurrentSessionIndex] = useState(0);
-  const [sessionQuestions, setSessionQuestions] = useState<SessionQuestion[]>([]);
-  const [sessionAnswers, setSessionAnswers] = useState<Record<number, AnswerType | null>>({});
-  const [sessionResults, setSessionResults] = useState<SessionResult[]>([]);
-  const [isSessionShuffleActive, setIsSessionShuffleActive] = useState<boolean>(true);
-  // Instant Feedback State
-  const [isShowingFeedback, setIsShowingFeedback] = useState<boolean>(false);
-  const [feedbackCorrectAnswer, setFeedbackCorrectAnswer] = useState<AnswerType | null | undefined>(null);
-  const [instantFeedbackEnabled, setInstantFeedbackEnabled] = useState<boolean>(false);
-  const [feedbackDelay, setFeedbackDelay] = useState<number>(DEFAULT_FEEDBACK_DELAY);
-  const feedbackTimerRef = useRef<NodeJS.Timeout | null>(null); // Ref for the timer
-
-  // --- Load Settings ---
-  useEffect(() => {
-    const feedbackEnabled = localStorage.getItem(QUIZ_INSTANT_FEEDBACK_ENABLED_KEY);
-    setInstantFeedbackEnabled(feedbackEnabled !== null ? JSON.parse(feedbackEnabled) : false);
-
-    const delaySetting = localStorage.getItem(QUIZ_INSTANT_FEEDBACK_DELAY_KEY);
-    const parsedDelay = delaySetting ? parseInt(delaySetting, 10) : DEFAULT_FEEDBACK_DELAY;
-    setFeedbackDelay(!isNaN(parsedDelay) && parsedDelay >= 1 ? parsedDelay : DEFAULT_FEEDBACK_DELAY);
-  }, []);
+  const { settings, isSettingsLoaded } = useSettings();
 
 
-  // --- Effect to Select and Shuffle Questions ---
-  useEffect(() => {
-    if (!quiz || !quizId) {
-      setQuizTitle(undefined);
-      return;
-    }
-    if (quiz.questions.length === 0) {
-      setSessionQuestions([]);
+  const handleSessionLoaded = useCallback((loadedQuizTitle: string | undefined, totalQuestions: number) => {
+    setQuizTitle(loadedQuizTitle);
+  }, [setQuizTitle]);
+
+  const {
+    quizSession,
+    currentQuestionData,
+    isLoading: isSessionLoading,
+    error: sessionError,
+    answerQuestion,
+    lockAnswer,
+    nextQuestion,
+    previousQuestion,
+    finishQuiz,
+    updateQuizSession,
+  } = useQuizSession({ quizId, onSessionLoaded: handleSessionLoaded });
+
+  const totalSessionQuestions = quizSession?.questions.length ?? 0;
+  const currentSessionIndex = quizSession?.currentIndex ?? 0;
+
+  const finishQuizCallback = useCallback(() => {
+    if (!quizSession || !quizId) {
+      console.error("finishQuiz called without quizSession or quizId.");
       return;
     }
 
-    // Clear any pending feedback timer if quiz changes
-    if (feedbackTimerRef.current) {
-      clearTimeout(feedbackTimerRef.current);
-      feedbackTimerRef.current = null;
-      setIsShowingFeedback(false);
-    }
+    const finalCorrectCount = quizSession.questions.filter(q => q.isCorrect).filter(c => c).length;
+    const finalScorePercent = totalSessionQuestions > 0
+      ? Math.round((finalCorrectCount / totalSessionQuestions) * 100)
+      : 0;
 
-    const storedCount = localStorage.getItem(QUIZ_QUESTIONS_COUNT_KEY);
-    const numQuestionsToSelect = storedCount ? parseInt(storedCount, 10) : DEFAULT_QUESTIONS_COUNT;
-    const trackingData = getQuestionTrackingForQuiz(quizId) || {};
-    const globalShuffleSetting = localStorage.getItem(QUIZ_SHUFFLE_ENABLED_KEY);
-    const initialShuffleEnabled = globalShuffleSetting !== null ? JSON.parse(globalShuffleSetting) : true;
-    setIsSessionShuffleActive(initialShuffleEnabled);
+    updateProgress(quizId, finalScorePercent);
 
-    // Call new selector
-    const selectedQuestions = selectQuestions({
-      quiz,
-      trackingData,
-      count: numQuestionsToSelect,
-      mode: 'mixed', // hardcoded for now, can be made configurable
-      shuffle: initialShuffleEnabled,
-      // tags: [], // add filters here if needed
-      // difficulty: [], // add filters here if needed
-    });
-
-    setSessionQuestions(selectedQuestions);
-    setCurrentSessionIndex(0);
-    setSessionAnswers({});
-    setSessionResults([]);
-    if (quiz) {
-      setQuizTitle(quiz.title);
-    }
-
-  }, [quiz, quizId, navigate, getQuestionTrackingForQuiz, setQuizTitle]);
-
-  // --- Cleanup Timer on Unmount ---
-  useEffect(() => {
-    return () => {
-      if (feedbackTimerRef.current) {
-        clearTimeout(feedbackTimerRef.current);
-      }
-    };
-  }, []);
-
-
-  // --- Toggle Shuffle Logic ---
-  const handleToggleSessionShuffle = useCallback(() => {
-    if (isShowingFeedback) return; // Don't allow shuffle during feedback
-    setIsSessionShuffleActive(prev => {
-      const newShuffleState = !prev;
-      if (newShuffleState) {
-        setSessionQuestions(currentQuestions => {
-          if (currentSessionIndex >= currentQuestions.length - 1) return currentQuestions;
-          const remainingQuestions = currentQuestions.slice(currentSessionIndex + 1);
-          const shuffledRemaining = shuffleArray(remainingQuestions);
-          return [...currentQuestions.slice(0, currentSessionIndex + 1), ...shuffledRemaining];
-        });
-      }
-      return newShuffleState;
-    });
-  }, [currentSessionIndex, isShowingFeedback]);
-
-  // --- Previous Question Logic ---
-  const handlePreviousQuestion = () => {
-    // Allow going back even if instant feedback is enabled, but editing is handled by card's disabled state
-    if (currentSessionIndex > 0 && !isShowingFeedback) {
-      setCurrentSessionIndex(currentSessionIndex - 1);
-    }
-  };
-
-  // --- Answer Handling ---
-  const handleSetAnswer = useCallback((answer: AnswerType | null) => {
-    if (isShowingFeedback) return; // Don't allow changing answer during feedback display
-
-    // If instant feedback is on, prevent changing answer once submitted for this question
-    const currentQuestionOriginalIndex = sessionQuestions[currentSessionIndex]?.originalIndex;
-    const alreadyAnsweredInSession = sessionResults.some(r => r.questionIndex === currentQuestionOriginalIndex);
-    if (instantFeedbackEnabled && alreadyAnsweredInSession) {
-        return;
-    }
-
-    setSessionAnswers(prev => ({
-      ...prev,
-      [currentSessionIndex]: answer
+    const trackingUpdates = quizSession.questions.map(q => ({
+      questionIndex: q.originalIndex,
+      isCorrect: q.isCorrect ?? false,
     }));
-  }, [currentSessionIndex, isShowingFeedback, instantFeedbackEnabled, sessionResults, sessionQuestions]);
+    updateQuestionTracking(quizId, trackingUpdates);
+
+    const reviewQuestions = quizSession.questions.map(q => ({
+      originalQuestion: q.originalQuestion,
+      selectedAnswer: q.userAnswer,
+      isCorrect: q.isCorrect ?? false,
+      correctAnswer: q.correctAnswer,
+    }));
+
+    navigate(`/quiz/${quizId}/review`, {
+      state: {
+        quizId,
+        score: finalScorePercent,
+        correctAnswers: finalCorrectCount,
+        totalQuestions: totalSessionQuestions,
+        questions: reviewQuestions,
+      },
+    });
+  }, [quizSession, quizId, totalSessionQuestions, updateProgress, updateQuestionTracking, navigate]);
+
+  // Callback for when feedback timer completes
+  const handleFeedbackComplete = useCallback(() => {
+    // This function will now be called by the useInstantFeedback hook
+    if (currentSessionIndex < totalSessionQuestions - 1) {
+      nextQuestion();
+    } else {
+      finishQuizCallback();
+    }
+  }, [currentSessionIndex, totalSessionQuestions, nextQuestion, finishQuizCallback]);
+
+
+  const {
+    isShowingFeedback,
+    feedbackCorrectAnswer, // Correct answer value during feedback
+    startFeedback,
+    clearFeedback,
+  } = useInstantFeedback({
+    delaySeconds: settings.quizInstantFeedbackDelay, // Use delay from settings
+    onFeedbackComplete: handleFeedbackComplete,
+  });
+
+  // Effect to load settings from localStorage removed
+
+  // --- Effect to clear feedback on quiz change ---
+   useEffect(() => {
+    // Clear feedback if the quizId changes or the session is reset by the hook
+    return () => {
+      clearFeedback();
+    };
+  }, [quizId, clearFeedback]); // Depend on quizId and the clearFeedback function itself
+
+  // Old effects for session loading and timer cleanup are removed (handled by hooks)
+
+
+  // --- Action Handlers ---
+
+  // Toggle Shuffle - Now calls the hook's function
+  const handleToggleSessionShuffle = useCallback(() => {
+    if (isShowingFeedback) return; // Still prevent during feedback
+    // shuffle toggle removed or to be reimplemented
+  }, [isShowingFeedback]);
+
+  // Previous Question - Now calls the hook's function
+  const handlePreviousQuestion = useCallback(() => {
+    if (isShowingFeedback) return; // Still prevent during feedback
+    previousQuestion();
+  }, [isShowingFeedback, previousQuestion]);
+
+  // Answer Handling - Uses hook's handler, logic for disabling moved to component/card
+  // const handleSetAnswer = useCallback((answer: AnswerType | null) => { ... } // Now provided by useQuizSession
 
   // --- Derived State ---
-  const totalSessionQuestions = sessionQuestions.length;
-  const currentSessionQuestionData = sessionQuestions[currentSessionIndex];
-  const currentSelectedAnswer = sessionAnswers[currentSessionIndex] ?? null;
+  const currentSelectedAnswer = currentQuestionData?.userAnswer ?? null;
+  const isAnswerLocked = currentQuestionData?.isLocked ?? false;
+
+  // --- Finish Quiz Logic ---
+  // Needs to be defined before handleFeedbackComplete dependency array
+  // Moved *before* loading/error checks to comply with Rules of Hooks
+
+  // Add finishQuiz to handleFeedbackComplete dependency array now that it's defined
+  // Moved *before* loading/error checks to comply with Rules of Hooks
+  useEffect(() => {
+      // This effect is just to correctly list dependencies for the useCallback above
+      // handleFeedbackComplete's definition relies on finishQuiz
+  }, [handleFeedbackComplete, finishQuiz]);
+
+
+  // --- Handle Next / Finish ---
+  // Moved *before* loading/error checks to comply with Rules of Hooks
+  const handleNextOrFinish = useCallback(() => {
+    // Check if the answer is already locked *before* doing anything else
+    // removed obsolete sessionResults lookup
+
+    // If locked, just proceed without re-evaluating or showing feedback again
+    if (currentQuestionData?.isLocked) {
+      if (currentSessionIndex < totalSessionQuestions - 1) {
+        nextQuestion();
+      } else {
+        finishQuizCallback();
+      }
+      return;
+    }
+
+    // --- Continue with original logic only if answer is not locked ---
+    if (isShowingFeedback) return;
+    // Add check for currentSessionQuestionData inside the callback
+    if (currentSelectedAnswer === null || !currentQuestionData) return;
+
+    const { originalIndex, originalQuestion } = currentQuestionData;
+    const isCorrect = validateQuestionAnswer(originalQuestion.type, originalQuestion, currentSelectedAnswer);
+
+    let correctAnswerValue: AnswerType | null = null;
+    if (originalQuestion.type === 'mcq' || originalQuestion.type === 'highlighted_bytes') {
+      const qWithType = originalQuestion as MCQQuestion | HighlightedBytesQuestion;
+      if (Array.isArray(qWithType.correctAnswers) && qWithType.correctAnswers.length > 0) {
+        correctAnswerValue = qWithType.correctAnswers[0];
+      }
+    } else if (originalQuestion.type === 'hex_selection') {
+      correctAnswerValue = (originalQuestion as HexSelectionQuestion).correctOffset;
+    } else if (originalQuestion.type === 'drag_drop') {
+      correctAnswerValue = (originalQuestion as DragDropQuestion).itemOrder;
+    }
+
+    updateQuizSession(prev => {
+      const updated = { ...prev };
+      const q = updated.questions[updated.currentIndex];
+      q.userAnswer = currentSelectedAnswer;
+      q.isLocked = settings.quizInstantFeedbackEnabled;
+      q.isCorrect = isCorrect;
+      q.correctAnswer = correctAnswerValue;
+      q.feedbackShown = settings.quizInstantFeedbackEnabled;
+      return updated;
+    });
+
+    if (settings.quizInstantFeedbackEnabled) {
+      startFeedback(correctAnswerValue);
+    } else {
+      if (currentSessionIndex < totalSessionQuestions - 1) {
+        nextQuestion();
+      } else {
+        finishQuizCallback();
+      }
+    }
+  }, [
+    isShowingFeedback,
+    currentSelectedAnswer,
+    currentQuestionData,
+    settings.quizInstantFeedbackEnabled,
+    updateQuizSession,
+    startFeedback,
+    currentSessionIndex,
+    totalSessionQuestions,
+    nextQuestion,
+    finishQuiz
+  ]);
 
 
   // --- Loading/Error Handling ---
-   if (!quiz) return <div>Loading Quiz...</div>;
-   if (quiz.questions.length > 0 && sessionQuestions.length === 0) return <div>Preparing questions...</div>;
-   if (quiz.questions.length === 0) return <div>This quiz has no questions.</div>;
-   if (!currentSessionQuestionData && quiz.questions.length > 0 && sessionQuestions.length > 0) {
-        console.error("Error: No current session question data available after loading checks.");
-        return <div>Error loading question data.</div>;
-   }
+  // Now hooks are defined above, so these early returns are safe
+  if (isSessionLoading || !isSettingsLoaded) return <div>Loading Quiz...</div>;
+  if (sessionError) return <div>Error: {sessionError}</div>;
+  if (!quizSession) return <div>Quiz data not available.</div>;
+  // We still need a check here before rendering the card/nav
+  // if (!currentSessionQuestionData && totalSessionQuestions > 0) {
+  //      console.error("Error: No current session question data available after loading checks.");
+  //      return <div>Error loading question data.</div>;
+  // }
+  // Let's refine this: if there are no questions after loading, sessionError should cover it.
+  // If loading is done and there's no error, but totalSessionQuestions is 0, we can show a message.
+  if (totalSessionQuestions === 0 && !isSessionLoading && !sessionError) {
+      return <div>This quiz has no questions or none could be selected.</div>;
+  }
 
 
-  // --- Handle Next / Finish / Feedback ---
-  const handleNextOrFinish = () => {
-    if (isShowingFeedback) return; // Prevent double clicks
-    if (currentSelectedAnswer === null || !currentSessionQuestionData || !quiz) return;
+  // finishQuiz, useEffect, and handleNextOrFinish hooks moved above loading checks
 
-    const { originalIndex, question } = currentSessionQuestionData;
-    const isCorrect = validateQuestionAnswer(question.type, question, currentSelectedAnswer);
-
-    // Determine Correct Answer Value
-    let correctAnswerValue: AnswerType | undefined | null = undefined;
-    if (question.type === 'mcq' || question.type === 'highlighted_bytes') {
-        const qWithType = question as MCQQuestion | HighlightedBytesQuestion;
-        if (Array.isArray(qWithType.correctAnswers) && qWithType.correctAnswers.length > 0) {
-            correctAnswerValue = qWithType.correctAnswers[0];
-        }
-    } else if (question.type === 'hex_selection') {
-        correctAnswerValue = (question as HexSelectionQuestion).correctOffset;
-    } else if (question.type === 'drag_drop') {
-        correctAnswerValue = (question as DragDropQuestion).itemOrder;
-    }
-
-    // Store result (always store, even if showing feedback)
-    const result: SessionResult = {
-      questionIndex: originalIndex,
-      selectedAnswer: currentSelectedAnswer,
-      isCorrect: isCorrect,
-      correctAnswer: correctAnswerValue
-    };
-    setSessionResults(prevResults => {
-        const existingIndex = prevResults.findIndex(r => r.questionIndex === originalIndex);
-        if (existingIndex > -1) {
-            const updated = [...prevResults];
-            updated[existingIndex] = result;
-            return updated;
-        } else {
-            return [...prevResults, result];
-        }
-    });
-
-    // --- Instant Feedback Logic ---
-    if (instantFeedbackEnabled) {
-        setIsShowingFeedback(true);
-        setFeedbackCorrectAnswer(correctAnswerValue); // Store correct answer for feedback display
-
-        feedbackTimerRef.current = setTimeout(() => {
-            setIsShowingFeedback(false);
-            setFeedbackCorrectAnswer(null); // Clear feedback answer
-            feedbackTimerRef.current = null;
-            proceedToNextOrFinish(); // Move after delay
-        }, feedbackDelay * 1000); // Convert seconds to ms
-    } else {
-        // --- No Instant Feedback: Proceed immediately ---
-        proceedToNextOrFinish();
-    }
-  };
-
-  // --- Helper to move to next question or finish quiz ---
-  const proceedToNextOrFinish = () => {
-    if (currentSessionIndex < totalSessionQuestions - 1) {
-      setCurrentSessionIndex(currentSessionIndex + 1);
-    } else {
-      finishQuiz();
-    }
-  };
-
-  // --- Helper to finish the quiz ---
-  const finishQuiz = () => {
-   if (!quiz) return; // Should not happen here, but safety check
-
-   // Recalculate final score based on stored sessionResults
-   const finalCorrectCount = sessionResults.filter(r => r.isCorrect).length;
-   const finalScorePercent = totalSessionQuestions > 0
-       ? Math.round((finalCorrectCount / totalSessionQuestions) * 100)
-       : 0;
-
-   // 1. Update overall progress
-   updateProgress(quiz.id, finalScorePercent);
-
-   // 2. Update detailed question tracking
-   const trackingUpdates = sessionResults.map(r => ({
-       questionIndex: r.questionIndex,
-       isCorrect: r.isCorrect
-   }));
-   updateQuestionTracking(quiz.id, trackingUpdates);
-
-   // 3. Build comprehensive review data including unanswered questions
-   const reviewQuestions = sessionQuestions.map((sessionQ, idx) => {
-     const existingResult = sessionResults.find(r => r.questionIndex === sessionQ.originalIndex);
-
-     if (existingResult) {
-       return {
-         originalQuestion: sessionQ.question,
-         selectedAnswer: existingResult.selectedAnswer,
-         isCorrect: existingResult.isCorrect,
-         correctAnswer: existingResult.correctAnswer
-       };
-     } else {
-       // Extract correct answer similar to handleNextOrFinish
-       let correctAnswerValue: AnswerType | undefined | null = undefined;
-       const q = sessionQ.question;
-       if (q.type === 'mcq' || q.type === 'highlighted_bytes') {
-         const qWithType = q as MCQQuestion | HighlightedBytesQuestion;
-         if (Array.isArray(qWithType.correctAnswers) && qWithType.correctAnswers.length > 0) {
-           correctAnswerValue = qWithType.correctAnswers[0];
-         }
-       } else if (q.type === 'hex_selection') {
-         correctAnswerValue = (q as HexSelectionQuestion).correctOffset;
-       } else if (q.type === 'drag_drop') {
-         correctAnswerValue = (q as DragDropQuestion).itemOrder;
-       }
-
-       return {
-         originalQuestion: q,
-         selectedAnswer: null,
-         isCorrect: false,
-         correctAnswer: correctAnswerValue
-       };
-     }
-   });
-
-   // 4. Navigate to Review Page with full question list
-   navigate(`/quiz/${quiz.id}/review`, {
-     state: {
-       quizId: quiz.id,
-       score: finalScorePercent,
-       correctAnswers: finalCorrectCount,
-       totalQuestions: totalSessionQuestions,
-       questions: reviewQuestions
-     }
-   });
- };
+  // proceedToNextOrFinish helper removed (logic integrated into handleNextOrFinish and handleFeedbackComplete)
+  // finishQuiz helper moved up
 
 
   // --- Render ---
+  // Add a check here: if we passed loading/error checks but still don't have
+  // currentSessionQuestionData (e.g., totalSessionQuestions is 0), we shouldn't render the card/nav.
+  // The check added above handles the "no questions" message.
   return (
     <div className={styles.quizPlayer}>
-      <h1>{quiz?.title}</h1>
+      {/* Title is now set via context in handleSessionLoaded */}
+      {/* <h1>{quiz?.title}</h1> */}
 
-      {currentSessionQuestionData && (
-        <QuizQuestionCard
-          key={`${quizId}-${currentSessionQuestionData.originalIndex}-${currentSessionIndex}`}
-          question={currentSessionQuestionData.question}
-          questionNumber={currentSessionIndex + 1}
-          totalQuestions={totalSessionQuestions}
-          onAnswer={handleSetAnswer}
-          isShuffleActive={isSessionShuffleActive}
-          onToggleShuffle={handleToggleSessionShuffle}
-          // Pass feedback state
-          isShowingFeedback={isShowingFeedback} // Is the timer active?
-          correctAnswerValueForFeedback={isShowingFeedback ? feedbackCorrectAnswer : undefined} // Pass correct answer only during timer
-          // Determine if input should be disabled
-          isDisabled={
-            isShowingFeedback || // Disabled during the feedback timer
-            (instantFeedbackEnabled && sessionResults.some(r => r.questionIndex === currentSessionQuestionData.originalIndex)) // Disabled if feedback is on and question is in results
-          }
-          currentAnswer={currentSelectedAnswer} // Pass the user's current selection
-          instantFeedbackEnabled={instantFeedbackEnabled} // Pass the global setting
-          // Determine if the answer for this specific question is locked (due to instant feedback + being answered)
-          isAnswerLocked={instantFeedbackEnabled && sessionResults.some(r => r.questionIndex === currentSessionQuestionData.originalIndex)}
-        />
+      {/* Render card and nav only if currentSessionQuestionData exists */}
+      {currentQuestionData ? (
+        <>
+          {(() => {
+            // Find persistent feedback data if the answer is locked
+            let persistentFeedbackData;
+            if (isAnswerLocked) {
+              persistentFeedbackData = {
+                selectedAnswer: currentQuestionData.userAnswer,
+                correctAnswer: currentQuestionData.correctAnswer
+              };
+            } else {
+              persistentFeedbackData = undefined;
+            }
+
+            return (
+              <QuizQuestionCard
+                key={`${quizId}-${currentQuestionData.originalIndex}-${currentSessionIndex}`}
+                question={currentQuestionData.originalQuestion}
+                questionNumber={currentSessionIndex + 1}
+                totalQuestions={totalSessionQuestions}
+                onAnswer={(answer) => {
+                  if (answer !== null) {
+                    answerQuestion(answer);
+                  }
+                }}
+                // Feedback props
+                isShowingFeedback={isShowingFeedback} // For the timed delay effect
+                correctAnswerValueForFeedback={currentQuestionData.correctAnswer}
+                // State props
+                isDisabled={isShowingFeedback || isAnswerLocked}
+                currentAnswer={currentSelectedAnswer}
+                instantFeedbackEnabled={settings.quizInstantFeedbackEnabled}
+                isAnswerLocked={isAnswerLocked}
+              />
+            );
+          })()}
+          <QuizNavigation
+            onPrevious={handlePreviousQuestion}
+            onNextOrFinish={handleNextOrFinish}
+            isPreviousDisabled={currentSessionIndex === 0}
+            isNextDisabled={currentSelectedAnswer === null}
+            isLastQuestion={currentSessionIndex === totalSessionQuestions - 1}
+            isShowingFeedback={isShowingFeedback}
+          />
+        </>
+      ) : (
+         // If loading is done, no error, but no current question data (e.g., 0 questions selected)
+         // The message is shown by the check before the return statement.
+         // We render null here to avoid rendering the nav/card unnecessarily.
+         null
       )}
-
-      {/* Navigation Buttons */}
-      <div className={styles.navigationButtons}>
-        <button
-          className={`${buttonStyles.btn} ${buttonStyles.btnOutline} ${styles.navButton}`}
-          onClick={handlePreviousQuestion}
-          // Disable Previous button only if showing feedback or at the first question
-          disabled={currentSessionIndex === 0 || isShowingFeedback}
-          aria-label="Previous Question"
-        >
-          <FaArrowLeft /> Previous
-        </button>
-        <button
-          className={`${buttonStyles.btn} ${buttonStyles.btnOutline} ${styles.navButton} ${styles.actionButton}`}
-          onClick={handleNextOrFinish}
-          // Disable Next/Finish if no answer selected OR if showing feedback
-          disabled={currentSelectedAnswer === null || isShowingFeedback}
-        >
-          {isShowingFeedback
-            ? '...' // Indicate loading/waiting during feedback
-            : currentSessionIndex < totalSessionQuestions - 1
-              ? <>Next <FaArrowRight /></>
-              : 'Finish Quiz'}
-        </button>
-      </div>
     </div>
   );
 };

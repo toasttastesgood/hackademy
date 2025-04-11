@@ -1,0 +1,25 @@
+/* Styles for QuizNavigation Component */
+
+/* Container for Previous/Next buttons */
+.navigationButtons {
+  display: flex;
+  justify-content: space-between; /* Pushes buttons to ends */
+  align-items: center;
+  margin-top: var(--space-xl); /* Space above buttons */
+}
+
+/* Styling for individual nav buttons */
+.navButton {
+  display: inline-flex; /* Align icon and text */
+  align-items: center;
+  gap: var(--space-xs); /* Space between icon and text */
+  min-width: 120px; /* Ensure decent width */
+  justify-content: center; /* Center content */
+}
+
+/* Specific adjustments for the main action button (Next/Finish) */
+.actionButton {
+  /* Inherits primary styles from Button component, add overrides if necessary */
+  /* e.g., slightly larger font or padding */
+  font-weight: var(--font-weight-semibold); /* Make it slightly bolder */
+}

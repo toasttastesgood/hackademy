@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react"; // Import useRef
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Topbar.module.css";
 import { FiSearch, FiMenu, FiGithub } from "react-icons/fi";
-import { useTheme } from "../../contexts/ThemeContext";
+import { useSettings } from "../../contexts/SettingsContext"; // Import useSettings
 import hackademyDark from "../../assets/hackademy_dark.png";
 import hackademyLight from "../../assets/hackademy_light.png";
 
@@ -17,7 +17,7 @@ const Topbar: React.FC<TopbarProps> = ({
   isMobile = false,
   quizTitle,
 }) => {
-  const { colorMode } = useTheme(); // Get the current color mode
+  const { settings } = useSettings(); // Get settings from context
   const location = useLocation();
   const [pageTitle, setPageTitle] = useState<string>("Dashboard");
 
@@ -66,7 +66,7 @@ const Topbar: React.FC<TopbarProps> = ({
         {/* Logo container is now always rendered, hidden on mobile via CSS */}
         <div className={styles.logoContainer}>
           <img
-            src={colorMode === 'dark' ? hackademyDark : hackademyLight} // Swapped logic to match asset names
+            src={settings.mode === 'dark' ? hackademyDark : hackademyLight} // Use settings.mode
             alt="Hackademy"
             className={styles.logoImage}
           />

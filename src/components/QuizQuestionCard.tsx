@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card/Card';
 import styles from './QuizQuestionCard.module.css'; // Use new CSS module
-import buttonStyles from './Button/Button.module.css'; // For shuffle button styling
+import Button from './Button/Button'; // Import the Button component
 import { getQuestionComponent } from '../services/QuestionTypeRegistry';
 import { Question } from '../services/QuizTypes'; // Import necessary types
 import { FaRandom } from 'react-icons/fa'; // Icon for shuffle button
@@ -9,6 +9,8 @@ import { QuestionComponentProps } from './Questions/types'; // Corrected import 
 
 // Define AnswerType locally (consider moving to a shared types file later)
 type AnswerType = string | number | boolean | string[];
+
+// Define the shape of the persistent feedback data
 
 /**
  * Props for the QuizQuestionCard component.
@@ -19,8 +21,6 @@ interface QuizQuestionCardProps {
   totalQuestions: number;
   onAnswer: (answer: AnswerType | null) => void;
   currentAnswer: AnswerType | null;
-  isShuffleActive: boolean;
-  onToggleShuffle: () => void;
   // Props for Instant Feedback
   isShowingFeedback: boolean; // Is the feedback timer currently active?
   correctAnswerValueForFeedback: AnswerType | null | undefined; // The actual correct answer to display during feedback timer
@@ -55,11 +55,10 @@ const QuizQuestionCard: React.FC<QuizQuestionCardProps> = ({
   const questionComponentProps: QuestionComponentProps = {
       question: question,
       onAnswer: onAnswer,
-      disabled: isDisabled, // Use the calculated disabled state
+      disabled: isDisabled,
       currentAnswer: currentAnswer,
-      // Pass down feedback related props
       isShowingFeedback: isShowingFeedback,
-      correctAnswerValue: correctAnswerValueForFeedback, // Pass the correct value for feedback display
+      correctAnswerValue: correctAnswerValueForFeedback,
       instantFeedbackEnabled: instantFeedbackEnabled,
       isAnswerLocked: isAnswerLocked,
   };
@@ -68,16 +67,6 @@ const QuizQuestionCard: React.FC<QuizQuestionCardProps> = ({
   return (
     <Card className={styles.question}>
       {/* Shuffle Toggle Button */}
-      <button
-        onClick={onToggleShuffle}
-        className={`${styles.shuffleToggleBtn} ${isShuffleActive ? styles.shuffleActive : ''}`}
-        aria-label={isShuffleActive ? "Disable Shuffle for Remaining Questions" : "Enable Shuffle for Remaining Questions"}
-        title={isShuffleActive ? "Shuffle is ON" : "Shuffle is OFF"}
-        // Disable shuffle toggle during feedback
-        disabled={isShowingFeedback}
-      >
-        <FaRandom />
-      </button>
 
       <h2>Question {questionNumber}</h2>
       <p className={styles.progressText}>of {totalQuestions}</p>

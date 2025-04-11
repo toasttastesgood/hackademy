@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './contexts/ThemeContext';
+// ThemeProvider import removed as it's handled by SettingsProvider now
 import Layout from './components/Layout/AppLayout';
 import Dashboard from './components/Dashboard';
 import QuizBrowser from './components/QuizBrowser';
@@ -9,7 +9,6 @@ import SettingsPage from './components/SettingsPage';
 
 function App() {
   return (
-    <ThemeProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
@@ -19,7 +18,6 @@ function App() {
           <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Routes>
-    </ThemeProvider>
   );
 }
 

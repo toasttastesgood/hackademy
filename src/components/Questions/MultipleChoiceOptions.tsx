@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import buttonStyles from '../Button/Button.module.css';
-import styles from '../QuizPlayer.module.css'; // Player styles for layout
+import Button from '../Button/Button'; // Import the Button component
+import styles from '../QuizPlayer.module.css'; // Player styles for layout and feedback
 import { QuestionComponentProps } from './types'; // Import shared props type
+import { shuffleArray } from '../../utils/arrayUtils'; // Import shuffleArray utility
 
 interface MultipleChoiceOptionsProps {
   correctAnswers: string[];
@@ -28,6 +29,8 @@ const MultipleChoiceOptions: React.FC<MultipleChoiceOptionsProps> = ({
   instantFeedbackEnabled = false,
   isAnswerLocked = false,
 }) => {
+  console.log('MultipleChoiceOptions render:');
+  console.log('isAnswerLocked:', isAnswerLocked);
   const [options, setOptions] = useState<string[]>([]);
 
   useEffect(() => {
@@ -36,15 +39,7 @@ const MultipleChoiceOptions: React.FC<MultipleChoiceOptionsProps> = ({
     setOptions(shuffleArray(allOptions));
   }, [correctAnswers, wrongAnswers]); // Only re-shuffle if answers change
 
-  // Fisher-Yates shuffle algorithm (local helper)
-  const shuffleArray = (array: any[]) => {
-    const newArray = [...array];
-    for (let i = newArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-    }
-    return newArray;
-  };
+  // Local shuffleArray removed, imported from utils
 
   const handleSelect = (option: string) => {
     // Interaction is controlled by the disabled prop passed from QuizQuestionCard
@@ -57,40 +52,57 @@ const MultipleChoiceOptions: React.FC<MultipleChoiceOptionsProps> = ({
   return (
     <div className={`${styles.options} ${useGridLayout ? styles.grid : ''}`}>
       {options.map((option) => {
-        let buttonClass = `${buttonStyles.btn} ${buttonStyles.btnOutline} ${buttonStyles.btnRounded}`;
+        // Base classes for the Button component
+        let buttonClass = ''; // Start with empty, Button component handles base styles
         let feedbackText = '';
         const isUserSelection = selectedAnswer === option;
-        // Determine if this option is the correct one (assuming single correct for MCQ)
-        const isCorrectOption = correctAnswerValue === option;
+        // Determine feedback styles based on state
+        if (isAnswerLocked) {
+            // --- Persistent Feedback State (Answer Locked) ---
+            const isPersistedSelection = selectedAnswer === option;
+            const isPersistedCorrect = correctAnswerValue === option;
 
-        // Apply feedback styles if feedback is active OR if answer is locked
-        if (isShowingFeedback || isAnswerLocked) {
-          if (isUserSelection && isCorrectOption) {
-            buttonClass += ` ${styles.optionSelectedCorrect}`;
-            feedbackText = isShowingFeedback ? ' (Correct)' : ''; // Only show text during timer
-          } else if (isUserSelection && !isCorrectOption) {
-            buttonClass += ` ${styles.optionSelectedIncorrect}`;
-            feedbackText = isShowingFeedback ? ' (Incorrect)' : '';
-          } else if (isCorrectOption) {
-            buttonClass += ` ${styles.optionCorrectUnselected}`;
-            feedbackText = isShowingFeedback ? ' (Correct Answer)' : '';
-          }
-          // Optionally add a general class: buttonClass += ` ${styles.feedbackOption}`;
+            if (isPersistedSelection && isPersistedCorrect) {
+                buttonClass += ` ${styles.optionSelectedCorrect}`;
+            } else if (isPersistedSelection && !isPersistedCorrect) {
+                buttonClass += ` ${styles.optionSelectedIncorrect}`;
+            } else if (isPersistedCorrect) {
+                buttonClass += ` ${styles.optionCorrectUnselected}`;
+            }
+            feedbackText = '';
+
+        } else if (isShowingFeedback) {
+            // --- Timed Feedback State ---
+            const isCorrectOption = correctAnswerValue === option; // Use the correctAnswerValue passed for timed feedback
+
+            if (isUserSelection && isCorrectOption) {
+                buttonClass += ` ${styles.optionSelectedCorrect}`;
+                feedbackText = ' (Correct)';
+            } else if (isUserSelection && !isCorrectOption) {
+                buttonClass += ` ${styles.optionSelectedIncorrect}`;
+                feedbackText = ' (Incorrect)';
+            } else if (isCorrectOption) {
+                buttonClass += ` ${styles.optionCorrectUnselected}`;
+                feedbackText = ' (Correct Answer)';
+            }
+
         } else if (isUserSelection) {
-          // Apply normal selection style if not showing feedback and not locked
-          buttonClass += ` ${buttonStyles.btnSelected}`;
+            // --- Selected State (Before Feedback) ---
+            // Apply a subtle selection indicator if desired, e.g., slightly different border/bg
+            buttonClass += ` ${styles.optionSelected}`;
         }
 
         return (
-          <button
+          <Button
             key={option}
-            className={buttonClass}
+            variant="outline" // Use the outline variant
+            className={buttonClass} // Apply dynamic feedback classes
             onClick={() => handleSelect(option)}
             // Disable button based on the isDisabled prop passed down
             disabled={disabled}
           >
             {option} {feedbackText}
-          </button>
+          </Button>
         );
       })}
     </div>

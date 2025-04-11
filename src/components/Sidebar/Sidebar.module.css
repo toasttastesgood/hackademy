@@ -49,7 +49,7 @@
   white-space: nowrap; /* Prevent label wrapping */
   transition: background-color var(--duration-fast) var(--ease-in-out), color var(--duration-fast) var(--ease-in-out);
   border-radius: var(--border-radius-md); /* Add subtle rounding */
-  margin: var(--space-xs) var(--space-sm); /* Add some margin around links */
+  margin: var(--space-xs) var(--space-xs); /* Add some margin around links */
   position: relative; /* For potential pseudo-elements or tooltips */
 }
 
