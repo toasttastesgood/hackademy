@@ -54,3 +54,12 @@ export interface Quiz {
   description?: string;
   questions: Question[];
 }
+
+// Quiz metadata interface for fast/browsing loading
+export interface QuizMeta {
+  id: string;
+  category: string;
+  title: string;
+  description?: string;
+  questionCount: number;
+}

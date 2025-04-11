@@ -40,9 +40,17 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       {...props}
     >
-      {leftIcon && <span className={styles.iconWrapper}>{leftIcon}</span>}
+      {leftIcon && (
+        <span className={styles.iconWrapper} aria-hidden="true" role="presentation">
+          {leftIcon}
+        </span>
+      )}
       <span className={styles.content}>{children}</span>
-      {rightIcon && <span className={styles.iconWrapper}>{rightIcon}</span>}
+      {rightIcon && (
+        <span className={styles.iconWrapper} aria-hidden="true" role="presentation">
+          {rightIcon}
+        </span>
+      )}
     </button>
   );
 };

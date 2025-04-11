@@ -8,7 +8,7 @@ export interface QuizSession {
   quizId: string;
   title: string;
   description?: string;
-  questions: SessionQuestionData[];
+  questions: SessionQuestionData[]; // All questions for the session
   currentIndex: number; // Index of the current question
   isFinished: boolean;
 }
@@ -73,7 +73,7 @@ export function initializeQuizSession(
     quizId: quiz.id,
     title: quiz.title,
     description: quiz.description,
-    questions: sessionQuestions,
+    questions: sessionQuestions, // All questions for the session
     currentIndex: 0,
     isFinished: false,
   };

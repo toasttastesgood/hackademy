@@ -7,7 +7,7 @@ import Card from './Card/Card';
 // Removed progressStyles import as CircularProgress handles its own styles now
 import styles from './CategoryView.module.css';
 import Button from './Button/Button'; // Import Button component
-import { Quiz } from '../services/QuizTypes'; // Import Quiz type if not already globally available
+import { QuizMeta } from '../services/QuizTypes'; // Use QuizMeta for metadata-only browsing
 
 // Removed the old CategoryCard component entirely
 
@@ -17,17 +17,19 @@ interface QuizzesListProps {
 }
 
 const QuizzesList: React.FC<QuizzesListProps> = ({ selectedCategory }) => {
-  const { getQuizzesByCategory, progress, quizzes: allQuizzes } = useQuiz(); // Get all quizzes too
+  const { quizMetas, progress, categories } = useQuiz();
   const navigate = useNavigate();
 
-  const quizzesToDisplay = useMemo(() => {
+  const quizzesToDisplay: QuizMeta[] = useMemo(() => {
     if (!selectedCategory || selectedCategory === 'All') {
-      // If 'All' or null, return all quizzes sorted alphabetically by title
-      return Object.values(allQuizzes).sort((a, b) => a.title.localeCompare(b.title));
+      // All quizzes, sorted by title
+      return Object.values(quizMetas).sort((a, b) => a.title.localeCompare(b.title));
     }
-    // Otherwise, get quizzes for the specific category
-    return getQuizzesByCategory(selectedCategory);
-  }, [selectedCategory, getQuizzesByCategory, allQuizzes]);
+    // Filter by category
+    return Object.values(quizMetas)
+      .filter(q => q.category === selectedCategory)
+      .sort((a, b) => a.title.localeCompare(b.title));
+  }, [selectedCategory, quizMetas]);
 
 
   const getButtonLabel = (quizId: string): string => {
@@ -44,38 +46,37 @@ const QuizzesList: React.FC<QuizzesListProps> = ({ selectedCategory }) => {
 
   return (
     <div className={styles.quizzesGrid}> {/* Changed to grid layout */}
-      {quizzesToDisplay.map((quiz: Quiz) => ( // Ensure quiz has Quiz type
+      {quizzesToDisplay.map((quiz: QuizMeta) => (
         <Card key={quiz.id} className={styles.quizCard}>
           <div className={styles.quizCardHeader}>
             <h3>{quiz.title}</h3>
-            {/* Display category only if 'All' is selected */}
             {(!selectedCategory || selectedCategory === 'All') && (
-                 <span className={styles.quizCategoryTag}>{quiz.category}</span>
+              <span className={styles.quizCategoryTag}>{quiz.category}</span>
             )}
           </div>
           {quiz.description && <p className={styles.quizDescription}>{quiz.description}</p>}
-          {/* Add difficulty later if available in data */}
-          {/* <p className={styles.quizDifficulty}>Difficulty: {quiz.difficulty || 'N/A'}</p> */}
           <div className={styles.quizCardFooter}>
-             <CircularProgress
-               percentage={progress[quiz.id]?.highestScore || 0}
-               size={40}
-               strokeWidth={4}
-               className={styles.quizProgress}
-             />
-             <Button
-                onClick={() => navigate(`/quiz/${quiz.id}`)}
-                variant="primary" // Or choose appropriate variant
-                size="small"
-             >
-                {getButtonLabel(quiz.id)}
-             </Button>
+            <CircularProgress
+              percentage={progress[quiz.id]?.highestScore || 0}
+              size={40}
+              strokeWidth={4}
+              className={styles.quizProgress}
+            />
+            <Button
+              onClick={() => navigate(`/quiz/${quiz.id}`)}
+              variant="primary"
+              size="small"
+            >
+              {getButtonLabel(quiz.id)}
+            </Button>
           </div>
         </Card>
       ))}
     </div>
   );
 };
+
+const MemoizedQuizzesList = React.memo(QuizzesList);
 
 // --- Updated CategoryView Component ---
 const CategoryView: React.FC<{ initialExpandedCategory?: string | null }> = ({ initialExpandedCategory }) => {
@@ -136,10 +137,10 @@ const CategoryView: React.FC<{ initialExpandedCategory?: string | null }> = ({ i
 
       {/* Right Pane: Quizzes List */}
       <main className={styles.quizListPane}>
-        <QuizzesList selectedCategory={selectedCategory} />
+        <MemoizedQuizzesList selectedCategory={selectedCategory} />
       </main>
     </div>
   );
 };
 
-export default CategoryView;
+export default React.memo(CategoryView);

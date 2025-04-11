@@ -40,8 +40,6 @@ const QuizQuestionCard: React.FC<QuizQuestionCardProps> = ({
   totalQuestions,
   onAnswer,
   currentAnswer,
-  isShuffleActive,
-  onToggleShuffle,
   // Destructure feedback props
   isShowingFeedback,
   correctAnswerValueForFeedback,
@@ -80,5 +78,4 @@ const QuizQuestionCard: React.FC<QuizQuestionCardProps> = ({
     </Card>
   );
 };
-
-export default QuizQuestionCard;
+export default React.memo(QuizQuestionCard);

@@ -1,15 +1,14 @@
 /* src/components/Dashboard.module.css */
 .dashboard {
-  max-width: 900px; /* Slightly wider */
+  max-width: 900px;
   width: 100%;
-  margin: var(--space-lg) auto; /* Add top/bottom margin */
-  padding: 0 var(--space-md); /* Add horizontal padding for smaller screens */
+  margin: var(--space-lg) auto;
+  padding: 0 var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl); /* Add gap between cards */
+  gap: var(--space-xl);
 }
 
-/* Loading and Error States */
 .loading,
 .error {
   text-align: center;
@@ -22,7 +21,6 @@
   font-weight: var(--font-weight-medium);
 }
 
-/* Progress Summary Card */
 .progressSummaryCard h2 {
   text-align: center;
   margin-bottom: var(--space-lg);
@@ -31,18 +29,18 @@
 .progressContent {
   display: flex;
   align-items: center;
-  justify-content: center; /* Center items horizontally */
-  gap: var(--space-xl); /* Space between circle and text */
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: center;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
 }
 
 .progressStats {
-  text-align: left; /* Align text to the left */
+  text-align: left;
   line-height: var(--line-height-snug);
 }
 
 .progressStats p {
-  margin-bottom: var(--space-sm); /* Smaller margin between stats */
+  margin-bottom: var(--space-sm);
   font-size: var(--font-size-md);
   color: var(--text-secondary);
 }
@@ -52,74 +50,119 @@
   color: var(--text-primary);
 }
 
-/* Explore Categories Card */
-.categoryGrid h2 { /* Target h2 within the parent Card */
+.categoryGrid h2 {
   text-align: center;
   margin-bottom: var(--space-lg);
 }
 
 .categoryGrid {
   display: grid;
-  /* Adjust columns for different screen sizes */
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
-  gap: var(--space-lg); /* Gap between category cards */
-  padding-top: var(--space-md); /* Add some space below the title */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-lg);
+  padding-top: var(--space-md);
 }
 
-/* Individual Category Card Styling using Grid */
 .categoryCard {
-  /* Inherits base Card styles */
   padding: var(--space-md);
-  margin-bottom: 0; /* Remove margin from Card component */
-  display: grid; /* Use Grid layout */
-  grid-template-rows: auto 1fr auto auto; /* Title, Spacer, Stats, Progress */
-  grid-template-columns: 1fr; /* Single column */
-  align-items: center; /* Center items horizontally */
+  margin-bottom: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-columns: 1fr;
+  align-items: center;
   text-align: center;
-  min-height: 180px; /* Ensure a minimum height for alignment */
+  min-height: 180px;
 }
-
-/* Remove intermediate flex container styles */
-/* .categoryCardContent { ... } */
-/* .categoryCardBottom { ... } */
 
 .categoryTitle {
-  grid-row: 1 / 2; /* Place title in the first row */
+  grid-row: 1 / 2;
   font-size: var(--font-size-md);
   color: var(--text-primary);
-  margin-bottom: var(--space-sm); /* Space below title */
-  align-self: start; /* Align title to the top of its grid area */
+  margin-bottom: var(--space-sm);
+  align-self: start;
 }
 
 .categoryStats {
-  grid-row: 3 / 4; /* Place stats in the third row */
+  grid-row: 3 / 4;
   font-size: var(--font-size-sm);
   color: var(--text-secondary);
-  margin-bottom: var(--space-xs); /* Space below stats */
-  align-self: end; /* Align stats to the bottom of its grid area */
+  margin-bottom: var(--space-xs);
+  align-self: end;
 }
 
 .categoryProgress {
-  grid-row: 4 / 5; /* Place progress in the fourth row */
-  justify-self: center; /* Center progress horizontally */
-  align-self: end; /* Align progress to the bottom */
+  grid-row: 4 / 5;
+  justify-self: center;
+  align-self: end;
 }
 
-/* Adjust progress percentage text size for category cards */
-.categoryProgress > div:last-child { /* Target the percentage div */
+.categoryProgress > div:last-child {
    font-size: var(--font-size-xs);
 }
-
-/* Adjust progress percentage text size for category cards */
-.categoryProgress > div:last-child { /* Target the percentage div */
-   font-size: var(--font-size-xs);
-}
-
 
 .emptyState {
-  padding: var(--space-lg) 0; /* Padding top/bottom */
+  padding: var(--space-lg) 0;
   text-align: center;
   color: var(--text-secondary);
   font-style: italic;
-  grid-column: 1 / -1; /* Span full width if grid is empty */
+  grid-column: 1 / -1;
+}
+
+/* --- Responsive Design Enhancements --- */
+@media (max-width: 900px) {
+  .dashboard {
+    padding: 0 var(--space-sm);
+  }
+  .categoryGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard {
+    max-width: 100vw;
+    padding: 0 4px;
+    gap: var(--space-lg);
+  }
+  .progressSummaryCard h2,
+  .categoryGrid h2 {
+    font-size: var(--font-size-lg);
+  }
+  .progressStats p,
+  .categoryStats {
+    font-size: var(--font-size-base);
+  }
+  .categoryGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: var(--space-sm);
+  }
+  .categoryCard {
+    min-height: 120px;
+    padding: var(--space-sm);
+  }
+  .categoryTitle {
+    font-size: var(--font-size-base);
+  }
+  .categoryProgress > div:last-child {
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (max-width: 400px) {
+  .dashboard {
+    padding: 0 2px;
+    gap: var(--space-md);
+  }
+  .categoryGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+  .categoryCard {
+    min-height: 80px;
+    padding: var(--space-xs);
+  }
+  .categoryTitle,
+  .categoryStats {
+    font-size: 1rem;
+  }
 }

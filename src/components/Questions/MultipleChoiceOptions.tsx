@@ -31,13 +31,10 @@ const MultipleChoiceOptions: React.FC<MultipleChoiceOptionsProps> = ({
 }) => {
   console.log('MultipleChoiceOptions render:');
   console.log('isAnswerLocked:', isAnswerLocked);
-  const [options, setOptions] = useState<string[]>([]);
-
-  useEffect(() => {
+  const options = React.useMemo(() => {
     // Combine and shuffle options once
-    const allOptions = [...correctAnswers, ...wrongAnswers];
-    setOptions(shuffleArray(allOptions));
-  }, [correctAnswers, wrongAnswers]); // Only re-shuffle if answers change
+    return shuffleArray([...correctAnswers, ...wrongAnswers]);
+  }, [correctAnswers, wrongAnswers]);
 
   // Local shuffleArray removed, imported from utils
 
@@ -50,15 +47,18 @@ const MultipleChoiceOptions: React.FC<MultipleChoiceOptionsProps> = ({
   const useGridLayout = options.every(opt => opt.length < 20);
 
   return (
-    <div className={`${styles.options} ${useGridLayout ? styles.grid : ''}`}>
-      {options.map((option) => {
+    <div
+      className={`${styles.options} ${useGridLayout ? styles.grid : ''}`}
+      role="radiogroup"
+      aria-label="Answer choices"
+    >
+      {options.map((option, idx) => {
         // Base classes for the Button component
-        let buttonClass = ''; // Start with empty, Button component handles base styles
+        let buttonClass = '';
         let feedbackText = '';
         const isUserSelection = selectedAnswer === option;
         // Determine feedback styles based on state
         if (isAnswerLocked) {
-            // --- Persistent Feedback State (Answer Locked) ---
             const isPersistedSelection = selectedAnswer === option;
             const isPersistedCorrect = correctAnswerValue === option;
 
@@ -72,8 +72,7 @@ const MultipleChoiceOptions: React.FC<MultipleChoiceOptionsProps> = ({
             feedbackText = '';
 
         } else if (isShowingFeedback) {
-            // --- Timed Feedback State ---
-            const isCorrectOption = correctAnswerValue === option; // Use the correctAnswerValue passed for timed feedback
+            const isCorrectOption = correctAnswerValue === option;
 
             if (isUserSelection && isCorrectOption) {
                 buttonClass += ` ${styles.optionSelectedCorrect}`;
@@ -87,19 +86,36 @@ const MultipleChoiceOptions: React.FC<MultipleChoiceOptionsProps> = ({
             }
 
         } else if (isUserSelection) {
-            // --- Selected State (Before Feedback) ---
-            // Apply a subtle selection indicator if desired, e.g., slightly different border/bg
             buttonClass += ` ${styles.optionSelected}`;
         }
+
+        // Keyboard navigation for radio group
+        const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+          if (disabled) return;
+          let nextIdx = idx;
+          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+            nextIdx = (idx + 1) % options.length;
+            e.preventDefault();
+            (document.getElementById(`mcq-option-${nextIdx}`) as HTMLButtonElement)?.focus();
+          } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+            nextIdx = (idx - 1 + options.length) % options.length;
+            e.preventDefault();
+            (document.getElementById(`mcq-option-${nextIdx}`) as HTMLButtonElement)?.focus();
+          }
+        };
 
         return (
           <Button
             key={option}
-            variant="outline" // Use the outline variant
-            className={buttonClass} // Apply dynamic feedback classes
+            id={`mcq-option-${idx}`}
+            variant="outline"
+            className={buttonClass}
             onClick={() => handleSelect(option)}
-            // Disable button based on the isDisabled prop passed down
             disabled={disabled}
+            role="radio"
+            aria-checked={selectedAnswer === option}
+            tabIndex={selectedAnswer === option || (!selectedAnswer && idx === 0) ? 0 : -1}
+            onKeyDown={handleKeyDown}
           >
             {option} {feedbackText}
           </Button>
@@ -109,4 +125,4 @@ const MultipleChoiceOptions: React.FC<MultipleChoiceOptionsProps> = ({
   );
 };
 
-export default MultipleChoiceOptions;
+export default React.memo(MultipleChoiceOptions);

@@ -127,6 +127,14 @@
     cursor: pointer;
 }
 
+.githubButton:focus-visible,
+.menuButton:focus-visible,
+.searchButton:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--shadow-focus-ring, #1976d2);
+  z-index: 1;
+}
+
 .githubButton:hover {
     background-color: color-mix(in srgb, var(--button-secondary-bg) 80%, black); /* Darken on hover */
     transform: scale(1.1);
@@ -170,5 +178,32 @@
   }
   .searchButton {
      /* Ensure button is visible */
+  }
+}
+
+/* --- Extra Mobile Enhancements --- */
+@media (max-width: 400px) {
+  .topbar {
+    padding: 0 var(--space-xs);
+    gap: var(--space-xs);
+    height: 48px;
+  }
+  .title {
+    font-size: 1.1rem;
+  }
+  .githubButton,
+  .menuButton,
+  .searchButton {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: var(--font-size-base);
+    padding: 0;
+  }
+  .searchContainer.expanded {
+    width: 100vw;
+    min-width: 100px;
+    margin-left: 0;
   }
 }

@@ -2,12 +2,13 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.css'; // Updated CSS module path
 // useTheme and logo imports removed
-import { FiHome, FiFolder, FiSettings } from 'react-icons/fi';
+import { FiHome, FiFolder, FiSettings, FiEdit } from 'react-icons/fi';
 
 const navigationLinks = [
   { path: '/', label: 'Home', icon: FiHome },
   { path: '/browse', label: 'Browse', icon: FiFolder },
   { path: '/settings', label: 'Settings', icon: FiSettings },
+  { path: '/quiz-editor', label: 'Create Quiz', icon: FiEdit },
 ];
 
 interface SidebarProps {
@@ -34,7 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, isMobile }) => { // Accept pr
                 aria-label={link.label}
                 end={link.path === '/'} // Ensure exact match for home
               >
-                <link.icon size={24} className={styles.navIcon} />
+                <link.icon size={24} className={styles.navIcon} aria-hidden="true" role="presentation" />
                 <span className={styles.navLabel}>{link.label}</span>
               </NavLink>
             </li>

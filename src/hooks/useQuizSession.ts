@@ -26,53 +26,70 @@ interface UseQuizSessionReturn {
 
 export function useQuizSession({ quizId, onSessionLoaded }: UseQuizSessionArgs): UseQuizSessionReturn {
   const navigate = useNavigate();
-  const { quizzes } = useQuiz();
+  const { loadQuizById } = useQuiz();
   const { settings, isSettingsLoaded } = useSettings();
 
   const [quizSession, setQuizSession] = useState<QuizSession | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // No longer need revealedCount or lazy loading
+
   useEffect(() => {
+    let cancelled = false;
     if (!isSettingsLoaded) return;
 
     setIsLoading(true);
     setError(null);
+    setQuizSession(null);
 
-    if (!quizId) {
-      setQuizSession(null);
-      setError('No quiz ID provided.');
-      setIsLoading(false);
-      return;
+    async function load() {
+      if (!quizId) {
+        setQuizSession(null);
+        setError('No quiz ID provided.');
+        setIsLoading(false);
+        return;
+      }
+
+      const quiz: Quiz | null = await loadQuizById(quizId);
+      if (!quiz) {
+        setQuizSession(null);
+        setError('Quiz not found.');
+        setIsLoading(false);
+        return;
+      }
+
+      if (!quiz.questions || quiz.questions.length === 0) {
+        setQuizSession(null);
+        setError('Quiz has no questions.');
+        setIsLoading(false);
+        return;
+      }
+
+      // Initialize session with all questions in the questions array
+      const session = initializeQuizSession(
+        quiz,
+        {
+          count: settings.quizQuestionsCount,
+          shuffle: settings.quizShuffleEnabled,
+        }
+      );
+
+      if (!cancelled) {
+        setQuizSession(session);
+        setIsLoading(false);
+        if (onSessionLoaded) {
+          onSessionLoaded(session.title, session.questions.length);
+        }
+      }
     }
 
-    const quiz: Quiz | undefined = quizzes[quizId];
-    if (!quiz) {
-      setQuizSession(null);
-      setError('Quiz not found.');
-      setIsLoading(false);
-      return;
-    }
+    load();
 
-    if (!quiz.questions || quiz.questions.length === 0) {
-      setQuizSession(null);
-      setError('Quiz has no questions.');
-      setIsLoading(false);
-      return;
-    }
-
-    const session = initializeQuizSession(quiz, {
-      count: settings.quizQuestionsCount,
-      shuffle: settings.quizShuffleEnabled,
-    });
-
-    setQuizSession(session);
-    setIsLoading(false);
-
-    if (onSessionLoaded) {
-      onSessionLoaded(session.title, session.questions.length);
-    }
-  }, [quizId, quizzes, settings, isSettingsLoaded, onSessionLoaded]);
+    return () => {
+      cancelled = true;
+    };
+  }, [quizId, loadQuizById, settings, isSettingsLoaded, onSessionLoaded]);
 
   const updateQuizSession = useCallback((updater: (prev: QuizSession) => QuizSession) => {
     setQuizSession(prev => (prev ? updater(prev) : prev));
@@ -104,6 +121,7 @@ export function useQuizSession({ quizId, onSessionLoaded }: UseQuizSessionArgs):
     });
   }, [updateQuizSession]);
 
+  // Move to the next question if not at the end
   const nextQuestion = useCallback(() => {
     updateQuizSession(prev => {
       const updated = { ...prev };

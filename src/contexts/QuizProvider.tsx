@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { validateQuizPartial } from '../services/QuizValidator';
-import { Quiz, Question } from '../services/QuizTypes';
+import { Quiz, Question, QuizMeta } from '../services/QuizTypes';
 
 // Remove duplicated type definitions here - they are now imported from QuizValidator.ts
 
@@ -36,6 +36,7 @@ interface CategoryData {
 
 interface QuizContextType {
   quizzes: Record<string, Quiz>;
+  quizMetas: Record<string, QuizMeta>;
   categories: Record<string, CategoryData>;
   progress: ProgressData;
   loading: boolean;
@@ -44,10 +45,9 @@ interface QuizContextType {
   setValidateQuizzesEnabled: (enabled: boolean) => void;
   resetProgress: () => void;
   loadQuizzes: () => Promise<void>;
+  loadQuizById: (quizId: string) => Promise<Quiz | null>;
   updateProgress: (quizId: string, score: number) => void;
-  // New function to update detailed question tracking
   updateQuestionTracking: (quizId: string, results: { questionIndex: number; isCorrect: boolean }[]) => void;
-  // Function to get tracking data for a specific quiz
   getQuestionTrackingForQuiz: (quizId: string) => { [questionIndex: number]: QuestionStatus } | undefined;
   getQuizzesByCategory: (category: string) => Quiz[];
 }
@@ -56,6 +56,7 @@ const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
 export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [quizzes, setQuizzes] = useState<Record<string, Quiz>>({});
+  const [quizMetas, setQuizMetas] = useState<Record<string, QuizMeta>>({});
   const [categories, setCategories] = useState<Record<string, CategoryData>>({});
   const [progress, setProgress] = useState<ProgressData>(() => {
     const saved = localStorage.getItem('quizProgress');
@@ -174,49 +175,87 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const loadQuizzes = async (): Promise<void> => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const quizModules = import.meta.glob('/quizzes/**/*.json');
       const loadedQuizzes: Record<string, Quiz> = {};
+      const loadedQuizMetas: Record<string, QuizMeta> = {};
 
       for (const path in quizModules) {
         try {
-          // The glob import already parses JSON, but let's assume it might fail
-          // or we might load from elsewhere later.
           const rawData = await quizModules[path]() as { default: unknown };
           const quizData = rawData.default;
 
-          // --- Optional Validation Step ---
+          let quiz: Quiz | undefined;
           if (validateQuizzesEnabled) {
             const { isValid, validQuiz } = validateQuizPartial(quizData);
             if (!isValid || !validQuiz) {
               console.warn(`Skipping invalid or empty quiz: ${path}`);
-              continue; // Skip this quiz
+              continue;
             }
-            loadedQuizzes[validQuiz.id] = validQuiz;
+            quiz = validQuiz;
           } else {
-            // --- Basic Structure Check (if validation is off) ---
-            // Perform minimal checks to avoid runtime errors if validation is off
-            const q = quizData as any; // Use 'any' carefully here
+            const q = quizData as any;
             if (!q || !q.id || typeof q.id !== 'string' || !q.title || typeof q.title !== 'string' || !q.category || typeof q.category !== 'string' || !Array.isArray(q.questions)) {
-               console.warn(`Skipping quiz with basic structural issues (validation off): ${path}`);
-               continue;
+              console.warn(`Skipping quiz with basic structural issues (validation off): ${path}`);
+              continue;
             }
-            // Assume the structure is mostly correct if validation is off
-            loadedQuizzes[q.id] = q as Quiz;
+            quiz = q as Quiz;
           }
+
+          loadedQuizzes[quiz.id] = quiz;
+          loadedQuizMetas[quiz.id] = {
+            id: quiz.id,
+            category: quiz.category,
+            title: quiz.title,
+            description: quiz.description,
+            questionCount: quiz.questions.length,
+          };
         } catch (err) {
           console.error(`Error loading quiz from ${path}:`, err);
         }
       }
 
       setQuizzes(loadedQuizzes);
+      setQuizMetas(loadedQuizMetas);
       calculateCategories(loadedQuizzes, progress);
     } catch (err) {
       setError('Failed to load quizzes. Please try again later.');
       console.error('Quiz loading error:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Load a full quiz by id (on demand)
+  const loadQuizById = async (quizId: string): Promise<Quiz | null> => {
+    try {
+      const quizModules = import.meta.glob('/quizzes/**/*.json');
+      for (const path in quizModules) {
+        if (path.includes(quizId)) {
+          const rawData = await quizModules[path]() as { default: unknown };
+          const quizData = rawData.default;
+          let quiz: Quiz | undefined;
+          if (validateQuizzesEnabled) {
+            const { isValid, validQuiz } = validateQuizPartial(quizData);
+            if (!isValid || !validQuiz) {
+              return null;
+            }
+            quiz = validQuiz;
+          } else {
+            const q = quizData as any;
+            if (!q || !q.id || typeof q.id !== 'string' || !q.title || typeof q.title !== 'string' || !q.category || typeof q.category !== 'string' || !Array.isArray(q.questions)) {
+              return null;
+            }
+            quiz = q as Quiz;
+          }
+          return quiz;
+        }
+      }
+      return null;
+    } catch (err) {
+      console.error('Error loading quiz by id:', err);
+      return null;
     }
   };
 
@@ -227,8 +266,9 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []); // Load quizzes only once on mount
 
   return (
-    <QuizContext.Provider value={{ 
+    <QuizContext.Provider value={{
       quizzes,
+      quizMetas,
       categories,
       progress,
       loading,
@@ -237,9 +277,10 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setValidateQuizzesEnabled,
       resetProgress,
       loadQuizzes,
+      loadQuizById,
       updateProgress,
-      updateQuestionTracking, // Expose new function
-      getQuestionTrackingForQuiz, // Expose getter
+      updateQuestionTracking,
+      getQuestionTrackingForQuiz,
       getQuizzesByCategory: (category: string) =>
         Object.values(quizzes).filter(q => q.category === category)
     }}>

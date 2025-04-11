@@ -50,4 +50,4 @@ const QuizNavigation: React.FC<QuizNavigationProps> = ({
   );
 };
 
-export default QuizNavigation;
+export default React.memo(QuizNavigation);

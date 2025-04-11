@@ -3,6 +3,7 @@
   max-width: var(--container-max-width, 800px);
   width: 100%;
   margin: 0 auto var(--space-xl); /* Add bottom margin */
+  padding: 0 var(--space-md);
 }
 
 .quizPlayer h1 {
@@ -11,25 +12,23 @@
   /* Heading color is inherited from global.css */
 }
 
-/* This class is applied to the Card component */
 .question {
   /* Card component handles its own padding, bg, border, shadow */
   margin-top: var(--space-xl);
 }
 
 .question h2 {
-  /* Use primary text color for question number heading */
   color: var(--text-primary);
   font-size: var(--font-size-lg);
-  margin-bottom: var(--space-xs); /* Reduced margin */
-  font-weight: var(--font-weight-semibold); /* Make it slightly bolder */
+  margin-bottom: var(--space-xs);
+  font-weight: var(--font-weight-semibold);
 }
 
 .progressText {
   font-size: var(--font-size-sm);
   color: var(--text-secondary);
-  margin-bottom: var(--space-lg); /* Add margin below the progress text */
-  margin-top: 0; /* Ensure no extra top margin */
+  margin-bottom: var(--space-lg);
+  margin-top: 0;
 }
 
 .options {
@@ -39,51 +38,48 @@
   margin: var(--space-lg) 0;
 }
 
-/* Styling for buttons used as options */
 .options .btn {
   text-align: left;
   width: 100%;
   justify-content: flex-start;
-  /* Button component handles its own styling */
+  min-height: 44px; /* Ensure touch target size */
+  font-size: var(--font-size-md);
 }
 
-/* Styling for the main action button (Next/Finish) if needed */
 .actionButton {
   margin-top: var(--space-lg);
   font-size: var(--font-size-md);
-  /* Button component handles its own styling (e.g., btnPrimary) */
-  /* Ensure it's centered or positioned correctly if needed */
-  display: block; /* Make it block to center with margin */
+  display: block;
   margin-left: auto;
   margin-right: auto;
-  min-width: 150px; /* Give it a minimum width */
+  min-width: 150px;
+  min-height: 44px; /* Touch target */
 }
 
-/* Container for Previous/Next buttons */
 .navigationButtons {
   display: flex;
-  justify-content: space-between; /* Pushes buttons to ends */
+  justify-content: space-between;
   align-items: center;
-  margin-top: var(--space-xl); /* Space above buttons */
+  margin-top: var(--space-xl);
+  gap: var(--space-md);
+  flex-wrap: wrap;
 }
 
-/* Styling for individual nav buttons */
 .navButton {
-  display: inline-flex; /* Align icon and text */
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-xs); /* Space between icon and text */
-  min-width: 120px; /* Ensure decent width */
-  justify-content: center; /* Center content */
+  gap: var(--space-xs);
+  min-width: 120px;
+  justify-content: center;
+  min-height: 44px; /* Touch target */
+  font-size: var(--font-size-md);
+  padding: 0 var(--space-md);
 }
 
-/* Specific adjustments for the main action button if needed */
 .navButton.actionButton {
   /* Inherits primary styles, add overrides if necessary */
-  /* e.g., slightly larger font or padding */
 }
 
-/* Removed old .shuffleButton styles */
-/* Score summary styling */
 .scoreSummary {
   text-align: center;
   font-size: var(--font-size-xxl);
@@ -91,7 +87,6 @@
   margin-bottom: var(--space-xl);
 }
 
-/* Style for the option the user selected AND was correct */
 .optionSelectedCorrect {
   border-color: var(--success-color);
   background-color: color-mix(in srgb, var(--success-color) 15%, transparent);
@@ -99,31 +94,25 @@
   font-weight: var(--font-weight-medium);
 }
 
-/* Style for the option the user selected BUT was incorrect */
 .optionSelectedIncorrect {
   border-color: var(--error-color);
   background-color: color-mix(in srgb, var(--error-color) 15%, transparent);
   color: var(--text-error);
   font-weight: var(--font-weight-medium);
-  text-decoration: line-through; /* Indicate it's wrong */
+  text-decoration: line-through;
 }
 
-/* Style for the correct option that the user DID NOT select */
 .optionCorrectUnselected {
   border-color: var(--success-color);
-  /* Optional: Add a subtle background or keep it default */
-  /* background-color: color-mix(in srgb, var(--success-color) 5%, transparent); */
-  color: var(--text-success); /* Highlight the text */
+  color: var(--text-success);
 }
 
-/* Correct/Incorrect border indicators for review questions */
 .correctBorder,
 .incorrectBorder {
   position: relative;
   padding-left: var(--space-md);
 }
 
-/* Common pseudo-element for both */
 .correctBorder::before,
 .incorrectBorder::before {
   content: '';
@@ -135,7 +124,6 @@
   border-radius: var(--border-radius-md);
 }
 
-/* Color specific */
 .correctBorder::before {
   background-color: var(--success-color);
 }
@@ -144,17 +132,13 @@
   background-color: var(--error-color);
 }
 
-/* Override default disabled opacity for feedback options */
-/* Ensure feedback colors are visible even when buttons are disabled (locked) */
-/* Increase specificity by including parent */
 .options > .optionSelectedCorrect:disabled,
 .options > .optionSelectedIncorrect:disabled,
 .options > .optionCorrectUnselected:disabled {
-  opacity: 1; /* Keep full opacity to show feedback colors */
-  cursor: default; /* Indicate non-interactive state clearly */
+  opacity: 1;
+  cursor: default;
 }
 
-/* Optional: Adjust text color slightly for disabled feedback states if needed */
 /*
 .optionSelectedCorrect:disabled { color: var(--text-success); }
 .optionSelectedIncorrect:disabled { color: var(--text-error); }
@@ -164,4 +148,55 @@
   border-color: var(--primary-color, #007bff);
   background-color: color-mix(in srgb, var(--primary-color, #007bff) 10%, transparent);
   font-weight: var(--font-weight-medium);
+}
+
+/* --- Responsive Design Enhancements --- */
+@media (max-width: 600px) {
+  .quizPlayer {
+    max-width: 100vw;
+    padding: 0 var(--space-sm);
+  }
+  .quizPlayer h1 {
+    font-size: var(--font-size-lg);
+  }
+  .question h2 {
+    font-size: var(--font-size-md);
+  }
+  .scoreSummary {
+    font-size: var(--font-size-xl);
+  }
+  .options .btn,
+  .actionButton,
+  .navButton {
+    font-size: var(--font-size-base);
+    min-height: 44px;
+    padding: 0 var(--space-sm);
+  }
+  .navigationButtons {
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 400px) {
+  .quizPlayer {
+    padding: 0 4px;
+  }
+  .quizPlayer h1 {
+    font-size: 1.1rem;
+  }
+  .question h2 {
+    font-size: 1rem;
+  }
+  .scoreSummary {
+    font-size: 1.2rem;
+  }
+  .options .btn,
+  .actionButton,
+  .navButton {
+    font-size: 1rem;
+    min-height: 44px;
+    padding: 0 2px;
+  }
 }

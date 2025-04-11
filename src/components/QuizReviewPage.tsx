@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import QuizQuestionCard from './QuizQuestionCard';
 import styles from './QuizPlayer.module.css'; // Reuse existing layout styles
 import Button from './Button/Button';
+import CircularProgress from './CircularProgress';
 
 const QuizReviewPage: React.FC = () => {
   const location = useLocation();
@@ -48,8 +49,9 @@ const QuizReviewPage: React.FC = () => {
   return (
     <div className={styles.quizPlayer}>
       <h1>Quiz Review</h1>
-      <div className={styles.scoreSummary}>
-        <span style={{ color: getScoreColor() }}>
+      <div className={styles.scoreSummary} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', gap: 8 }}>
+        <CircularProgress percentage={score} size={56} />
+        <span style={{ color: getScoreColor(), fontSize: '1.2em', marginTop: 8 }}>
           You scored {correctAnswers} out of {totalQuestions} ({score}%)
         </span>
       </div>

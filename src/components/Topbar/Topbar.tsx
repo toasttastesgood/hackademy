@@ -78,7 +78,7 @@ const Topbar: React.FC<TopbarProps> = ({
             onClick={onMenuToggle}
             aria-label="Toggle menu"
           >
-            <FiMenu size={24} />
+            <FiMenu size={24} aria-hidden="true" role="presentation" />
           </button>
         ) : null}
         <div className={styles.title}>{pageTitle}</div>
@@ -88,7 +88,7 @@ const Topbar: React.FC<TopbarProps> = ({
       <div className={styles.actions}>
         {isSearchExpanded ? (
           <form onSubmit={handleSearchSubmit} className={`${styles.searchContainer} ${styles.expanded}`}>
-            <FiSearch className={styles.searchIcon} size={18} />
+            <FiSearch className={styles.searchIcon} size={18} aria-hidden="true" role="presentation" />
             <input
               ref={searchInputRef} // Assign ref
               type="search"
@@ -106,13 +106,13 @@ const Topbar: React.FC<TopbarProps> = ({
             onClick={toggleSearch}
             aria-label="Open search"
           >
-            <FiSearch size={18} />
+            <FiSearch size={18} aria-hidden="true" role="presentation" />
           </button>
         )}
 
         {!isMobile && (
           <a href="https://github.com/toasttastesgood/hackademy" target="_blank" rel="noopener noreferrer" className={styles.githubButton} aria-label="View on GitHub">
-            <FiGithub size={18} />
+            <FiGithub size={18} aria-hidden="true" role="presentation" />
           </a>
         )}
       </div>

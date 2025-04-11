@@ -3,21 +3,20 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  width: var(--sidebar-width-collapsed); /* Start collapsed */
-  height: calc(100vh - var(--topbar-height)); /* Adjust height */
-  background-color: var(--card-bg); /* Use card background for theme consistency */
+  width: var(--sidebar-width-collapsed);
+  height: calc(100vh - var(--topbar-height));
+  background-color: var(--card-bg);
   border-right: var(--border-width-base) solid var(--border-primary);
   padding: var(--space-md) 0;
-  transition: width var(--duration-base) var(--ease-in-out), transform var(--duration-base) var(--ease-in-out); /* Add transform transition */
-  overflow: hidden; /* Hide labels when collapsed */
-  position: fixed; /* Ensure it stays fixed */
-  top: var(--topbar-height); /* Start below topbar */
+  transition: width var(--duration-base) var(--ease-in-out), transform var(--duration-base) var(--ease-in-out);
+  overflow: hidden;
+  position: fixed;
+  top: var(--topbar-height);
   left: 0;
   z-index: var(--z-index-sidebar);
-  box-shadow: var(--shadow-md); /* Add subtle shadow */
+  box-shadow: var(--shadow-md);
 }
 
-/* Styles for when sidebar is expanded (add class via JS later) */
 /*
 .sidebarExpanded {
   width: var(--sidebar-width);
@@ -46,11 +45,19 @@
   padding: var(--space-md);
   color: var(--text-secondary);
   text-decoration: none;
-  white-space: nowrap; /* Prevent label wrapping */
+  white-space: nowrap;
   transition: background-color var(--duration-fast) var(--ease-in-out), color var(--duration-fast) var(--ease-in-out);
-  border-radius: var(--border-radius-md); /* Add subtle rounding */
-  margin: var(--space-xs) var(--space-xs); /* Add some margin around links */
-  position: relative; /* For potential pseudo-elements or tooltips */
+  border-radius: var(--border-radius-md);
+  margin: var(--space-xs) var(--space-xs);
+  position: relative;
+  min-height: 44px; /* Touch target */
+  font-size: var(--font-size-md);
+}
+
+.navLink:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--shadow-focus-ring, #1976d2);
+  z-index: 1;
 }
 
 .navLink:hover {
@@ -64,27 +71,28 @@
   font-weight: var(--font-weight-medium);
 }
 
-/* Style for neumorphic active state */
 [data-theme="neumorphic"] .navLink.active {
    box-shadow: var(--shadow-inner);
    background-color: color-mix(in srgb, var(--primary-color) 85%, var(--bg-primary));
 }
 
 .navIcon {
-  flex-shrink: 0; /* Prevent icon from shrinking */
-  margin-right: var(--space-md); /* Space between icon and label */
+  flex-shrink: 0;
+  margin-right: var(--space-md);
   transition: margin var(--duration-base) var(--ease-in-out);
-  width: 24px; /* Ensure consistent icon area */
-  height: 24px;
+  width: 28px; /* Larger icon for touch */
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
 }
 
 .navLabel {
-  opacity: 0; /* Hidden when collapsed */
+  opacity: 0;
   transition: opacity var(--duration-fast) var(--ease-in-out);
   margin-left: var(--space-sm);
+  font-size: var(--font-size-md);
 }
 
-/* Styles for expanded sidebar labels */
 /*
 .sidebarExpanded .navLabel {
   opacity: 1;
@@ -93,23 +101,46 @@
 .sidebarExpanded .navIcon {
   margin-right: var(--space-md);
 }
-
 */
 
 /* --- Mobile Specific Styles --- */
 @media (max-width: 768px) {
   .sidebar {
-    width: var(--sidebar-width); /* Full width on mobile */
-    transform: translateX(-100%); /* Start off-screen */
-    /* Ensure labels are visible on mobile when open */
+    width: var(--sidebar-width);
+    transform: translateX(-100%);
     overflow: visible;
   }
 
   .sidebar.mobileOpen {
-    transform: translateX(0); /* Slide in */
+    transform: translateX(0);
   }
 
   .navLabel {
-     opacity: 1; /* Always show labels on mobile */
+     opacity: 1;
+  }
+}
+
+/* --- Extra Mobile Enhancements --- */
+@media (max-width: 400px) {
+  .sidebar {
+    width: 90vw;
+    min-width: 0;
+    padding: var(--space-sm) 0;
+  }
+  .navLink {
+    font-size: var(--font-size-base);
+    min-height: 44px;
+    padding: var(--space-sm);
+  }
+  .navIcon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    margin-right: var(--space-xs);
+  }
+  .navLabel {
+    font-size: var(--font-size-base);
+    margin-left: var(--space-xs);
   }
 }

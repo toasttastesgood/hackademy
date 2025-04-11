@@ -4,6 +4,7 @@ import { useQuiz } from '../contexts/QuizProvider';
 import { useQuizTitle } from '../contexts/QuizTitleContext';
 import { useSettings } from '../contexts/SettingsContext'; // Import useSettings
 import styles from './QuizPlayer.module.css';
+import CircularProgress from './CircularProgress';
 // Button import removed, handled by QuizNavigation
 import QuizQuestionCard from './QuizQuestionCard';
 import {
@@ -48,6 +49,35 @@ const QuizPlayer: React.FC = () => {
   const { setQuizTitle } = useQuizTitle();
   const { settings, isSettingsLoaded } = useSettings();
 
+  // Timer state: elapsed seconds
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+
+  // Start timer on mount, stop on unmount or quiz finish
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    if (isSettingsLoaded && !isNaN(elapsedSeconds)) {
+      interval = setInterval(() => {
+        setElapsedSeconds((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSettingsLoaded]);
+
+  // Reset timer when quizId changes (new quiz)
+  useEffect(() => {
+    setElapsedSeconds(0);
+  }, [quizId]);
+
+  // Format elapsed time as mm:ss
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
 
   const handleSessionLoaded = useCallback((loadedQuizTitle: string | undefined, totalQuestions: number) => {
     setQuizTitle(loadedQuizTitle);
@@ -68,6 +98,20 @@ const QuizPlayer: React.FC = () => {
 
   const totalSessionQuestions = quizSession?.questions.length ?? 0;
   const currentSessionIndex = quizSession?.currentIndex ?? 0;
+
+  // Calculate progress percentage (memoized)
+  const progressPercent = React.useMemo(() => {
+    return totalSessionQuestions > 0
+      ? Math.round(((currentSessionIndex + 1) / totalSessionQuestions) * 100)
+      : 0;
+  }, [totalSessionQuestions, currentSessionIndex]);
+
+  // Calculate score so far (memoized)
+  const correctSoFar = React.useMemo(() => {
+    return quizSession
+      ? quizSession.questions.filter((q, idx) => q.isCorrect && idx <= currentSessionIndex).length
+      : 0;
+  }, [quizSession, currentSessionIndex]);
 
   const finishQuizCallback = useCallback(() => {
     if (!quizSession || !quizId) {
@@ -247,19 +291,12 @@ const QuizPlayer: React.FC = () => {
 
   // --- Loading/Error Handling ---
   // Now hooks are defined above, so these early returns are safe
-  if (isSessionLoading || !isSettingsLoaded) return <div>Loading Quiz...</div>;
+  if (!isSettingsLoaded) return <div>Loading Quiz...</div>;
   if (sessionError) return <div>Error: {sessionError}</div>;
   if (!quizSession) return <div>Quiz data not available.</div>;
-  // We still need a check here before rendering the card/nav
-  // if (!currentSessionQuestionData && totalSessionQuestions > 0) {
-  //      console.error("Error: No current session question data available after loading checks.");
-  //      return <div>Error loading question data.</div>;
-  // }
-  // Let's refine this: if there are no questions after loading, sessionError should cover it.
-  // If loading is done and there's no error, but totalSessionQuestions is 0, we can show a message.
   if (totalSessionQuestions === 0 && !isSessionLoading && !sessionError) {
       return <div>This quiz has no questions or none could be selected.</div>;
-  }
+  };
 
 
   // finishQuiz, useEffect, and handleNextOrFinish hooks moved above loading checks
@@ -274,46 +311,64 @@ const QuizPlayer: React.FC = () => {
   // The check added above handles the "no questions" message.
   return (
     <div className={styles.quizPlayer}>
+      {/* Progress and Timer Section */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
+        <div className={styles.progressText}>
+          Question {currentSessionIndex + 1} of {totalSessionQuestions}
+        </div>
+        <CircularProgress percentage={progressPercent} size={40} />
+        <div className={styles.progressText}>
+          Time: {formatTime(elapsedSeconds)}
+        </div>
+      </div>
+
+      {/* Loading overlay for lazy loading next question */}
+      {isSessionLoading && (
+        <div style={{ textAlign: 'center', margin: '2rem 0' }}>
+          <CircularProgress percentage={100} size={48} />
+          <div>Loading next question...</div>
+        </div>
+      )}
+
       {/* Title is now set via context in handleSessionLoaded */}
       {/* <h1>{quiz?.title}</h1> */}
 
-      {/* Render card and nav only if currentSessionQuestionData exists */}
-      {currentQuestionData ? (
+      {/* Render card and nav only if currentSessionQuestionData exists and not loading */}
+      {!isSessionLoading && currentQuestionData ? (
         <>
-          {(() => {
-            // Find persistent feedback data if the answer is locked
-            let persistentFeedbackData;
-            if (isAnswerLocked) {
-              persistentFeedbackData = {
-                selectedAnswer: currentQuestionData.userAnswer,
-                correctAnswer: currentQuestionData.correctAnswer
-              };
-            } else {
-              persistentFeedbackData = undefined;
-            }
+          {/* Instant Feedback Section */}
+          {(isShowingFeedback || isAnswerLocked) && (
+            <div className={styles.scoreSummary} style={{ marginBottom: 12 }}>
+              {currentQuestionData.isCorrect === true ? (
+                <span style={{ color: 'var(--success-color)' }}>Correct!</span>
+              ) : currentQuestionData.isCorrect === false ? (
+                <span style={{ color: 'var(--error-color)' }}>Incorrect</span>
+              ) : null}
+              <div style={{ fontSize: '1rem', color: 'var(--text-secondary)' }}>
+                Score so far: {correctSoFar} / {currentSessionIndex + 1}
+              </div>
+            </div>
+          )}
 
-            return (
-              <QuizQuestionCard
-                key={`${quizId}-${currentQuestionData.originalIndex}-${currentSessionIndex}`}
-                question={currentQuestionData.originalQuestion}
-                questionNumber={currentSessionIndex + 1}
-                totalQuestions={totalSessionQuestions}
-                onAnswer={(answer) => {
-                  if (answer !== null) {
-                    answerQuestion(answer);
-                  }
-                }}
-                // Feedback props
-                isShowingFeedback={isShowingFeedback} // For the timed delay effect
-                correctAnswerValueForFeedback={currentQuestionData.correctAnswer}
-                // State props
-                isDisabled={isShowingFeedback || isAnswerLocked}
-                currentAnswer={currentSelectedAnswer}
-                instantFeedbackEnabled={settings.quizInstantFeedbackEnabled}
-                isAnswerLocked={isAnswerLocked}
-              />
-            );
-          })()}
+          <QuizQuestionCard
+            key={`${quizId}-${currentQuestionData.originalIndex}-${currentSessionIndex}`}
+            question={currentQuestionData.originalQuestion}
+            questionNumber={currentSessionIndex + 1}
+            totalQuestions={totalSessionQuestions}
+            onAnswer={(answer) => {
+              if (answer !== null) {
+                answerQuestion(answer);
+              }
+            }}
+            // Feedback props
+            isShowingFeedback={isShowingFeedback}
+            correctAnswerValueForFeedback={currentQuestionData.correctAnswer}
+            // State props
+            isDisabled={isShowingFeedback || isAnswerLocked}
+            currentAnswer={currentSelectedAnswer}
+            instantFeedbackEnabled={settings.quizInstantFeedbackEnabled}
+            isAnswerLocked={isAnswerLocked}
+          />
           <QuizNavigation
             onPrevious={handlePreviousQuestion}
             onNextOrFinish={handleNextOrFinish}
@@ -323,12 +378,7 @@ const QuizPlayer: React.FC = () => {
             isShowingFeedback={isShowingFeedback}
           />
         </>
-      ) : (
-         // If loading is done, no error, but no current question data (e.g., 0 questions selected)
-         // The message is shown by the check before the return statement.
-         // We render null here to avoid rendering the nav/card unnecessarily.
-         null
-      )}
+      ) : null}
     </div>
   );
 };

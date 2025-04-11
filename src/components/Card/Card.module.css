@@ -26,6 +26,13 @@
     border-color var(--duration-base) var(--ease-in-out);
 }
 
+.cardInteractive:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--shadow-focus-ring, #1976d2);
+  /* Fallback to a blue focus ring if --shadow-focus-ring is not set */
+  z-index: 1;
+}
+
 .cardInteractive:hover {
   transform: translateY(-4px); /* Simplified hover transform */
   box-shadow: var(--shadow-lg); /* Use standard large shadow variable */
