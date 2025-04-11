@@ -118,7 +118,6 @@ const QuizPlayer: React.FC = () => {
 
 
   const {
-    isShowingFeedback,
     feedbackCorrectAnswer, // Correct answer value during feedback
     startFeedback,
     clearFeedback,
@@ -126,6 +125,9 @@ const QuizPlayer: React.FC = () => {
     delaySeconds: settings.quizInstantFeedbackDelay, // Use delay from settings
     onFeedbackComplete: handleFeedbackComplete,
   });
+
+  // Use unified state for feedback display
+  const isShowingFeedback = !!currentQuestionData?.feedbackShown;
 
   // Effect to load settings from localStorage removed
 
