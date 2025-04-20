@@ -1,0 +1,1 @@
+const t="security_quiz_002",c="Security",e="Security Quiz",i="update me",s=[],o={id:t,category:c,title:e,description:i,questions:s};export{c as category,o as default,i as description,t as id,s as questions,e as title};
